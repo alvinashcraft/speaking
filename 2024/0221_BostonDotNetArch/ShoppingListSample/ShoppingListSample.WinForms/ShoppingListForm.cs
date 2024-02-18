@@ -3,12 +3,12 @@ using System.ComponentModel;
 
 namespace ShoppingListSample.WinForms
 {
-    public partial class Form1 : Form
+    public partial class ShoppingListForm : Form
     {
         private BindingList<Item> items;
         private IList<Category> categories;
 
-        public Form1()
+        public ShoppingListForm()
         {
             InitializeComponent();
             categories = ShoppingListHelpers.CreateCategories();

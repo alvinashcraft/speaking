@@ -1,6 +1,6 @@
 ﻿namespace ShoppingListSample.WinForms
 {
-    partial class Form1
+    partial class ShoppingListForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -49,17 +49,18 @@
             // itemsDataGridView
             // 
             itemsDataGridView.AllowUserToAddRows = false;
+            itemsDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             itemsDataGridView.AutoGenerateColumns = false;
             itemsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             itemsDataGridView.Columns.AddRange(new DataGridViewColumn[] { categoryDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, isCompleteDataGridViewCheckBoxColumn, DeleteColumn });
             itemsDataGridView.DataSource = itemBindingSource;
-            itemsDataGridView.Location = new Point(17, 140);
+            itemsDataGridView.Location = new Point(0, 130);
             itemsDataGridView.Margin = new Padding(4, 5, 4, 5);
             itemsDataGridView.MultiSelect = false;
             itemsDataGridView.Name = "itemsDataGridView";
             itemsDataGridView.RowHeadersWidth = 62;
             itemsDataGridView.ShowEditingIcon = false;
-            itemsDataGridView.Size = new Size(1006, 590);
+            itemsDataGridView.Size = new Size(1002, 582);
             itemsDataGridView.TabIndex = 0;
             itemsDataGridView.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -108,21 +109,23 @@
             groupBox1.Controls.Add(categoryComboBox);
             groupBox1.Controls.Add(label1);
             groupBox1.Controls.Add(addItemButton);
-            groupBox1.Location = new Point(17, 10);
+            groupBox1.Dock = DockStyle.Top;
+            groupBox1.Location = new Point(0, 0);
             groupBox1.Margin = new Padding(4, 5, 4, 5);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(4, 5, 4, 5);
-            groupBox1.Size = new Size(1006, 120);
+            groupBox1.Size = new Size(1002, 120);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "New Item";
             // 
             // nameTextBox
             // 
-            nameTextBox.Location = new Point(413, 55);
+            nameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            nameTextBox.Location = new Point(416, 61);
             nameTextBox.Margin = new Padding(4, 5, 4, 5);
             nameTextBox.Name = "nameTextBox";
-            nameTextBox.Size = new Size(433, 31);
+            nameTextBox.Size = new Size(396, 31);
             nameTextBox.TabIndex = 4;
             // 
             // label2
@@ -138,7 +141,7 @@
             // categoryComboBox
             // 
             categoryComboBox.FormattingEnabled = true;
-            categoryComboBox.Location = new Point(106, 57);
+            categoryComboBox.Location = new Point(111, 59);
             categoryComboBox.Margin = new Padding(4, 5, 4, 5);
             categoryComboBox.Name = "categoryComboBox";
             categoryComboBox.Size = new Size(210, 33);
@@ -156,24 +159,26 @@
             // 
             // addItemButton
             // 
-            addItemButton.Location = new Point(877, 57);
+            addItemButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            addItemButton.Location = new Point(840, 57);
             addItemButton.Margin = new Padding(4, 5, 4, 5);
             addItemButton.Name = "addItemButton";
-            addItemButton.Size = new Size(107, 38);
+            addItemButton.Size = new Size(146, 38);
             addItemButton.TabIndex = 0;
             addItemButton.Text = "Add Item";
             addItemButton.UseVisualStyleBackColor = true;
             addItemButton.Click += addItemButton_Click;
             // 
-            // Form1
+            // ShoppingListForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1039, 750);
+            ClientSize = new Size(1002, 712);
             Controls.Add(groupBox1);
             Controls.Add(itemsDataGridView);
             Margin = new Padding(4, 5, 4, 5);
-            Name = "Form1";
+            MinimumSize = new Size(800, 600);
+            Name = "ShoppingListForm";
             Text = "Shopping List";
             ((System.ComponentModel.ISupportInitialize)itemsDataGridView).EndInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).EndInit();

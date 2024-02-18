@@ -1,5 +1,7 @@
 # Links from my Philly .NET presentation
 
+Date: **January 17, 2024**
+
 ## Learn, Share, and Grow: How to Become a Microsoft Learn Contributor
 
 ### Alvin Ashcraft's links
@@ -23,6 +25,7 @@
 
 ### Other Links
 
+- [TechBash Developer Conference](https://techbash.com/)
 - [Azure Product Feedback](https://feedback.azure.com/)
 - [.NET Product Support](https://dotnet.microsoft.com/platform/support)
 - [GitHub Workflow for a new post](https://github.com/PowerShell/Community-Blog/blob/main/Docs/GitHub-workflow-for-new-post.md)
