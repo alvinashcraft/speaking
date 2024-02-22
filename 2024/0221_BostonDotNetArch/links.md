@@ -6,6 +6,8 @@ Date: **February 21, 2024**
 
 Which UI frameworkd should you choose?
 
+Watch the meeting recording [here](https://youtu.be/tuPHDWM2vF0).
+
 ### Alvin Ashcraft's links
 
 - [Alvin on LinkedIn](https://www.linkedin.com/in/alvinashcraft/)
