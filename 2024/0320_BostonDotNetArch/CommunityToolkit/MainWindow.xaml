@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window
+    x:Class="HardwareSupplies.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:wct="using:CommunityToolkit.WinUI.UI.Controls" 
+    xmlns:ui="using:CommunityToolkit.WinUI.UI"
+    mc:Ignorable="d">
+
+    <Grid Background="LightGoldenrodYellow">
+        <Grid.Resources>
+            <ui:AttachedDropShadow x:Key="CommonShadow" Offset="4" CastTo="{x:Bind ShadowTarget}"/>
+        </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <wct:HeaderedContentControl Header="Hardware Inventory"
+                                    Margin="6" x:Name="headerPanel" 
+                                    HorizontalAlignment="Stretch">
+            <wct:DropShadowPanel BlurRadius="8"
+                                 ShadowOpacity="1"
+                                 OffsetX="2"
+                                 OffsetY="2"
+                                 Color="DarkGoldenrod"
+                                 IsMasked="True"
+                                 Margin="6">
+                <wct:DataGrid ItemsSource="{x:Bind HardwareItems}"
+                              AutoGenerateColumns="True"
+                              AlternatingRowBackground="{ThemeResource SystemControlBackgroundListLowBrush}"
+                              Background="{ThemeResource SystemControlBackgroundAltHighBrush}"/>
+            </wct:DropShadowPanel>
+        </wct:HeaderedContentControl>
+        
+        <Grid Grid.Row="1" Margin="40">
+            <Border x:Name="ShadowTarget"/>
+            <TextBlock ui:Effects.Shadow="{StaticResource CommonShadow}"
+                   Text="This is some text with a Shadow!"
+                   HorizontalAlignment="Center"/>
+        </Grid>
+    </Grid>
+</Window>
