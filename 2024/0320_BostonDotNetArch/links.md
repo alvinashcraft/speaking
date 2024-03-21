@@ -4,7 +4,7 @@ Date: **March 20, 2024**
 
 ## Get started building apps for Windows with WinUI 3 and Windows App SDK
 
-Watch the meeting recording (link coming soon).
+Watch the meeting recording [here](https://www.youtube.com/watch?v=-BY6mE2IBH8&ab_channel=RobertHurlbut).
 
 ### Alvin Ashcraft's links
 
@@ -35,3 +35,4 @@ Watch the meeting recording (link coming soon).
 - [WinUI 3 on GitHub](https://github.com/microsoft/microsoft-ui-xaml)
 - [Windows App SDK on GitHub](https://github.com/microsoft/WindowsAppSDK)
 - [Windows Community Toolkit on GitHub](https://github.com/CommunityToolkit/WindowsCommunityToolkit)
+- [Using the .NET MAUI Blazor Hybrid control in a WinUI 3 project](https://egvijayanand.in/2023/03/29/dotnet-maui-blazor-hybrid-winui-3/)
