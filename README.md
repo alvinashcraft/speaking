@@ -10,7 +10,7 @@ Resources from my speaking engagements:
 
 ## Meet me in-person in 2024
 
-- [VSLive Chicago](https://vslive.com/events/chicago-2024/home.aspx) - April 29-May 3, 2024
+- [Microsoft Build - Learn Experience room](https://build.microsoft.com/) - May 21-23, 2024
 - [VSLive Redmond (Microsoft HQ)](https://vslive.com/events/microsofthq-2024/home.aspx) - August 5-9, 2024
 - [TechBash 2024](https://techbash.com/) - September 24-27, 2024
 
