@@ -20,6 +20,19 @@ Resources from my speaking engagements:
 - Building a modern, native application for Windows: Which UI framework should you choose?
 - Get Started Building Windows Apps with WinUI 3 and the Windows App SDK
 
+## Past 2024 Speaking Engagements
+
+- Philly .NET User Group
+  - January 17th (Contributing to Microsoft Learn)
+- Boston .NET Architects
+  - February 21st (Choosing a Native Windows UI Framework)
+  - March 20th (Get Started with WinUI 3)
+- VSLive Chicago
+  - April 30th (Contrbuting to Microsoft Learn)
+  - April 30th (Choosing a Native Windows UI Framework)
+- Hampton Roads .NET User Group
+  - May 14th (Contributing to Microsoft Learn)
+
 ## My books
 
 - [Learn WinUI 3: Leverage WinUI and the Windows App SDK to create modern Windows applications with C# and XAML, 2nd Edition](https://www.amazon.com/Learn-WinUI-Leverage-Windows-applications/dp/1805120069/)
