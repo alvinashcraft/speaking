@@ -23,6 +23,7 @@ Which UI frameworkd should you choose?
 
 ### Other Links
 
+- [WinUI at Build 2024 links](https://github.com/microsoft/microsoft-ui-xaml/discussions/9649)
 - [TechBash Developer Conference](https://techbash.com/)
 - [.NET Product Support](https://dotnet.microsoft.com/platform/support)
 - [Uno Platform Documentation](https://platform.uno/docs/articles/intro.html)
