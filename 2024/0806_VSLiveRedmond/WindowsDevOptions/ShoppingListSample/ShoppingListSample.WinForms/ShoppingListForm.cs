@@ -24,7 +24,12 @@ namespace ShoppingListSample.WinForms
 
         private void addItemButton_Click(object sender, EventArgs e)
         {
-            var newItem = new Item { Name = nameTextBox.Text, IsComplete = false, Category = categoryComboBox.SelectedItem as Category };
+            var newItem = new Item
+            {
+                Name = nameTextBox.Text,
+                IsComplete = false,
+                Category = categoryComboBox.SelectedItem as Category
+            };
             items.Add(newItem);
             ClearEntryFields();
         }
