@@ -25,5 +25,3 @@ Which UI frameworkd should you choose?
 
 - [TechBash Developer Conference](https://techbash.com/)
 - [.NET Product Support](https://dotnet.microsoft.com/platform/support)
-- [Uno Platform Documentation](https://platform.uno/docs/articles/intro.html)
-- [Avalonia Docs](https://docs.avaloniaui.net/)
