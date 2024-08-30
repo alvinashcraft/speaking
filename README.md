@@ -10,7 +10,6 @@ Resources from my speaking engagements:
 
 ## Meet me in-person in 2024
 
-- [VSLive Redmond (Microsoft HQ)](https://vslive.com/events/microsofthq-2024/home.aspx) - August 5-9, 2024
 - [TechBash 2024](https://techbash.com/) - September 24-27, 2024
 
 ## My current sessions
@@ -31,6 +30,11 @@ Resources from my speaking engagements:
   - April 30th (Choosing a Native Windows UI Framework)
 - Hampton Roads .NET User Group
   - May 14th (Contributing to Microsoft Learn)
+- VSLive at Microsoft HQ
+  - August 6th (Choosing a Native Windows UI Framework)
+  - August 8th (Contributing to Microsoft Learn - Fast Focus Session)
+- CSharp.TV Software Architecture Conference - 3rd Edition
+  - August 16th (Choosing a Native Windows UI Framework)
 
 ## My books
 
