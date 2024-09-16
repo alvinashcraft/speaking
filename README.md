@@ -8,15 +8,19 @@ Resources from my speaking engagements:
 - Videos
 - Etc.
 
-## Meet me in-person in 2024
+## Meet me in-person in 2024 and 2025
 
 - [TechBash 2024](https://techbash.com/) - September 24-27, 2024
+- [NDC London](https://ndclondon.com/) - January 27-31, 2025
+- [VSLive! Las Vegas](https://vslive.com/) - March 10-14, 2025
 
 ## My current sessions
 
 - Learn, Share, and Grow: How to Become a Microsoft Learn Contributor
 - Building a modern, native application for Windows: Which UI framework should you choose?
-- Get Started Building Windows Apps with WinUI 3 and the Windows App SDK
+- Get Started Building Windows Apps with WinUI and the Windows App SDK
+- The Life of a Content Developer Working on Microsoft Learn
+- Create a WinUI App with Microsoft's Community Toolkits (Workshop)
 
 ## Past 2024 Speaking Engagements
 
