@@ -8,9 +8,9 @@ Resources from my speaking engagements:
 - Videos
 - Etc.
 
-## Meet me in-person in 2024 and 2025
+## Meet me in-person in 2025
 
-- [TechBash 2024](https://techbash.com/) - September 24-27, 2024
+- [CodeMash 2025](https://codemash.org/) - January 14-17, 2025
 - [NDC London](https://ndclondon.com/) - January 27-31, 2025
 - [VSLive! Las Vegas](https://vslive.com/) - March 10-14, 2025
 
@@ -39,6 +39,8 @@ Resources from my speaking engagements:
   - August 8th (Contributing to Microsoft Learn - Fast Focus Session)
 - CSharp.TV Software Architecture Conference - 3rd Edition
   - August 16th (Choosing a Native Windows UI Framework)
+- TechBash 2024, Pocono Manor, PA
+  - September 27 (Choosing a Native Windows UI Framework)
 
 ## My books
 
