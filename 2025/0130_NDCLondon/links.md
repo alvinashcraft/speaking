@@ -2,7 +2,7 @@
 
 ## Building a Native Application for Windows
 
-Which UI frameworkd should you choose?
+Which UI framework should you choose?
 
 ### Alvin Ashcraft's links
 
