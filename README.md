@@ -22,15 +22,10 @@ Resources from my speaking engagements:
 - The Life of a Content Developer Working on Microsoft Learn
 - Create a WinUI App with Microsoft's Community Toolkits (Workshop)
 
-## Past 2024 Speaking Engagements
+## Recent Speaking Engagements
 
-- Philly .NET User Group
-  - January 17th (Contributing to Microsoft Learn)
-- Boston .NET Architects
-  - February 21st (Choosing a Native Windows UI Framework)
-  - March 20th (Get Started with WinUI 3)
 - VSLive Chicago
-  - April 30th (Contrbuting to Microsoft Learn)
+  - April 30th (Contributing to Microsoft Learn)
   - April 30th (Choosing a Native Windows UI Framework)
 - Hampton Roads .NET User Group
   - May 14th (Contributing to Microsoft Learn)
