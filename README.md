@@ -24,16 +24,16 @@ Resources from my speaking engagements:
 
 ## Recent Speaking Engagements
 
-- VSLive Chicago
+- VSLive Chicago 2024
   - April 30th (Contributing to Microsoft Learn)
   - April 30th (Choosing a Native Windows UI Framework)
 - Hampton Roads .NET User Group
-  - May 14th (Contributing to Microsoft Learn)
-- VSLive at Microsoft HQ
+  - May 14, 2024 (Contributing to Microsoft Learn)
+- VSLive at Microsoft HQ 2024
   - August 6th (Choosing a Native Windows UI Framework)
   - August 8th (Contributing to Microsoft Learn - Fast Focus Session)
 - CSharp.TV Software Architecture Conference - 3rd Edition
-  - August 16th (Choosing a Native Windows UI Framework)
+  - August 16, 2024 (Choosing a Native Windows UI Framework)
 - TechBash 2024, Pocono Manor, PA
   - September 27 (Choosing a Native Windows UI Framework)
 
