@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "ShoppingListSample.UwpNew": {
+      "commandName": "MsixPackage"
+    }
+  }
+}

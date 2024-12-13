@@ -9,7 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ShoppingListSample.Shared\ShoppingListSample.Shared.csproj" />
+    <Compile Include="..\ShoppingListSample.Shared\Category.cs" Link="Shared\Category.cs" />
+    <Compile Include="..\ShoppingListSample.Shared\Item.cs" Link="Shared\Item.cs" />
+    <Compile Include="..\ShoppingListSample.Shared\ShoppingListHelpers.cs" Link="Shared\ShoppingListHelpers.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\" />
   </ItemGroup>
 
 </Project>

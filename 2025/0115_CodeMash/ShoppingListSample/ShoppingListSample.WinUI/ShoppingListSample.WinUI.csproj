@@ -13,6 +13,7 @@
 	  <UseWinUI>true</UseWinUI>
 	  <EnableMsixTooling>true</EnableMsixTooling>
 	  <Nullable>disable</Nullable>
+	  <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
 
   <ItemGroup>
