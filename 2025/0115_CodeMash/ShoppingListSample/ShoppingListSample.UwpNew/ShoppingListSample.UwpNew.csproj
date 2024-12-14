@@ -15,6 +15,7 @@
     <EnableMsixTooling>true</EnableMsixTooling>
 	<CsWinRTAotWarningLevel>2</CsWinRTAotWarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <SupportedOSPlatformVersion>10.0.26100.0</SupportedOSPlatformVersion>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShoppingListSample.Shared\ShoppingListSample.Shared.csproj" />
