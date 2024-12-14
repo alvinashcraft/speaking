@@ -13,14 +13,14 @@ namespace ShoppingListSample.UwpNew
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<Category> Categories { get; set; }
+        public IList<Category> Categories { get; set; }
         public ObservableCollection<Item> Items { get; set; }
 
         public MainPage()
         {
             InitializeComponent();
 
-            Categories = new ObservableCollection<Category>(ShoppingListHelpers.CreateCategories());
+            Categories = ShoppingListHelpers.CreateCategories();
             Items = new ObservableCollection<Item>(ShoppingListHelpers.CreateDemoShoppingListItems());
         }
 

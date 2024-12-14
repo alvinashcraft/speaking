@@ -39,14 +39,15 @@ namespace ShoppingListSample.UwpNew
                     },
                 ];
             }
-            else if (type.ToString() == "System.Collections.ObjectModel.ObservableCollection`1[ShoppingListSample.Shared.Category]")
+            else if (type.ToString() == "System.Collections.Generic.List`1[ShoppingListSample.Shared.Category]" ||
+                     type.ToString() == "System.Collections.Generic.IList`1[ShoppingListSample.Shared.Category]")
             {
                 return
-    [
-    new ComWrappers.ComInterfaceEntry
+                [
+                    new ComWrappers.ComInterfaceEntry
                     {
-                        IID = ABI.System.Collections.Specialized.INotifyCollectionChangedMethods.IID,
-                        Vtable = ABI.System.Collections.Specialized.INotifyCollectionChangedMethods.AbiToProjectionVftablePtr
+                        IID = ABI.System.Collections.Generic.IListMethods<Shared.Category>.IID,
+                        Vtable = ABI.System.Collections.Generic.IListMethods<Shared.Category>.AbiToProjectionVftablePtr
                     },
                     new ComWrappers.ComInterfaceEntry
                     {
@@ -78,7 +79,7 @@ namespace ShoppingListSample.UwpNew
             {
                 return "Windows.Foundation.Collections.IVectorView`1<ShoppingListSample.Shared.Item>";
             }
-            else if (type.ToString() == "System.Collections.ObjectModel.ObservableCollection`1[ShoppingListSample.Shared.Category]")
+            else if (type.ToString() == "System.Collections.Generic.List`1[ShoppingListSample.Shared.Category]")
             {
                 return "Windows.Foundation.Collections.IVectorView`1<ShoppingListSample.Shared.Category>";
             }
