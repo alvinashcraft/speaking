@@ -5,7 +5,6 @@ namespace ShoppingListSample.Maui
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
         public IList<Category> Categories { get; set; }
         public ObservableCollection<Item> Items { get; set; }
 

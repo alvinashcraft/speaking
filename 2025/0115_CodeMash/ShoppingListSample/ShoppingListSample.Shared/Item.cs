@@ -2,13 +2,8 @@
 {
     public class Item
     {
-        public Item()
-        {
-            Name = string.Empty;
-            Category = new Category();
-        }
-        public string Name { get; set; }
-        public virtual Category Category { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public virtual Category Category { get; set; } = new Category();
         public bool IsComplete { get; set; }
         public override string ToString()
         {

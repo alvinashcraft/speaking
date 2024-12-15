@@ -116,15 +116,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\ShoppingListSample.Shared\Category.cs">
-      <Link>Shared\Category.cs</Link>
-    </Compile>
-    <Compile Include="..\ShoppingListSample.Shared\Item.cs">
-      <Link>Shared\Item.cs</Link>
-    </Compile>
-    <Compile Include="..\ShoppingListSample.Shared\ShoppingListHelpers.cs">
-      <Link>Shared\ShoppingListHelpers.cs</Link>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -132,6 +123,9 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\Category.cs" />
+    <Compile Include="Shared\Item.cs" />
+    <Compile Include="Shared\ShoppingListHelpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
