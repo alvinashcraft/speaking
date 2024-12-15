@@ -6,51 +6,59 @@
 }
 else
 {
-    <h3>Add item</h3>
-    <div class="form-group" style="padding: 10px">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" @bind="newItem.Name" />
-        <label for="category">Category</label>
-        <select class="form-control" id="category" @bind="newItem.Category.Name">
-            <option value="">Select category</option>
-            @foreach (var category in categories)
-            {
-                <option value="@category.Name">@category.Name</option>
-            }
-        </select>
-        <button class="btn btn-primary" @onclick="AddItem">Add item</button>
-    </div>
-    <h3>Items to buy</h3>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Purchased</th>
-                <th></th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in items)
-            {
-                bool Checked = false;
-                if (item.IsComplete)
-                {
-                    Checked = true;
-                }
+    <div class="container" style="padding-top: 10px">
+        <div class="form-group">
+            <h5>Add item</h5>
+            <div class="form-group" style="padding: 10px">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" @bind="newItem.Name" />
+            </div>
+            <div class="form-group" style="padding: 0px 10px 10px 10px">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" @bind="newItem.Category.Name">
+                    <option value="">Select category</option>
+                    @foreach (var category in categories)
+                    {
+                        <option value="@category.Name">@category.Name</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group" style="padding: 10px 10px 20px 10px">
+                <button class="btn btn-primary" @onclick="AddItem">Add item</button>
+            </div>
+        </div>
+        <h5>Items to buy</h5>
+        <table class="table table-hover">
+            <thead>
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Category</td>
-                    <td>
-                        <input type="checkbox" checked=@Checked
-                               @onchange="eventArgs => { CheckboxClicked(item, eventArgs.Value); }" />
-                    </td>
-                    <td><button class="btn btn-danger" @onclick="() => items.Remove(item)">Delete item</button></td>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Purchased</th>
+                    <th></th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in items)
+                {
+                    bool Checked = false;
+                    if (item.IsComplete)
+                    {
+                        Checked = true;
+                    }
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Category</td>
+                        <td>
+                            <input type="checkbox" checked=@Checked
+                                   @onchange="eventArgs => { CheckboxClicked(item, eventArgs.Value); }" />
+                        </td>
+                        <td><button class="btn btn-danger" @onclick="() => items.Remove(item)">Delete item</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 }
 
 @code {
