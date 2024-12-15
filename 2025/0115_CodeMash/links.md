@@ -17,7 +17,7 @@ Which UI framework should you choose?
 - [Windows Developer Documentation](https://learn.microsoft.com/windows/apps/)
 - [Choose the best application framework for a Windows development project | Training Module](https://learn.microsoft.com/training/modules/windows-choose-best-app-framework/)
 - [Overview of Windows Development Options](https://learn.microsoft.com/windows/apps/get-started/)
-- [Windows App Development – Options & Features](https://learn.microsoft.com/windows/apps/get-started/dev-options)
+- [Client app development frameworks FAQ](https://learn.microsoft.com/windows/apps/get-started/client-frameworks-faq)
 - [.NET MAUI Documentation](https://learn.microsoft.com/dotnet/maui/)
 - [Build a WPF Blazor Hybrid App](https://learn.microsoft.com/aspnet/core/blazor/hybrid/tutorials/wpf)
 
@@ -28,3 +28,4 @@ Which UI framework should you choose?
 - [.NET Product Support](https://dotnet.microsoft.com/platform/support)
 - [Uno Platform Documentation](https://platform.uno/docs/articles/intro.html)
 - [Avalonia Docs](https://docs.avaloniaui.net/)
+- [Modernize your UWP app with preview UWP support for .NET 9 and Native AOT](https://devblogs.microsoft.com/ifdef-windows/preview-uwp-support-for-dotnet-9-native-aot/)
