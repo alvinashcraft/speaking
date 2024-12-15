@@ -1,5 +1,4 @@
 ﻿@using ShoppingListSample.Shared
-<h1>Shopping List</h1>
 
 @if (items == null || items.Count == 0)
 {
@@ -35,11 +34,18 @@ else
         <tbody>
             @foreach (var item in items)
             {
+                bool Checked = false;
+                if (item.IsComplete)
+                {
+                    Checked = true;
+                }
                 <tr>
                     <td>@item.Name</td>
                     <td>@item.Category</td>
-                    <td><input type="checkbox" checked="@item.IsComplete" disabled="disabled" /></td>
-                    <td><button class="btn btn-primary" @onclick="() => item.IsComplete = !item.IsComplete">Toggle purchased</button></td>
+                    <td>
+                        <input type="checkbox" checked=@Checked
+                               @onchange="eventArgs => { CheckboxClicked(item, eventArgs.Value); }" />
+                    </td>
                     <td><button class="btn btn-danger" @onclick="() => items.Remove(item)">Delete item</button></td>
                 </tr>
             }
@@ -71,5 +77,18 @@ else
         items.Add(newItem);
         newItem = new Item();
         newItem.Category = new Category();
+    }
+
+    //Method to update the selected value on click on checkbox
+    public void CheckboxClicked(Item selectedItem, object aChecked)
+    {
+        foreach (var item in items)
+        {
+            if (item == selectedItem)
+            {
+                item.IsComplete = (bool)aChecked;
+            }
+        }
+        StateHasChanged();
     }
 }
