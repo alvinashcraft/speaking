@@ -24,6 +24,7 @@ Which UI framework should you choose?
 ### Other Links
 
 - [WinUI at Build 2024 links](https://github.com/microsoft/microsoft-ui-xaml/discussions/9649)
+- [Windows Dev Chat - Choosing your ideal dev platform (*video*)](https://www.youtube.com/live/4PJBJ8GICjM)
 - [TechBash Developer Conference](https://techbash.com/)
 - [.NET Product Support](https://dotnet.microsoft.com/platform/support)
 - [Uno Platform Documentation](https://platform.uno/docs/articles/intro.html)
