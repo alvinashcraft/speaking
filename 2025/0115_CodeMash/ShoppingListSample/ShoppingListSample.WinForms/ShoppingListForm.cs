@@ -1,5 +1,7 @@
 using ShoppingListSample.Shared;
+using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace ShoppingListSample.WinForms
 {
@@ -35,13 +37,25 @@ namespace ShoppingListSample.WinForms
             categoryComboBox.SelectedIndex = -1;
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void deleteButton_Click(object sender, EventArgs e)
         {
-            var senderGrid = (DataGridView)sender;
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                               e.RowIndex >= 0)
+            if (itemsDataGridView.SelectedRows.Count == 1 &&
+                itemsDataGridView.SelectedRows[0].Index >= 0)
             {
-                items.RemoveAt(e.RowIndex);
+                items.RemoveAt(itemsDataGridView.SelectedRows[0].Index);
+            }
+        }
+
+        private void itemsDataGridView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (itemsDataGridView.SelectedRows.Count == 1 &&
+                itemsDataGridView.SelectedRows[0].Index >= 0)
+            {
+                deleteButton.Enabled = true;
+            }
+            else
+            {
+                deleteButton.Enabled = false;
             }
         }
     }
