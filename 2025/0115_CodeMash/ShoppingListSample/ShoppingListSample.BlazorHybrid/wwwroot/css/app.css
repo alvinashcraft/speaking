@@ -26,6 +26,12 @@ h1:focus {
     outline: none;
 }
 
+.categoryandname {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 .valid.modified:not([type=checkbox]) {
     outline: 1px solid #26b050;
 }
