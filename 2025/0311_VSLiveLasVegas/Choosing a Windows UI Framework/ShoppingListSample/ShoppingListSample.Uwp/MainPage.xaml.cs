@@ -41,11 +41,5 @@ namespace ShoppingListSample.Uwp
             nameTextBox.Text = string.Empty;
             categoryComboBox.SelectedIndex = -1;
         }
-
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            var messageDialog = new MessageDialog("Save not implemented.");
-            await messageDialog.ShowAsync();
-        }
     }
 }

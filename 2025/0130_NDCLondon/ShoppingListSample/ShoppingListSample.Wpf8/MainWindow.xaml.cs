@@ -44,11 +44,6 @@ namespace ShoppingListSample.Wpf8
             items.Remove(item);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("Save not implemented");
-        }
-
         private void ClearEntryFields()
         {
             nameTextBox.Text = string.Empty;

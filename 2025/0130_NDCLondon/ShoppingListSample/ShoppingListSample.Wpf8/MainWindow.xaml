@@ -14,7 +14,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
             <Label Content="Category:" HorizontalAlignment="Left" Margin="4"/>
@@ -25,7 +24,7 @@
             <Button Content="Add Item" HorizontalAlignment="Right" Margin="4" Click="addButton_Click"/>
         </StackPanel>
         <DataGrid Grid.Row="1" x:Name="itemsDataGrid" AutoGenerateColumns="False" 
-          EnableRowVirtualization="True" 
+          EnableRowVirtualization="True" CanUserAddRows="False"
           ItemsSource="{Binding Source={StaticResource itemViewSource}}" 
           Margin="8" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
@@ -44,7 +43,5 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Grid.Row="2" Content="Save" HorizontalAlignment="Center" Margin="4" 
-        Click="Button_Click" Width="123"/>
     </Grid>
 </Window>

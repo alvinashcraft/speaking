@@ -35,10 +35,6 @@ namespace ShoppingListSample.WinForms
         {
             components = new System.ComponentModel.Container();
             itemsDataGridView = new DataGridView();
-            categoryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            isCompleteDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
-            DeleteColumn = new DataGridViewButtonColumn();
             itemBindingSource = new BindingSource(components);
             groupBox1 = new GroupBox();
             nameTextBox = new TextBox();
@@ -46,6 +42,10 @@ namespace ShoppingListSample.WinForms
             categoryComboBox = new ComboBox();
             label1 = new Label();
             addItemButton = new Button();
+            deleteButton = new Button();
+            categoryDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            isCompleteDataGridViewCheckBoxColumn = new DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)itemsDataGridView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)itemBindingSource).BeginInit();
             groupBox1.SuspendLayout();
@@ -57,51 +57,18 @@ namespace ShoppingListSample.WinForms
             itemsDataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             itemsDataGridView.AutoGenerateColumns = false;
             itemsDataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            itemsDataGridView.Columns.AddRange(new DataGridViewColumn[] { categoryDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, isCompleteDataGridViewCheckBoxColumn, DeleteColumn });
+            itemsDataGridView.Columns.AddRange(new DataGridViewColumn[] { categoryDataGridViewTextBoxColumn, nameDataGridViewTextBoxColumn, isCompleteDataGridViewCheckBoxColumn });
             itemsDataGridView.DataSource = itemBindingSource;
             itemsDataGridView.Location = new Point(0, 130);
             itemsDataGridView.Margin = new Padding(4, 5, 4, 5);
             itemsDataGridView.MultiSelect = false;
             itemsDataGridView.Name = "itemsDataGridView";
             itemsDataGridView.RowHeadersWidth = 62;
+            itemsDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             itemsDataGridView.ShowEditingIcon = false;
-            itemsDataGridView.Size = new Size(1002, 582);
+            itemsDataGridView.Size = new Size(1002, 525);
             itemsDataGridView.TabIndex = 0;
-            itemsDataGridView.CellContentClick += dataGridView1_CellContentClick;
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
-            categoryDataGridViewTextBoxColumn.HeaderText = "Category";
-            categoryDataGridViewTextBoxColumn.MinimumWidth = 8;
-            categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            categoryDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            nameDataGridViewTextBoxColumn.MinimumWidth = 8;
-            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            nameDataGridViewTextBoxColumn.Width = 250;
-            // 
-            // isCompleteDataGridViewCheckBoxColumn
-            // 
-            isCompleteDataGridViewCheckBoxColumn.DataPropertyName = "IsComplete";
-            isCompleteDataGridViewCheckBoxColumn.HeaderText = "Purchased";
-            isCompleteDataGridViewCheckBoxColumn.MinimumWidth = 8;
-            isCompleteDataGridViewCheckBoxColumn.Name = "isCompleteDataGridViewCheckBoxColumn";
-            isCompleteDataGridViewCheckBoxColumn.Width = 150;
-            // 
-            // DeleteColumn
-            // 
-            DeleteColumn.HeaderText = "Delete Item";
-            DeleteColumn.MinimumWidth = 50;
-            DeleteColumn.Name = "DeleteColumn";
-            DeleteColumn.Resizable = DataGridViewTriState.False;
-            DeleteColumn.Text = "Delete";
-            DeleteColumn.ToolTipText = "Delete Item";
-            DeleteColumn.Width = 150;
+            itemsDataGridView.SelectionChanged += itemsDataGridView_SelectionChanged;
             // 
             // itemBindingSource
             // 
@@ -174,11 +141,48 @@ namespace ShoppingListSample.WinForms
             addItemButton.UseVisualStyleBackColor = true;
             addItemButton.Click += addItemButton_Click;
             // 
+            // deleteButton
+            // 
+            deleteButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            deleteButton.Enabled = false;
+            deleteButton.Location = new Point(878, 663);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(112, 34);
+            deleteButton.TabIndex = 2;
+            deleteButton.Text = "Delete Item";
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += deleteButton_Click;
+            // 
+            // categoryDataGridViewTextBoxColumn
+            // 
+            categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
+            categoryDataGridViewTextBoxColumn.HeaderText = "Category";
+            categoryDataGridViewTextBoxColumn.MinimumWidth = 8;
+            categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
+            categoryDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            nameDataGridViewTextBoxColumn.MinimumWidth = 8;
+            nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            nameDataGridViewTextBoxColumn.Width = 400;
+            // 
+            // isCompleteDataGridViewCheckBoxColumn
+            // 
+            isCompleteDataGridViewCheckBoxColumn.DataPropertyName = "IsComplete";
+            isCompleteDataGridViewCheckBoxColumn.HeaderText = "Purchased";
+            isCompleteDataGridViewCheckBoxColumn.MinimumWidth = 8;
+            isCompleteDataGridViewCheckBoxColumn.Name = "isCompleteDataGridViewCheckBoxColumn";
+            isCompleteDataGridViewCheckBoxColumn.Width = 150;
+            // 
             // ShoppingListForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1002, 712);
+            Controls.Add(deleteButton);
             Controls.Add(groupBox1);
             Controls.Add(itemsDataGridView);
             Margin = new Padding(4, 5, 4, 5);
@@ -202,9 +206,9 @@ namespace ShoppingListSample.WinForms
         private Label label2;
         private ComboBox categoryComboBox;
         private Label label1;
+        private Button deleteButton;
         private DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private DataGridViewCheckBoxColumn isCompleteDataGridViewCheckBoxColumn;
-        private DataGridViewButtonColumn DeleteColumn;
     }
 }

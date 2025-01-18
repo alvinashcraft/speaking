@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShoppingListSample.BlazorHybrid"
         xmlns:blazor="http://schemas.microsoft.com/winfx/2006/xaml/presentation/blazor"
-        mc:Ignorable="d"
-        Title="Shopping List | Blazor Hybrid in WPF" Height="680" Width="1080">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Shopping List | Blazor Hybrid in WPF" Height="880" Width="700">
     <Grid>
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>

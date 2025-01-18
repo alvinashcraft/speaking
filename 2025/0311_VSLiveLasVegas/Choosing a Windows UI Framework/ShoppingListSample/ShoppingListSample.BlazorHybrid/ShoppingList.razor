@@ -9,19 +9,21 @@ else
     <div class="container" style="padding-top: 10px">
         <div class="form-group">
             <h5>Add item</h5>
-            <div class="form-group" style="padding: 10px">
-                <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" @bind="newItem.Name" />
-            </div>
-            <div class="form-group" style="padding: 0px 10px 10px 10px">
-                <label for="category">Category</label>
-                <select class="form-control" id="category" @bind="newItem.Category.Name">
-                    <option value="">Select category</option>
-                    @foreach (var category in categories)
-                    {
-                        <option value="@category.Name">@category.Name</option>
-                    }
-                </select>
+            <div class="categoryandname" style="padding: 10px">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control-lg" id="category" @bind="newItem.Category.Name">
+                        <option value="">Select category</option>
+                        @foreach (var category in categories)
+                        {
+                            <option value="@category.Name">@category.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control-lg" id="name" @bind="newItem.Name" />
+                </div>
             </div>
             <div class="form-group" style="padding: 10px 10px 20px 10px">
                 <button class="btn btn-primary" @onclick="AddItem">Add item</button>
