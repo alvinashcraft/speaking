@@ -13,7 +13,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="8">
             <TextBlock Text="Category:" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="4"/>
@@ -55,6 +54,5 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Grid.Row="2" Content="Save" HorizontalAlignment="Center" Margin="4" Click="Button_Click" />
     </Grid>
 </Page>
