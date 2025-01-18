@@ -1,7 +1,5 @@
 using ShoppingListSample.Shared;
-using System;
 using System.ComponentModel;
-using System.Windows.Forms;
 
 namespace ShoppingListSample.WinForms
 {
