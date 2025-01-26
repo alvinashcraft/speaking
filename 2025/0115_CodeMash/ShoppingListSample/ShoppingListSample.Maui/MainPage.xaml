@@ -8,11 +8,11 @@
             <HorizontalStackLayout Spacing="20" Margin="20" HorizontalOptions="Fill">
                 <Picker x:Name="categoryPicker" Title="Select a category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"/>
                 <Entry x:Name="nameEntry" Placeholder="Enter an item name" WidthRequest="200" />
-                <Button x:Name="AddBtn"
-                        Text="Add item" 
-                        SemanticProperties.Hint="Adds an item to the shopping list"
-                        Clicked="addButton_Click" />
             </HorizontalStackLayout>
+            <Button x:Name="AddBtn"
+                    Text="Add item" 
+                    SemanticProperties.Hint="Adds an item to the shopping list"
+                    Clicked="addButton_Click" />
             <ListView x:Name="shoppingList" ItemsSource="{Binding Items}" HorizontalOptions="StartAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>
