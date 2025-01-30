@@ -5,14 +5,19 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="20,0" Spacing="25">
-            <HorizontalStackLayout Spacing="20" Margin="20" HorizontalOptions="Fill">
-                <Picker x:Name="categoryPicker" Title="Select a category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"/>
-                <Entry x:Name="nameEntry" Placeholder="Enter an item name" WidthRequest="200" />
-                <Button x:Name="AddBtn"
-                        Text="Add item" 
+            <Grid HorizontalOptions="Fill" ColumnSpacing="10"
+                  ColumnDefinitions="Auto,*,Auto">
+                <Picker x:Name="categoryPicker"
+                        Title="Select a category"
+                        ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}"/>
+                <Entry Grid.Column="1" x:Name="nameEntry"
+                       Placeholder="Enter an item name" />
+                <Button x:Name="AddBtn" Grid.Column="2"
+                        Text="Add item"
                         SemanticProperties.Hint="Adds an item to the shopping list"
                         Clicked="addButton_Click" />
-            </HorizontalStackLayout>
+            </Grid>
             <ListView x:Name="shoppingList" ItemsSource="{Binding Items}" HorizontalOptions="StartAndExpand">
                 <ListView.ItemTemplate>
                     <DataTemplate>

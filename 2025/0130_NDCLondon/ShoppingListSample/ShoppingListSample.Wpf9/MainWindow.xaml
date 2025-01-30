@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShoppingListSample.Wpf9"
-        mc:Ignorable="d"
-        Title="Shopping List | WPF" Height="450" Width="800"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="Shopping List | WPF" Height="600" Width="800"
         Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="itemViewSource"/>
