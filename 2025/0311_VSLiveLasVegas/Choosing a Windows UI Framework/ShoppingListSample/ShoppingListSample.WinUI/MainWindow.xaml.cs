@@ -17,12 +17,22 @@ namespace ShoppingListSample.WinUI
         {
             this.InitializeComponent();
             viewModel = new MainViewModel();
+            SetTitleBar();
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
         {
             var item = (Item)((Button)sender).DataContext;
             viewModel.Items.Remove(item);
+        }
+
+        private void SetTitleBar()
+        {
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(titleBar);
+            AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
+            //AppWindow.SetIcon("Assets/AppIcon/Icon.ico");
+            Title = Windows.ApplicationModel.Package.Current.DisplayName;
         }
     }
 }
