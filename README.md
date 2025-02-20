@@ -10,9 +10,9 @@ Resources from my speaking engagements:
 
 ## Meet me in-person in 2025
 
-- [CodeMash 2025](https://codemash.org/) - January 14-17, 2025
-- [NDC London](https://ndclondon.com/) - January 27-31, 2025
-- [VSLive! Las Vegas](https://vslive.com/) - March 10-14, 2025
+- [VSLive! Las Vegas 2025](https://vslive.com/events/las-vegas-2025/home.aspx) - March 10-14
+- [Update Conference Krakow 2025](https://krakow.updateconference.net/) - May 26-27
+- [VSLive! Microsoft HQ 2025](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8
 
 ## My current sessions
 
@@ -24,18 +24,17 @@ Resources from my speaking engagements:
 
 ## Recent Speaking Engagements
 
-- VSLive Chicago 2024
-  - April 30th (Contributing to Microsoft Learn)
-  - April 30th (Choosing a Native Windows UI Framework)
-- Hampton Roads .NET User Group
-  - May 14, 2024 (Contributing to Microsoft Learn)
 - VSLive at Microsoft HQ 2024
   - August 6th (Choosing a Native Windows UI Framework)
   - August 8th (Contributing to Microsoft Learn - Fast Focus Session)
 - CSharp.TV Software Architecture Conference - 3rd Edition
   - August 16, 2024 (Choosing a Native Windows UI Framework)
 - TechBash 2024, Pocono Manor, PA
-  - September 27 (Choosing a Native Windows UI Framework)
+  - September 27th (Choosing a Native Windows UI Framework)
+- CodeMash 2025, Sandusky, OH
+  - January 16th (Choosing a Native Windows UI Framework)
+- NDC London 2025
+  - January 30th (Choosing a Native Windows UI Framework)
 
 ## My books
 
