@@ -17,7 +17,7 @@ Which UI framework should you choose?
 - [Windows Developer Documentation](https://learn.microsoft.com/windows/apps/)
 - [Choose the best application framework for a Windows development project | Training Module](https://learn.microsoft.com/training/modules/windows-choose-best-app-framework/)
 - [Overview of Windows Development Options](https://learn.microsoft.com/windows/apps/get-started/)
-- [Windows App Development – Options & Features](https://learn.microsoft.com/windows/apps/get-started/dev-options)
+- [Windows developer FAQ](https://learn.microsoft.com/windows/apps/get-started/windows-developer-faq)
 - [.NET MAUI Documentation](https://learn.microsoft.com/dotnet/maui/)
 - [Build a WPF Blazor Hybrid App](https://learn.microsoft.com/aspnet/core/blazor/hybrid/tutorials/wpf)
 
