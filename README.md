@@ -21,6 +21,9 @@ Resources from my speaking engagements:
 - Get Started Building Windows Apps with WinUI and the Windows App SDK
 - The Life of a Content Developer Working on Microsoft Learn
 - Create a WinUI App with Microsoft's Community Toolkits (Workshop)
+- Build beautiful multi-platform apps with Uno Platform
+- Create multi-platform apps with .NET MAUI and the MAUI Community Toolkit
+- Build intelligent apps with WinUI, Phi Silica and the Windows Copilot Runtime
 
 ## Recent Speaking Engagements
 
