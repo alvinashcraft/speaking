@@ -8,14 +8,18 @@
     xmlns:wct="using:CommunityToolkit.WinUI.UI.Controls" 
     xmlns:ui="using:CommunityToolkit.WinUI.UI"
     mc:Ignorable="d">
-
-    <Grid Background="LightGoldenrodYellow">
+    <Window.SystemBackdrop>
+        <MicaBackdrop />
+    </Window.SystemBackdrop>
+    
+    <Grid>
         <Grid.Resources>
-            <ui:AttachedDropShadow x:Key="CommonShadow" Offset="4" CastTo="{x:Bind ShadowTarget}"/>
+            <ui:AttachedDropShadow x:Key="CommonShadow" Color="{ThemeResource TitleBarCaptionButtonForegroundColor}" Offset="4" CastTo="{x:Bind ShadowTarget}"/>
         </Grid.Resources>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         
@@ -26,7 +30,7 @@
                                  ShadowOpacity="1"
                                  OffsetX="2"
                                  OffsetY="2"
-                                 Color="DarkGoldenrod"
+                                 Color="{ThemeResource TitleBarCaptionButtonForegroundColor}"
                                  IsMasked="True"
                                  Margin="6">
                 <wct:DataGrid ItemsSource="{x:Bind HardwareItems}"
@@ -42,5 +46,16 @@
                    Text="This is some text with a Shadow!"
                    HorizontalAlignment="Center"/>
         </Grid>
+        <wct:ColorPicker HorizontalAlignment="Center" Grid.Row="2"
+                              VerticalAlignment="Top"
+                              ColorSpectrumShape="Ring"
+                              IsAlphaEnabled="True"
+                              IsAlphaSliderVisible="True"
+                              IsColorChannelTextInputVisible="True"
+                              IsColorPaletteVisible="True"
+                              IsColorSliderVisible="True"
+                              IsColorSpectrumVisible="True"
+                              Color="LightBlue" />
+
     </Grid>
 </Window>
