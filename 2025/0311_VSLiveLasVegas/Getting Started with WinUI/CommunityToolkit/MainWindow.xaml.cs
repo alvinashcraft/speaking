@@ -11,14 +11,15 @@ namespace HardwareSupplies
         {
             this.InitializeComponent();
             PopulateItems();
+            AppWindow.Title = "Hardware Supplies";
         }
 
         public HardwareItem[] HardwareItems { get; set; }
 
         private void PopulateItems()
         {
-            HardwareItems = new HardwareItem[]
-            {
+            HardwareItems =
+            [
                 new HardwareItem { id = 1, name = "Wood Screw", category = "Screws", cost = 0.02M, price = 0.10M, quantity = 504 },
                 new HardwareItem { id = 2, name = "Sheet Metal Screw", category = "Screws", cost = 0.03M, price = 0.15M, quantity = 655 },
                 new HardwareItem { id = 3, name = "Drywall Screw", category = "Screws", cost = 0.02M, price = 0.11M, quantity = 421 },
@@ -31,7 +32,7 @@ namespace HardwareSupplies
                 new HardwareItem { id = 10, name = "Outlet - Beige", category = "Electrical", cost = 0.21M, price = 1.99M, quantity = 90 },
                 new HardwareItem { id = 11, name = "Wire Ties", category = "Electrical", cost = 0.50M, price = 4.99M, quantity = 125 },
                 new HardwareItem { id = 12, name = "Switch Plate - White", category = "Electrical", cost = 0.21M, price = 2.49M, quantity = 200 }
-            };
+            ];
         }
     }
 }
