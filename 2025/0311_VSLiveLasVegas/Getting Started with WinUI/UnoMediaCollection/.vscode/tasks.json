@@ -7,8 +7,9 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/UnoMediaCollection.Wasm/UnoMediaCollection.Wasm.csproj",
+        "${workspaceFolder}/MyMediaCollection/MyMediaCollection.csproj",
         "/property:GenerateFullPaths=true",
+        "/property:TargetFramework=net9.0-browserwasm",
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
@@ -19,32 +20,35 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/UnoMediaCollection.Wasm/UnoMediaCollection.Wasm.csproj",
+        "${workspaceFolder}/MyMediaCollection/MyMediaCollection.csproj",
         "/property:GenerateFullPaths=true",
+        "/property:TargetFramework=net9.0-browserwasm",
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "build-skia-gtk",
+      "label": "build-desktop",
       "command": "dotnet",
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/UnoMediaCollection.Skia.Gtk/UnoMediaCollection.Skia.Gtk.csproj",
+        "${workspaceFolder}/MyMediaCollection/MyMediaCollection.csproj",
         "/property:GenerateFullPaths=true",
+        "/property:TargetFramework=net9.0-desktop",
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
     },
     {
-      "label": "publish-skia-gtk",
+      "label": "publish-desktop",
       "command": "dotnet",
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/UnoMediaCollection.Skia.Gtk/UnoMediaCollection.Skia.Gtk.csproj",
+        "${workspaceFolder}/MyMediaCollection/MyMediaCollection.csproj",
         "/property:GenerateFullPaths=true",
+        "/property:TargetFramework=net9.0-desktop",
         "/consoleloggerparameters:NoSummary"
       ],
       "problemMatcher": "$msCompile"
