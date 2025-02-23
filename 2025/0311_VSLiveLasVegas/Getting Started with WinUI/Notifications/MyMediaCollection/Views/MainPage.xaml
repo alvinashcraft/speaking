@@ -19,7 +19,7 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal">
                 <SymbolIcon Symbol="Home" Margin="8"/>
-                <TextBlock Text="Home" Style="{StaticResource SubheaderTextBlockStyle}" Margin="8"/>
+                <TextBlock x:Uid="MainPageHeader" Style="{StaticResource SubheaderTextBlockStyle}" Margin="8"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Media Type:" Margin="4" Style="{StaticResource SubtitleTextBlockStyle}" VerticalAlignment="Bottom"/>
