@@ -1,0 +1,104 @@
+﻿@using ShoppingListSample.Shared
+
+@if (items == null || items.Count == 0)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="container" style="padding-top: 10px">
+        <div class="form-group">
+            <h5>Add item</h5>
+            <div class="categoryandname" style="padding: 10px">
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select class="form-control-lg" id="category" @bind="newItem.Category.Name">
+                        <option value="">Select category</option>
+                        @foreach (var category in categories)
+                        {
+                            <option value="@category.Name">@category.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control-lg" id="name" @bind="newItem.Name" />
+                </div>
+            </div>
+            <div class="form-group" style="padding: 10px 10px 20px 10px">
+                <button class="btn btn-primary" @onclick="AddItem">Add item</button>
+            </div>
+        </div>
+        <h5>Items to buy</h5>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Purchased</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in items)
+                {
+                    bool Checked = false;
+                    if (item.IsComplete)
+                    {
+                        Checked = true;
+                    }
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Category</td>
+                        <td>
+                            <input type="checkbox" checked=@Checked
+                                   @onchange="eventArgs => { CheckboxClicked(item, eventArgs.Value); }" />
+                        </td>
+                        <td><button class="btn btn-danger" @onclick="() => items.Remove(item)">Delete item</button></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    internal IList<Item> items;
+    internal IList<Category> categories;
+    internal Item newItem;
+
+    public ShoppingList()
+    {
+        newItem = new Item();
+        newItem.Category = new Category();
+        categories = ShoppingListHelpers.CreateCategories();
+        items = new List<Item>(ShoppingListHelpers.CreateDemoShoppingListItems());
+    }
+
+    private void AddItem()
+    {
+        if (string.IsNullOrWhiteSpace(newItem.Name) || string.IsNullOrWhiteSpace(newItem.Category.Name))
+        {
+            return;
+        }
+        newItem.IsComplete = false;
+        newItem.Category = categories.FirstOrDefault(c => c.Name == newItem.Category.Name);
+        items.Add(newItem);
+        newItem = new Item();
+        newItem.Category = new Category();
+    }
+
+    //Method to update the selected value on click on checkbox
+    public void CheckboxClicked(Item selectedItem, object aChecked)
+    {
+        foreach (var item in items)
+        {
+            if (item == selectedItem)
+            {
+                item.IsComplete = (bool)aChecked;
+            }
+        }
+        StateHasChanged();
+    }
+}
