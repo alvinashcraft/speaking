@@ -18,7 +18,7 @@ Date: **March 2025**
 - [WinUI 3 Documentation](https://learn.microsoft.com/windows/apps/winui/winui3/)
 - [Windows App SDK Documentation](https://learn.microsoft.com/windows/apps/windows-app-sdk/)
 - [Overview of Windows Development Options](https://learn.microsoft.com/windows/apps/get-started/)
-- [Windows App Development – Options & Features](https://learn.microsoft.com/windows/apps/get-started/dev-options)
+- [Windows App Development - Options & Features](https://learn.microsoft.com/windows/apps/get-started/dev-options)
 - [Windows Community Toolkit](https://learn.microsoft.com/dotnet/communitytoolkit/windows/)
 - [MVVM Toolkit](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/)
 - [Windows App SDK App Notifications](https://learn.microsoft.com/windows/apps/windows-app-sdk/notifications/app-notifications/)
