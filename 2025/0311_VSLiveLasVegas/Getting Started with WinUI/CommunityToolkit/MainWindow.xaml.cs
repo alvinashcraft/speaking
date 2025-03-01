@@ -11,7 +11,16 @@ namespace HardwareSupplies
         {
             this.InitializeComponent();
             PopulateItems();
-            AppWindow.Title = "Hardware Supplies";
+            SetTitleBar();
+        }
+        private void SetTitleBar()
+        {
+            ExtendsContentIntoTitleBar = true;
+            SetTitleBar(titleBar);
+            AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
+            AppWindow.SetIcon("Assets/AppIcon/toolbox.ico");
+            AppWindow.Title = Windows.ApplicationModel.Package.Current.DisplayName;
+            Title = Windows.ApplicationModel.Package.Current.DisplayName;
         }
 
         public HardwareItem[] HardwareItems { get; set; }

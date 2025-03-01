@@ -20,12 +20,23 @@
         </Grid.Resources>
         
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <wct:HeaderedContentControl Header="Hardware Inventory"
+
+        <TitleBar x:Name="titleBar"
+                Title="Hardware Supplies"
+                Height="48"
+                IsBackButtonVisible="False"
+                IsTabStop="False">
+            <TitleBar.IconSource>
+                <ImageIconSource AutomationProperties.AccessibilityView="Raw" ImageSource="ms-appx:///Assets/AppIcon/toolbox.ico" />
+            </TitleBar.IconSource>
+        </TitleBar>
+
+        <wct:HeaderedContentControl Header="Hardware Inventory" Grid.Row="1"
                                     Margin="6" x:Name="headerPanel" 
                                     HorizontalAlignment="Stretch">
             <wct:DropShadowPanel BlurRadius="8"
@@ -42,13 +53,13 @@
             </wct:DropShadowPanel>
         </wct:HeaderedContentControl>
         
-        <Grid Grid.Row="1" Margin="40">
+        <Grid Grid.Row="2" Margin="16">
             <Border x:Name="ShadowTarget"/>
             <TextBlock ui:Effects.Shadow="{StaticResource CommonShadow}"
-                   Text="This is some text with a Shadow!"
-                   HorizontalAlignment="Center"/>
+                   Text="I love hardware and all related supplies!"
+                   HorizontalAlignment="Center" FontSize="20"/>
         </Grid>
-        <wct:ColorPicker x:Name="shadowColorPicker" HorizontalAlignment="Center" Grid.Row="2"
+        <wct:ColorPicker x:Name="shadowColorPicker" HorizontalAlignment="Center" Grid.Row="3"
                               VerticalAlignment="Top"
                               ColorSpectrumShape="Ring"
                               IsAlphaEnabled="True"
