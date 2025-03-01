@@ -21,6 +21,26 @@
                   Height="48"
                   IsBackButtonVisible="False"
                   IsTabStop="False">
+            <TitleBar.CenterContent>
+                <AutoSuggestBox
+                    x:Name="SearchBox"
+                    MinWidth="364"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    PlaceholderText="Search collection to delete items.."
+                    QueryIcon="Find"
+                    QuerySubmitted="SearchBox_QuerySubmitted"
+                    TextChanged="SearchBox_TextChanged"
+                    UpdateTextOnSelect="False">
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="shared:Item">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{x:Bind Name}" Margin="8,0,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
+            </TitleBar.CenterContent>
         </TitleBar>
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="8">
             <TextBlock Text="Category:" HorizontalAlignment="Left" Margin="4"/>

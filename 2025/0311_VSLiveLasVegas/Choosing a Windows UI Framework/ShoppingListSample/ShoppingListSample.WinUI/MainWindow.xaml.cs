@@ -1,8 +1,8 @@
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using ShoppingListSample.Shared;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System;
+using System.Linq;
 
 namespace ShoppingListSample.WinUI
 {
@@ -33,6 +33,25 @@ namespace ShoppingListSample.WinUI
             AppWindow.TitleBar.PreferredHeightOption = Microsoft.UI.Windowing.TitleBarHeightOption.Tall;
             //AppWindow.SetIcon("Assets/AppIcon/Icon.ico");
             Title = Windows.ApplicationModel.Package.Current.DisplayName;
+        }
+
+        private void SearchBox_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput && !string.IsNullOrWhiteSpace(SearchBox.Text))
+            {
+                var filteredSearchResults = viewModel.Items.Where(i => i.Name.Contains(sender.Text, StringComparison.OrdinalIgnoreCase)).ToList();
+                SearchBox.ItemsSource = filteredSearchResults.OrderByDescending(i => i.Name.StartsWith(sender.Text, StringComparison.CurrentCultureIgnoreCase)).ThenBy(i => i.Name);
+            }
+        }
+
+        private async void SearchBox_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.ChosenSuggestion is Item result)
+            {
+                viewModel.Items.Remove(result);
+            }
+
+            SearchBox.Text = string.Empty;
         }
     }
 }
