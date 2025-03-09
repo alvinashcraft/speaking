@@ -1,8 +1,10 @@
 # Links from VSLive! Las Vegas 2025
 
-Date: **March 2025**
+March 11-14, 2025 - Paris Hotel
 
 ## Get started building apps for Windows with WinUI 3 and Windows App SDK
+
+WinUI is the latest UI framework for Windows, offering a modern, native, and flexible way to create beautiful and responsive apps that take advantage of today's hardware. The Windows App SDK is a set of libraries and tools that enable developers to access the latest Windows features and APIs from any app platform.
 
 ### Alvin Ashcraft's links
 
@@ -18,7 +20,7 @@ Date: **March 2025**
 - [WinUI 3 Documentation](https://learn.microsoft.com/windows/apps/winui/winui3/)
 - [Windows App SDK Documentation](https://learn.microsoft.com/windows/apps/windows-app-sdk/)
 - [Overview of Windows Development Options](https://learn.microsoft.com/windows/apps/get-started/)
-- [Windows App Development - Options & Features](https://learn.microsoft.com/windows/apps/get-started/dev-options)
+- [Windows developer FAQ](https://learn.microsoft.com/windows/apps/get-started/windows-developer-faq)
 - [Windows Community Toolkit](https://learn.microsoft.com/dotnet/communitytoolkit/windows/)
 - [MVVM Toolkit](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/)
 - [Windows App SDK App Notifications](https://learn.microsoft.com/windows/apps/windows-app-sdk/notifications/app-notifications/)

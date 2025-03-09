@@ -1,5 +1,7 @@
 # Links from VSLive! Las Vegas 2025
 
+March 11-14, 2025, Paris Hotel
+
 ## Building a Native Application for Windows
 
 Which UI framework should you choose?
@@ -25,6 +27,7 @@ Which UI framework should you choose?
 
 - [WinUI at Build 2024 links](https://github.com/microsoft/microsoft-ui-xaml/discussions/9649)
 - [Windows Dev Chat - Choosing your ideal dev platform (*video*)](https://www.youtube.com/live/4PJBJ8GICjM)
+- [What Is The BEST Windows UI Framework For Your Project (*video*)](https://www.youtube.com/watch?v=vlrHb5sQk-8)
 - [TechBash Developer Conference](https://techbash.com/)
 - [.NET Product Support](https://dotnet.microsoft.com/platform/support)
 - [Uno Platform Documentation](https://platform.uno/docs/articles/intro.html)

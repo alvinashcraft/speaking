@@ -1,6 +1,12 @@
 # Links from VSLive Las Vegas 2025
 
+March 11-14, 2025, Paris Hotel
+
 ## Learn, Share, and Grow: How to Become a Microsoft Learn Contributor
+
+Fast Focus - 20-minute session
+
+Do you want to be part of one of the largest open-source projects in the world and help millions of learners achieve their goals? Do you want to learn how the Skilling teams at Microsoft are creating relevant and up-to-date content on Microsoft Learn? If so, then this session is for you!
 
 ### Alvin Ashcraft's links
 
@@ -28,5 +34,5 @@
 - [.NET Product Support](https://dotnet.microsoft.com/platform/support)
 - [GitHub Workflow for a new post](https://github.com/PowerShell/Community-Blog/blob/main/Docs/GitHub-workflow-for-new-post.md)
 - [GitHub Learning Paths](https://learn.microsoft.com/training/github)
-- [Git training](https://learn.microsoft.com/training/paths/intro-to-vc-git)
-- [Git in VS Code training](https://learn.microsoft.com/training/modules/use-git-from-vs-code)
+- [Introduction to Git training](https://learn.microsoft.com/en-us/training/modules/intro-to-git/)
+- [Introduction to Git in VS Code](https://code.visualstudio.com/docs/sourcecontrol/intro-to-git)
