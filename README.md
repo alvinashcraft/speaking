@@ -1,5 +1,7 @@
 # Alvin Ashcraft - Speaking Resources
 
+View my [profile on Sessionize](https://sessionize.com/alvinashcraft/).
+
 Resources from my speaking engagements:
 
 - Slides
@@ -13,7 +15,8 @@ Resources from my speaking engagements:
 - [.NET Conference 2025](https://dotnetconference.com/) - April 23-24 (Virtual)
 - [Philly .NET User Group - May Meetup](https://www.meetup.com/philly-net/events/305135850/) - May 21
 - [Update Conference Krakow 2025](https://krakow.updateconference.net/) - May 26-27
-- [VSLive! Microsoft HQ 2025](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8
+- [VSLive! Microsoft HQ 2025](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8 (Save $400 with code **ASHCRAFT**)
+- [TechBash 2025 - Early Bird opens in late April](https://techbash.com/) - November 4-7
 
 ## My current sessions
 
