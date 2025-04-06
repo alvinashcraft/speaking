@@ -8,9 +8,10 @@ Resources from my speaking engagements:
 - Videos
 - Etc.
 
-## Meet me in-person in 2025
+## Upcoming events in 2025
 
-- [VSLive! Las Vegas 2025](https://vslive.com/events/las-vegas-2025/home.aspx) - March 10-14
+- [.NET Conference 2025](https://dotnetconference.com/) - April 23-24 (Virtual)
+- [Philly .NET User Group - May Meetup](https://www.meetup.com/philly-net/events/305135850/) - May 21
 - [Update Conference Krakow 2025](https://krakow.updateconference.net/) - May 26-27
 - [VSLive! Microsoft HQ 2025](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8
 
@@ -38,6 +39,10 @@ Resources from my speaking engagements:
   - January 16th (Choosing a Native Windows UI Framework)
 - NDC London 2025
   - January 30th (Choosing a Native Windows UI Framework)
+- VSLive! Las Vegas 2025
+  - March 11th (Choosing a Native Windows UI Framework)
+  - March 12th (Contributing to Microsoft Learn - Fast Focus Session)
+  - March 12th (Get Started Building Windows Apps with WinUI)
 
 ## My books
 
