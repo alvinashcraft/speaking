@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "MyMediaCollection",
+  "display": "standalone",
+  "name": "MyMediaCollection",
+  "short_name": "MyMediaCollection",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}

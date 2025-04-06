@@ -1,0 +1,14 @@
+﻿global using System.Collections.Immutable;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Hosting;
+global using Microsoft.Extensions.Localization;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Options;
+global using MyMediaCollection.Models;
+global using MyMediaCollection.DataContracts;
+global using MyMediaCollection.DataContracts.Serialization;
+global using MyMediaCollection.Services.Caching;
+global using MyMediaCollection.Services.Endpoints;
+global using ApplicationExecutionState = Windows.ApplicationModel.Activation.ApplicationExecutionState;
+global using CommunityToolkit.Mvvm.ComponentModel;
+global using CommunityToolkit.Mvvm.Input;
