@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WcrApp1 (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WcrApp1 (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
