@@ -8,7 +8,7 @@ Date: **March 2025**
 
 - [Alvin on LinkedIn](https://www.linkedin.com/in/alvinashcraft/)
 - [Alvin's blog](https://www.alvinashcraft.com/)
-- [Alvin on Twitter](https://twitter.com/alvinashcraft)
+- [Alvin on Bluesky](https://bsky.app/profile/alvinashcraft.com)
 - [Alvin's GitHub](https://github.com/alvinashcraft)
 - [Buy my books](https://www.amazon.com/stores/Alvin-Ashcraft/author/B08WLD35BX)
 
