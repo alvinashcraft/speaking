@@ -41,7 +41,7 @@
                 </GroupBox>
                 <GroupBox Header="Description" Margin="5" Grid.Column="1" Width="Auto">
                     <ScrollViewer VerticalScrollBarVisibility="Auto">
-                        <TextBox Name="Description" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" />
+                        <TextBox Name="Description" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" IsReadOnly="True" TextWrapping="Wrap" />
                     </ScrollViewer>
                 </GroupBox>
             </Grid>

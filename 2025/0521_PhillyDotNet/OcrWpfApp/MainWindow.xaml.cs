@@ -226,10 +226,16 @@ public partial class MainWindow : Window
 
         if (languageModel != null)
         {
+            var lmOptions = new LanguageModelOptions
+            {
+                Temperature = 0.5f,
+                ContentFilterOptions = contentFilterOptions
+            };
+
             // Create a context for the language model
             var languageModelContext = languageModel!.CreateContext(systemPrompt, contentFilterOptions);
             string prompt = "Summarize the following text: " + text;
-            var output = await languageModel.GenerateResponseAsync(languageModelContext, prompt, new LanguageModelOptions());
+            var output = await languageModel.GenerateResponseAsync(languageModelContext, prompt, lmOptions);
             this.Description.Text = output.Text;
         }
         else
