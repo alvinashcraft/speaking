@@ -1,9 +1,9 @@
 {
   "profiles": {
-    "WcrApp1 (Package)": {
+    "LocalAiWinuiApp (Package)": {
       "commandName": "MsixPackage"
     },
-    "WcrApp1 (Unpackaged)": {
+    "LocalAiWinuiApp (Unpackaged)": {
       "commandName": "Project"
     }
   }

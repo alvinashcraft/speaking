@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Window
-    x:Class="WcrApp1.MainWindow"
+    x:Class="LocalAiWinuiApp.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:WcrApp1"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:local="using:LocalAiWinuiApp"
     xmlns:ct="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Title="WCR App">
+    Title="LocalAiWinuiApp">
     <Window.SystemBackdrop>
         <MicaBackdrop />
     </Window.SystemBackdrop>
@@ -42,7 +42,8 @@
                 <CheckBox x:Name="strictFilterCheckBox" Margin="4,0" Content="Use strict content filter" IsChecked="False"/>
                 <Button x:Name="rewriteButton" Click="rewriteButton_Click">Rewrite Text</Button>
                 <Button x:Name="summarizeButton" Click="summarizeButton_Click" Margin="4,0">Summarize Text</Button>
-                <Button x:Name="textToTableButton" Click="textToTableButton_Click">Text to Table</Button>
+                <Button x:Name="textToTableButton" Click="textToTableButton_Click" Margin="4,0">Text to Table</Button>
+                <CheckBox x:Name="resultWithProgress" Content="Show progress" IsChecked="True"/>
             </StackPanel>
         </StackPanel>
         <ct:MarkdownTextBlock x:Name="resultsMarkdown" Grid.Row="2"/>

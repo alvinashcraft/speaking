@@ -8,14 +8,14 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="5e48a229-8daa-4315-a6e7-67ec4233400a"
+    Name="f62d19a1-6ad3-4b3e-ae23-f7966844e437"
     Publisher="CN=alash"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="5e48a229-8daa-4315-a6e7-67ec4233400a" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="f62d19a1-6ad3-4b3e-ae23-f7966844e437" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
-    <DisplayName>WcrApp1</DisplayName>
+    <DisplayName>LocalAiWinuiApp</DisplayName>
     <PublisherDisplayName>alash</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -34,8 +34,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="WcrApp1"
-        Description="WcrApp1"
+        DisplayName="LocalAiWinuiApp"
+        Description="LocalAiWinuiApp"
         BackgroundColor="transparent"
         Square150x150Logo="Assets\Square150x150Logo.png"
         Square44x44Logo="Assets\Square44x44Logo.png">

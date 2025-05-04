@@ -1,12 +1,14 @@
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.Windows.AI.ContentModeration;
 using Microsoft.Windows.AI.Generative;
+using System;
+using System.Diagnostics;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Foundation;
 
-namespace WcrApp1
+namespace LocalAiWinuiApp
 {
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
@@ -60,13 +62,32 @@ namespace WcrApp1
 
                 ContentFilterOptions filterOptions = ApplyContentFilters();
 
-                var result = await languageModel.GenerateResponseAsync(modelOptions, prompt, filterOptions);
+                LanguageModelResponse? result;
+
+                if (resultWithProgress.IsChecked.Value)
+                {
+                    AsyncOperationProgressHandler<LanguageModelResponse, string>
+                    progressHandler = (asyncInfo, delta) =>
+                    {
+                        DispatcherQueue.TryEnqueue(() => { resultsMarkdown.Text = asyncInfo.GetResults().Response; });
+                    };
+
+                    var asyncOp = languageModel.GenerateResponseWithProgressAsync(prompt);
+
+                    asyncOp.Progress = progressHandler;
+
+                    result = await asyncOp;
+                }
+                else
+                {
+                    result = await languageModel.GenerateResponseAsync(modelOptions, prompt, filterOptions);
+                }
 
                 if (string.IsNullOrWhiteSpace(result.Response))
                 {
                     resultsMarkdown.Text = result.Status.ToString();
                 }
-                else
+                else if (!resultWithProgress.IsChecked.Value)
                 {
                     resultsMarkdown.Text = result.Response;
                 }
