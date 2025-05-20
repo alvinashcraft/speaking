@@ -40,10 +40,7 @@
             <StackPanel Orientation="Horizontal" Margin="4">
                 <Button x:Name="generalButton" Click="generalButton_Click">General Query</Button>
                 <CheckBox x:Name="strictFilterCheckBox" Margin="4,0" Content="Use strict content filter" IsChecked="False"/>
-                <Button x:Name="rewriteButton" Click="rewriteButton_Click">Rewrite Text</Button>
                 <Button x:Name="summarizeButton" Click="summarizeButton_Click" Margin="4,0">Summarize Text</Button>
-                <Button x:Name="textToTableButton" Click="textToTableButton_Click" Margin="4,0">Text to Table</Button>
-                <CheckBox x:Name="resultWithProgress" Content="Show progress" IsChecked="True"/>
             </StackPanel>
         </StackPanel>
         <ct:MarkdownTextBlock x:Name="resultsMarkdown" Grid.Row="2"/>
