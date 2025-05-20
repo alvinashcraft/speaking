@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "WinuiAiOcrApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "WinuiAiOcrApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
