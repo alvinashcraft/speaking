@@ -1,4 +1,4 @@
-# Links from VSLive! Las Vegas 2025
+# Links from Update Conference Krakow 2025
 
 ## Building a Native Application for Windows
 
