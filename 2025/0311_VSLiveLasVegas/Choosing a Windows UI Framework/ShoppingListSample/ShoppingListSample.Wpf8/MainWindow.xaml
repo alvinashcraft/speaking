@@ -21,7 +21,7 @@
                       Margin="4"/>
             <Label Content="Name:" HorizontalAlignment="Left" Margin="4"/>
             <TextBox x:Name="nameTextBox" Text="{Binding Name, Mode=TwoWay}" Margin="4" Width="300"/>
-            <Button Content="Add Item" HorizontalAlignment="Right" Margin="4" Click="addButton_Click"/>
+            <Button Content="Add Item" Click="addButton_Click" Width="70"/>
         </StackPanel>
         <DataGrid Grid.Row="1" x:Name="itemsDataGrid" AutoGenerateColumns="False" 
           EnableRowVirtualization="True" CanUserAddRows="False"

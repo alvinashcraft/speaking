@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ShoppingListSample.Wpf8"
         mc:Ignorable="d"
         Title="Shopping List | WPF" Height="450" Width="800"
-        Loaded="Window_Loaded">
+        WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="itemViewSource"/>
     </Window.Resources>
