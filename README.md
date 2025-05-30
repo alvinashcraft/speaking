@@ -8,7 +8,7 @@ Resources from my speaking engagements:
 - Projects
 - Links
 - Videos
-- Etc.
+- Resources
 
 ## Upcoming events in 2025
 
