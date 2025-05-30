@@ -8,7 +8,6 @@ Resources from my speaking engagements:
 - Projects
 - Links
 - Videos
-- Resources
 
 ## Upcoming events in 2025
 
@@ -29,9 +28,6 @@ Resources from my speaking engagements:
 
 ## Recent Speaking Engagements
 
-- VSLive at Microsoft HQ 2024
-  - August 6th (Choosing a Native Windows UI Framework)
-  - August 8th (Contributing to Microsoft Learn - Fast Focus Session)
 - CSharp.TV Software Architecture Conference - 3rd Edition
   - August 16, 2024 (Choosing a Native Windows UI Framework)
 - TechBash 2024, Pocono Manor, PA
