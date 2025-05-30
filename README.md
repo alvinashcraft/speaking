@@ -12,7 +12,7 @@ Resources from my speaking engagements:
 
 ## Upcoming events in 2025
 
-- [VSLive! Microsoft HQ 2025](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8
+- [VSLive! Microsoft HQ](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8
 - [TechBash 2025 - Early Bird ends in June](https://techbash.com/) - November 4-7
 - [VSLive! / Live! 360 Orlando](https://vslive.com/ecg/live360events/events/orlando-2025/vslive.aspx) - November 16-21
 
@@ -54,5 +54,5 @@ Resources from my speaking engagements:
 ## My books
 
 - [Learn WinUI 3: Leverage WinUI and the Windows App SDK to create modern Windows applications with C# and XAML, 2nd Edition](https://www.amazon.com/Learn-WinUI-Leverage-Windows-applications/dp/1805120069/)
-- [Parallel Programming and Concurrency with C# 10 and .NET 6: A modern approach to building faster, more responsive, and asynchronous .NET applications using C#](https://www.amazon.com/Parallel-Programming-Concurrency-NET-asynchronous/dp/1803243678/) - *Great with .NET 8 too!*
+- [Parallel Programming and Concurrency with C# 10 and .NET 6: A modern approach to building faster, more responsive, and asynchronous .NET applications using C#](https://www.amazon.com/Parallel-Programming-Concurrency-NET-asynchronous/dp/1803243678/) - *Use it with .NET 9 too!*
 - [Learn WinUI 3.0: Leverage the power of WinUI, the future of native Windows application development](https://www.amazon.com/Learn-WinUI-3-0-application-development/dp/1800208669/) - *The 1st edition*
