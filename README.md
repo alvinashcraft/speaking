@@ -12,9 +12,9 @@ Resources from my speaking engagements:
 
 ## Upcoming events in 2025
 
-- [Update Conference Krakow 2025](https://krakow.updateconference.net/) - May 26-27
-- [VSLive! Microsoft HQ 2025](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8 (Save $400 with code **ASHCRAFT**)
-- [TechBash 2025 - Early Bird opens in late April](https://techbash.com/) - November 4-7
+- [VSLive! Microsoft HQ 2025](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8
+- [TechBash 2025 - Early Bird ends in June](https://techbash.com/) - November 4-7
+- [VSLive! / Live! 360 Orlando](https://vslive.com/ecg/live360events/events/orlando-2025/vslive.aspx) - November 16-21
 
 ## My current sessions
 
@@ -25,7 +25,7 @@ Resources from my speaking engagements:
 - Create a WinUI App with Microsoft's Community Toolkits (Workshop)
 - Build beautiful multi-platform apps with Uno Platform
 - Create multi-platform apps with .NET MAUI and the MAUI Community Toolkit
-- Build intelligent apps with WinUI, Phi Silica and the Windows Copilot Runtime
+- Build intelligent apps with WinUI, Phi Silica and the Windows AI APIs
 
 ## Recent Speaking Engagements
 
@@ -48,6 +48,8 @@ Resources from my speaking engagements:
   - April 24th (Get Started Building Windows Apps with WinUI)
 - Philly .NET Meetup
   - May 21st (Build intelligent apps with WinUI, Phi Silica and the Windows AI APIs)
+- Update Conference Krakow 2025
+  - May 26th (Choosing a Native Windows UI Framework)
 
 ## My books
 
