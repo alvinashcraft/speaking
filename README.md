@@ -28,8 +28,6 @@ Resources from my speaking engagements:
 
 ## Recent Speaking Engagements
 
-- CSharp.TV Software Architecture Conference - 3rd Edition
-  - August 16, 2024 (Choosing a Native Windows UI Framework)
 - TechBash 2024, Pocono Manor, PA
   - September 27th (Choosing a Native Windows UI Framework)
 - CodeMash 2025, Sandusky, OH
