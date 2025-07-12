@@ -32,69 +32,77 @@ namespace LocalAiWinuiApp
 
         private async Task GenerateResponseAsync()
         {
-            if (LanguageModel.GetReadyState() == AIFeatureReadyState.NotReady)
+            var readyState = LanguageModel.GetReadyState();
+            if (readyState is AIFeatureReadyState.Ready or AIFeatureReadyState.NotReady)
             {
-                _ = await LanguageModel.EnsureReadyAsync();
-            }
-
-            try
-            {
-                resultsMarkdown.Text = "Thinking...";
-                using LanguageModel languageModel = await LanguageModel.CreateAsync();
-
-                string prompt = promptText.Text;
-
-                var modelOptions = new LanguageModelOptions();
-
-                ContentFilterOptions filterOptions = ApplyContentFilters();
-                modelOptions.ContentFilterOptions = filterOptions;
-
-                var result = await languageModel.GenerateResponseAsync(prompt, modelOptions);
-
-                if (string.IsNullOrWhiteSpace(result.Text))
+                if (readyState == AIFeatureReadyState.NotReady)
                 {
-                    resultsMarkdown.Text = result.Status.ToString();
+                    _ = await LanguageModel.EnsureReadyAsync();
                 }
-                else
+
+                try
                 {
-                    resultsMarkdown.Text = result.Text;
+                    resultsMarkdown.Text = "Thinking...";
+                    using LanguageModel languageModel = await LanguageModel.CreateAsync();
+
+                    string prompt = promptText.Text;
+
+                    var modelOptions = new LanguageModelOptions();
+
+                    ContentFilterOptions filterOptions = ApplyContentFilters();
+                    modelOptions.ContentFilterOptions = filterOptions;
+
+                    var result = await languageModel.GenerateResponseAsync(prompt, modelOptions);
+
+                    if (string.IsNullOrWhiteSpace(result.Text))
+                    {
+                        resultsMarkdown.Text = result.Status.ToString();
+                    }
+                    else
+                    {
+                        resultsMarkdown.Text = result.Text;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                resultsMarkdown.Text = "An error occurred. Please try again.";
-                Debug.WriteLine(ex.Message + "; " + ex.StackTrace);
+                catch (Exception ex)
+                {
+                    resultsMarkdown.Text = "An error occurred. Please try again.";
+                    Debug.WriteLine(ex.Message + "; " + ex.StackTrace);
+                }
             }
         }
 
         private async Task SummarizeTextAsync()
         {
-            if (LanguageModel.GetReadyState() == AIFeatureReadyState.NotReady)
+            var readyState = LanguageModel.GetReadyState();
+            if (readyState is AIFeatureReadyState.Ready or AIFeatureReadyState.NotReady)
             {
-                _ = await LanguageModel.EnsureReadyAsync();
-            }
-
-            try
-            {
-                resultsMarkdown.Text = "Thinking...";
-                using LanguageModel languageModel = await LanguageModel.CreateAsync();
-
-                string prompt = promptText.Text;
-
-                var textSummarizer = new TextSummarizer(languageModel);
-                var result = await textSummarizer.SummarizeAsync(prompt);
-
-                if (string.IsNullOrWhiteSpace(result.Text))
+                if (readyState == AIFeatureReadyState.NotReady)
                 {
-                    resultsMarkdown.Text = result.Status.ToString();
+                    _ = await LanguageModel.EnsureReadyAsync();
                 }
 
-                resultsMarkdown.Text = result.Text;
-            }
-            catch (Exception ex)
-            {
-                resultsMarkdown.Text = "An error occurred. Please try again.";
-                Debug.WriteLine(ex.Message + "; " + ex.StackTrace);
+                try
+                {
+                    resultsMarkdown.Text = "Thinking...";
+                    using LanguageModel languageModel = await LanguageModel.CreateAsync();
+
+                    string prompt = promptText.Text;
+
+                    var textSummarizer = new TextSummarizer(languageModel);
+                    var result = await textSummarizer.SummarizeAsync(prompt);
+
+                    if (string.IsNullOrWhiteSpace(result.Text))
+                    {
+                        resultsMarkdown.Text = result.Status.ToString();
+                    }
+
+                    resultsMarkdown.Text = result.Text;
+                }
+                catch (Exception ex)
+                {
+                    resultsMarkdown.Text = "An error occurred. Please try again.";
+                    Debug.WriteLine(ex.Message + "; " + ex.StackTrace);
+                }
             }
         }
 
