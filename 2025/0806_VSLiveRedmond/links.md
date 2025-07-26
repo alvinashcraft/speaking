@@ -23,6 +23,7 @@ Date: **August 2025**
 - [MVVM Toolkit](https://learn.microsoft.com/dotnet/communitytoolkit/mvvm/)
 - [Windows App SDK App Notifications](https://learn.microsoft.com/windows/apps/windows-app-sdk/notifications/app-notifications/)
 - [Using WebView 2 in WinUI apps](https://learn.microsoft.com/microsoft-edge/webview2/get-started/winui)
+- [What is Windows AI Foundry?](https://learn.microsoft.com/windows/ai/overview)
 
 ### Other Links
 
