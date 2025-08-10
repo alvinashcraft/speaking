@@ -1,1 +1,14 @@
-Samples coming soon
+Samples coming soon:
+
+New project in Visual Studio vNext
+
+New project in VS Code with C# Markup
+
+.NET MAUI Toolkit sample
+
+MVVM Toolkit sample
+
+Using CSS in MAUI sample in JetBrains Rider
+
+Device-specific APIs - Camera and photos
+
