@@ -11,7 +11,6 @@ Resources from my speaking engagements:
 
 ## Upcoming events in 2025
 
-- [VSLive! Microsoft HQ](https://vslive.com/events/microsofthq-2025/home.aspx) - August 4-8
 - [TechBash 2025 - Early Bird ends in June](https://techbash.com/) - November 4-7
 - [VSLive! / Live! 360 Orlando](https://vslive.com/ecg/live360events/events/orlando-2025/vslive.aspx) - November 16-21
 
@@ -33,7 +32,7 @@ Resources from my speaking engagements:
 - CodeMash 2025, Sandusky, OH
   - January 16th (Choosing a Native Windows UI Framework)
 - NDC London 2025
-  - January 30th (Choosing a Native Windows UI Framework)
+  - January 30th (Choosing a Native Windows UI Framework) - [Recording](https://www.youtube.com/watch?v=tB32vhWq3iU)
 - VSLive! Las Vegas 2025
   - March 11th (Choosing a Native Windows UI Framework)
   - March 12th (Contributing to Microsoft Learn - Fast Focus Session)
@@ -43,7 +42,7 @@ Resources from my speaking engagements:
 - Philly .NET Meetup
   - May 21st (Build intelligent apps with WinUI, Phi Silica and the Windows AI APIs)
 - Update Conference Krakow 2025
-  - May 26th (Choosing a Native Windows UI Framework)
+  - May 26th (Choosing a Native Windows UI Framework) - [Recording](https://www.youtube.com/watch?v=DH3xvO05lI0)
 
 ## My books
 
