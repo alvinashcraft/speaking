@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiDeviceApis.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20,0"
+            Spacing="20">
+            <Image x:Name="myImage"
+                WidthRequest="200"
+                HeightRequest="200"
+                BackgroundColor="AntiqueWhite"
+                SemanticProperties.Description="Image header." />
+
+            <Label
+                x:Name="batteryInfoLabel"
+                Text="Battery info not yet checked."
+                SemanticProperties.Description="Shows the battery information"
+                HorizontalOptions="Center" />
+            
+            <Button
+                Text="Check battery info" 
+                SemanticProperties.Hint="Checks the battery info"
+                Clicked="OnBatteryClicked"
+                HorizontalOptions="Fill" />
+
+            <Button
+                Text="Pick an image" 
+                SemanticProperties.Hint="Picks an image to display"
+                Clicked="OnPickImageClicked"
+                HorizontalOptions="Fill" />
+
+            <Button
+                Text="Take picture" 
+                SemanticProperties.Hint="Takes a picture to display"
+                Clicked="OnTakePictureClicked"
+                HorizontalOptions="Fill" />
+
+            <Button
+                Text="Take screenshot" 
+                SemanticProperties.Hint="Takes a screenshot to display"
+                Clicked="OnTakeScreenshotClicked"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
