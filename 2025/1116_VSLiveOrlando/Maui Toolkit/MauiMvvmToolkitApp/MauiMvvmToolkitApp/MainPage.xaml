@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiMvvmToolkitApp.MainPage">
+             xmlns:vm="clr-namespace:MauiMvvmToolkitApp"
+             x:Class="MauiMvvmToolkitApp.MainPage"
+             x:DataType="vm:MainViewModel">
 
     <ScrollView>
         <VerticalStackLayout Padding="20,0" Spacing="25">
@@ -13,9 +15,11 @@
                         SemanticProperties.Hint="Adds an item to the shopping list"
                         Command="{Binding AddCommand}" />
             </HorizontalStackLayout>
-            <ListView x:Name="shoppingList" ItemsSource="{Binding Items}" HorizontalOptions="StartAndExpand">
+            <ListView x:Name="shoppingList"
+                      ItemsSource="{Binding Items}"
+                      HorizontalOptions="StartAndExpand">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="vm:Item">
                         <ViewCell>
                             <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
                                 <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
