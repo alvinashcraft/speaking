@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "LocalAiWinuiApp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "LocalAiWinuiApp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "UnoMsHq25",
+  "display": "standalone",
+  "name": "UnoMsHq25",
+  "short_name": "UnoMsHq25",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
