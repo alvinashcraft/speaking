@@ -9,10 +9,11 @@ Resources from my speaking engagements:
 - Links
 - Videos
 
-## Upcoming events in 2025
+## Upcoming events in 2025 and 2026
 
-- [TechBash 2025 - Early Bird ends in June](https://techbash.com/) - November 4-7
+- [TechBash 2025 - 1-day tix now available](https://techbash.com/) - November 4-7
 - [VSLive! / Live! 360 Orlando](https://vslive.com/ecg/live360events/events/orlando-2025/vslive.aspx) - November 16-21
+- [CodeMash 2026]([https://codemash.org/](https://events.codemash.org/2026CodeMashConference#/)) - January 13-16
 
 ## My current sessions
 
@@ -49,3 +50,4 @@ Resources from my speaking engagements:
 - [Learn WinUI 3: Leverage WinUI and the Windows App SDK to create modern Windows applications with C# and XAML, 2nd Edition](https://www.amazon.com/Learn-WinUI-Leverage-Windows-applications/dp/1805120069/)
 - [Parallel Programming and Concurrency with C# 10 and .NET 6: A modern approach to building faster, more responsive, and asynchronous .NET applications using C#](https://www.amazon.com/Parallel-Programming-Concurrency-NET-asynchronous/dp/1803243678/) - *Use it with .NET 9 too!*
 - [Learn WinUI 3.0: Leverage the power of WinUI, the future of native Windows application development](https://www.amazon.com/Learn-WinUI-3-0-application-development/dp/1800208669/) - *The 1st edition*
+- Hands-On Model Context Protocol for C# and .NET Developers (co-author) - Coming March 2026
