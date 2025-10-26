@@ -1,28 +1,15 @@
 using Microsoft.Graphics.Imaging;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
-using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Windows.AI;
 using Microsoft.Windows.AI.ContentSafety;
 using Microsoft.Windows.AI.Imaging;
 using Microsoft.Windows.AI.Text;
 using Microsoft.Windows.Storage.Pickers;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
 
 namespace WinuiAiOcrApp
 {
@@ -43,45 +30,28 @@ namespace WinuiAiOcrApp
         private async void SelectFile_Click(object sender, RoutedEventArgs e)
         {
             _currentImage = null;
-            this.Description.Text = "(picking a file)";
-            this.FileContent.Text = this.Description.Text;
+            Description.Text = "(picking a file)";
+            FileContent.Text = Description.Text;
 
-            var fileDialog = new FileOpenPicker(this.AppWindow.Id)
+            var fileDialog = new FileOpenPicker(AppWindow.Id)
             {
                 ViewMode = PickerViewMode.Thumbnail,
                 SuggestedStartLocation = PickerLocationId.PicturesLibrary
             };
+
             var result = await fileDialog.PickSingleFileAsync();
             if (result?.Path.Length > 0)
             {
-                this.FilePath.Text = result.Path;
-                this.ProcessFile.IsEnabled = true;
+                FilePath.Text = result.Path;
+                ProcessFile.IsEnabled = true;
                 _currentImage = await GetImageBufferFromFile(result.Path);
                 var source = new BitmapImage(new Uri(result.Path));
-                this.InputImage.Source = source;
+                InputImage.Source = source;
             }
-            this.Description.Text = "(done picking)";
-            this.FileContent.Text = this.Description.Text;
+
+            Description.Text = "(done picking)";
+            FileContent.Text = Description.Text;
         }
-
-        //private void PasteImageContent(object sender, RoutedEventArgs e)
-        //{
-        //    this.Description.Text = "(pasting)";
-        //    this.FileContent.Text = this.Description.Text;
-        //    var clipboard = System.Windows.Clipboard.GetDataObject();
-        //    if (clipboard == null)
-        //    {
-        //        this.FileContent.Text = "Can't open the clipboard, try again";
-        //        return;
-        //    }
-
-        //    var bitmapContent = clipboard.GetData(DataFormats.Bitmap, true) as BitmapImage;
-        //    if (bitmapContent == null)
-        //    {
-        //        this.FileContent.Text = "That wasn't a bitmap, try again";
-        //        return;
-        //    }
-        //}
 
         private async Task<ImageBuffer> GetImageBufferFromFile(string path)
         {
@@ -104,42 +74,42 @@ namespace WinuiAiOcrApp
 
         private async void ProcessFile_Click(object sender, RoutedEventArgs e)
         {
-            this.FileContent.Text = "Extracting text...";
-            this.Description.Text = "(waiting)";
+            FileContent.Text = "Extracting text...";
+            Description.Text = "(waiting)";
 
             try
             {
-                this.FileContent.Text = "Loading AI models...";
-                this.Description.Text = this.FileContent.Text;
+                FileContent.Text = "Loading AI models...";
+                Description.Text = FileContent.Text;
                 await LoadAIModels();
             }
             catch (Exception ex)
             {
-                this.FileContent.Text = "An error has occurred: Loading AI models...";
-                this.Description.Text = this.FileContent.Text;
+                FileContent.Text = $"An error has occurred: Loading AI models. Exception: {ex.Message}";
+                Description.Text = FileContent.Text;
                 return;
             }
 
             string textInImage = "";
             try
             {
-                this.FileContent.Text = "Performing Text Recognition";
+                FileContent.Text = "Performing Text Recognition";
                 textInImage = await PerformTextRecognition();
             }
             catch (Exception ex)
             {
-                this.FileContent.Text = "An error has occurred: Performing Text Recognition...";
+                FileContent.Text = $"An error has occurred: Performing Text Recognition. Exception: {ex.Message}";
                 return;
             }
 
             try
             {
-                this.Description.Text = "Performing Text Description";
+                Description.Text = "Performing Text Description";
                 await SummarizeImageText(textInImage);
             }
             catch (Exception ex)
             {
-                this.Description.Text = "An error has occurred: Performing Text Description...";
+                Description.Text = $"An error has occurred: Performing Text Description. Exception: {ex.Message}";
                 return;
             }
         }
@@ -149,23 +119,23 @@ namespace WinuiAiOcrApp
             // Load the AI models needed for image processing
             switch (LanguageModel.GetReadyState())
             {
-                case Microsoft.Windows.AI.AIFeatureReadyState.NotReady:
+                case AIFeatureReadyState.NotReady:
                     System.Diagnostics.Debug.WriteLine("Ensure LanguageModel is ready");
                     var op = await LanguageModel.EnsureReadyAsync();
                     System.Diagnostics.Debug.WriteLine($"LanguageModel.EnsureReadyAsync completed with status: {op.Status}");
-                    if (op.Status != Microsoft.Windows.AI.AIFeatureReadyResultState.Success)
+                    if (op.Status != AIFeatureReadyResultState.Success)
                     {
-                        this.Description.Text = "Language model not ready for use";
+                        Description.Text = "Language model not ready for use";
                         throw new Exception("Language model not ready for use");
                     }
                     break;
-                case Microsoft.Windows.AI.AIFeatureReadyState.DisabledByUser:
+                case AIFeatureReadyState.DisabledByUser:
                     System.Diagnostics.Debug.WriteLine("Language model disabled by user");
-                    this.Description.Text = "Language model disabled by user";
+                    Description.Text = "Language model disabled by user";
                     return;
-                case Microsoft.Windows.AI.AIFeatureReadyState.NotSupportedOnCurrentSystem:
+                case AIFeatureReadyState.NotSupportedOnCurrentSystem:
                     System.Diagnostics.Debug.WriteLine("Language model not supported on current system");
-                    this.Description.Text = "Language model not supported on current system";
+                    Description.Text = "Language model not supported on current system";
                     return;
             }
 
@@ -177,23 +147,23 @@ namespace WinuiAiOcrApp
 
             switch (TextRecognizer.GetReadyState())
             {
-                case Microsoft.Windows.AI.AIFeatureReadyState.NotReady:
+                case AIFeatureReadyState.NotReady:
                     System.Diagnostics.Debug.WriteLine("Ensure TextRecognizer is ready");
                     var op = await TextRecognizer.EnsureReadyAsync();
                     System.Diagnostics.Debug.WriteLine($"TextRecognizer.EnsureReadyAsync completed with status: {op.Status}");
-                    if (op.Status != Microsoft.Windows.AI.AIFeatureReadyResultState.Success)
+                    if (op.Status != AIFeatureReadyResultState.Success)
                     {
-                        this.FileContent.Text = "Text recognizer not ready for use";
+                        FileContent.Text = "Text recognizer not ready for use";
                         throw new Exception("Text recognizer not ready for use");
                     }
                     break;
-                case Microsoft.Windows.AI.AIFeatureReadyState.DisabledByUser:
+                case AIFeatureReadyState.DisabledByUser:
                     System.Diagnostics.Debug.WriteLine("Text Recognizer disabled by user");
-                    this.FileContent.Text = "Text recognizer disabled by user";
+                    FileContent.Text = "Text recognizer disabled by user";
                     return;
-                case Microsoft.Windows.AI.AIFeatureReadyState.NotSupportedOnCurrentSystem:
+                case AIFeatureReadyState.NotSupportedOnCurrentSystem:
                     System.Diagnostics.Debug.WriteLine("Text Recognizer not supported on current system");
-                    this.FileContent.Text = "Text recognizer not supported on current system";
+                    FileContent.Text = "Text recognizer not supported on current system";
                     return;
             }
 
@@ -206,18 +176,35 @@ namespace WinuiAiOcrApp
 
         private async Task<string> PerformTextRecognition()
         {
-            if (_currentImage == null)
+            var readyState = TextRecognizer.GetReadyState();
+            if (readyState is AIFeatureReadyState.Ready or AIFeatureReadyState.NotReady)
             {
-                throw new Exception("Failed to load image buffer.");
+                if (readyState == AIFeatureReadyState.NotReady)
+                {
+                    var op = await TextRecognizer.EnsureReadyAsync();
+                }
+
+                using TextRecognizer textRecognizer = await TextRecognizer.CreateAsync();
+
+                RecognizedText? result = textRecognizer?.RecognizeTextFromImage(_currentImage);
+
+                var recognizedTextLines = result?.Lines.Select(line => line.Text);
+                string text = "";
+
+                if (recognizedTextLines != null && recognizedTextLines.Any())
+                {
+                    text = string.Join(Environment.NewLine, recognizedTextLines);
+                }
+                else
+                {
+                    text = "(no text recognized)";
+                }
+
+                FileContent.Text = text;
+                return text;
             }
 
-            RecognizedText recognizedText = textRecognizer!.RecognizeTextFromImage(_currentImage);
-
-            var recognizedTextLines = recognizedText.Lines.Select(line => line.Text);
-            string text = string.Join(Environment.NewLine, recognizedTextLines);
-
-            this.FileContent.Text = text;
-            return text;
+            return "(text recognition not ready)";
         }
 
         private async Task SummarizeImageText(string text)
@@ -254,12 +241,12 @@ namespace WinuiAiOcrApp
                 var languageModelContext = languageModel!.CreateContext(systemPrompt, contentFilterOptions);
                 string prompt = "Summarize the following text: " + text;
                 var output = await languageModel.GenerateResponseAsync(languageModelContext, prompt, new LanguageModelOptions());
-                this.Description.Text = output.Text;
+                Description.Text = output.Text;
             }
             else
             {
                 System.Diagnostics.Debug.WriteLine("Error: LanguageModel is null but should have been created during LoadAIModels()");
-                this.Description.Text = "Error: LanguageModel is null";
+                Description.Text = "Error: LanguageModel is null";
             }
         }
     }
