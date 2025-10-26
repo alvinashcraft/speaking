@@ -1,10 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Graphics.Imaging;
-using Microsoft.Windows.AI.Generative;
-using Microsoft.Windows.Vision;
+using Microsoft.Windows.AI;
+using Microsoft.Windows.AI.ContentSafety;
+using Microsoft.Windows.AI.Imaging;
+using Microsoft.Windows.AI.Text;
 using Windows.Storage;
-using Microsoft.Windows.AI.ContentModeration;
 
 namespace WCRforWPF;
 
@@ -67,7 +68,16 @@ public partial class MainWindow : Window
         var decoder = await Windows.Graphics.Imaging.BitmapDecoder.CreateAsync(inputStream);
         var frame = await decoder.GetFrameAsync(0);
         var softwareBitmap = await frame.GetSoftwareBitmapAsync();
-        return ImageBuffer.CreateCopyFromBitmap(softwareBitmap);
+        try
+        {
+            var buffer = ImageBuffer.CreateForSoftwareBitmap(softwareBitmap);
+            return buffer;
+        }
+        catch (Exception ex)
+        {
+            System.Diagnostics.Debug.WriteLine($"Error creating ImageBuffer: {ex.Message}");
+            throw new Exception("Failed to create ImageBuffer from software bitmap.");
+        }
     }
 
     private async void ProcessFile_Click(object sender, RoutedEventArgs e)
@@ -117,23 +127,23 @@ public partial class MainWindow : Window
         // Load the AI models needed for image processing
         switch (LanguageModel.GetReadyState())
         {
-            case Microsoft.Windows.AI.AIFeatureReadyState.EnsureNeeded:
+            case AIFeatureReadyState.NotReady:
                 System.Diagnostics.Debug.WriteLine("Ensure LanguageModel is ready");
                 var op = await LanguageModel.EnsureReadyAsync();
                 System.Diagnostics.Debug.WriteLine($"LanguageModel.EnsureReadyAsync completed with status: {op.Status}");
-                if (op.Status != Microsoft.Windows.AI.AIFeatureReadyResultState.Success)
+                if (op.Status != AIFeatureReadyResultState.Success)
                 {
-                    this.Description.Text = "Language model not ready for use";
+                    Description.Text = "Language model not ready for use";
                     throw new Exception("Language model not ready for use");
                 }
                 break;
-            case Microsoft.Windows.AI.AIFeatureReadyState.DisabledByUser:
+            case AIFeatureReadyState.DisabledByUser:
                 System.Diagnostics.Debug.WriteLine("Language model disabled by user");
-                this.Description.Text = "Language model disabled by user";
+                Description.Text = "Language model disabled by user";
                 return;
-            case Microsoft.Windows.AI.AIFeatureReadyState.NotSupportedOnCurrentSystem:
+            case AIFeatureReadyState.NotSupportedOnCurrentSystem:
                 System.Diagnostics.Debug.WriteLine("Language model not supported on current system");
-                this.Description.Text = "Language model not supported on current system";
+                Description.Text = "Language model not supported on current system";
                 return;
         }
 
@@ -145,23 +155,23 @@ public partial class MainWindow : Window
 
         switch (TextRecognizer.GetReadyState())
         {
-            case Microsoft.Windows.AI.AIFeatureReadyState.EnsureNeeded:
+            case AIFeatureReadyState.NotReady:
                 System.Diagnostics.Debug.WriteLine("Ensure TextRecognizer is ready");
                 var op = await TextRecognizer.EnsureReadyAsync();
                 System.Diagnostics.Debug.WriteLine($"TextRecognizer.EnsureReadyAsync completed with status: {op.Status}");
-                if (op.Status != Microsoft.Windows.AI.AIFeatureReadyResultState.Success)
+                if (op.Status != AIFeatureReadyResultState.Success)
                 {
-                    this.FileContent.Text = "Text recognizer not ready for use";
+                    FileContent.Text = "Text recognizer not ready for use";
                     throw new Exception("Text recognizer not ready for use");
                 }
                 break;
-            case Microsoft.Windows.AI.AIFeatureReadyState.DisabledByUser:
+            case AIFeatureReadyState.DisabledByUser:
                 System.Diagnostics.Debug.WriteLine("Text Recognizer disabled by user");
-                this.FileContent.Text = "Text recognizer disabled by user";
+                FileContent.Text = "Text recognizer disabled by user";
                 return;
-            case Microsoft.Windows.AI.AIFeatureReadyState.NotSupportedOnCurrentSystem:
+            case AIFeatureReadyState.NotSupportedOnCurrentSystem:
                 System.Diagnostics.Debug.WriteLine("Text Recognizer not supported on current system");
-                this.FileContent.Text = "Text recognizer not supported on current system";
+                FileContent.Text = "Text recognizer not supported on current system";
                 return;
         }
 
@@ -174,19 +184,35 @@ public partial class MainWindow : Window
 
     private async Task<string> PerformTextRecognition()
     {
-        if (_currentImage == null)
+        var readyState = TextRecognizer.GetReadyState();
+        if (readyState is AIFeatureReadyState.Ready or AIFeatureReadyState.NotReady)
         {
-            throw new Exception("Failed to load image buffer.");
+            if (readyState == AIFeatureReadyState.NotReady)
+            {
+                var op = await TextRecognizer.EnsureReadyAsync();
+            }
+
+            using TextRecognizer textRecognizer = await TextRecognizer.CreateAsync();
+
+            RecognizedText? result = textRecognizer?.RecognizeTextFromImage(_currentImage);
+
+            var recognizedTextLines = result?.Lines.Select(line => line.Text);
+            string text = "";
+
+            if (recognizedTextLines != null && recognizedTextLines.Any())
+            {
+                text = string.Join(Environment.NewLine, recognizedTextLines);
+            }
+            else
+            {
+                text = "(no text recognized)";
+            }
+
+            FileContent.Text = text;
+            return text;
         }
 
-        TextRecognizerOptions options = new TextRecognizerOptions { };
-        RecognizedText recognizedText = textRecognizer!.RecognizeTextFromImage(_currentImage, options);
-
-        var recognizedTextLines = recognizedText.Lines.Select(line => line.Text);
-        string text = string.Join(Environment.NewLine, recognizedTextLines);
-
-        this.FileContent.Text = text;
-        return text;
+        return "(text recognition not ready)";
     }
 
     private async Task SummarizeImageText(string text)
