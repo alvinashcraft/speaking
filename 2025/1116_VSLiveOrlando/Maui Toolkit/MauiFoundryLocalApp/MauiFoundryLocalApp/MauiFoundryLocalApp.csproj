@@ -58,9 +58,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AI.Foundry.Local" Version="0.3.0" />
-		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0-rc.2.25502.107" />
-		<PackageReference Include="OpenAI" Version="2.6.0" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="10.0.10" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.0" />
+		<PackageReference Include="OpenAI" Version="2.7.0" />
 	</ItemGroup>
 
 </Project>

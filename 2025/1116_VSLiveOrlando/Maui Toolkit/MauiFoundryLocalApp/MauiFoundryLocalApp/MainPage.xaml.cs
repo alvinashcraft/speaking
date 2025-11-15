@@ -13,7 +13,7 @@ namespace MauiFoundryLocalApp
 
         private async void OnCounterClicked(object? sender, EventArgs e)
         {
-            var alias = "phi-4-mini";
+            var alias = "phi-4-mini-instruct-openvino-npu:2"; // Use OpenVINO NPU optimized model
 
             var manager = await FoundryLocalManager.StartModelAsync(aliasOrModelId: alias);
 
