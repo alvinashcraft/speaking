@@ -397,3 +397,33 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 .DS_Store
+
+# Common IntelliJ Platform excludes
+**/.idea/**/*.xml
+
+# Sensitive or high-churn files
+**/.idea/**/dataSources/
+**/.idea/**/dataSources.ids
+
+# Rider-specific files
+**/.idea/**/*.iml
+
+## Default ignored files
+/shelf/
+/workspace.xml
+
+# Rider ignored files
+/projectSettingsUpdater.xml
+/.idea.MauiCsharpMarkup.iml
+/contentModel.xml
+/modules.xml
+
+# Ignored default folder with query files
+/queries/
+
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# Editor-based HTTP Client requests
+/httpRequests/
