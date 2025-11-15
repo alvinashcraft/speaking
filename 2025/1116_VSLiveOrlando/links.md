@@ -1,4 +1,4 @@
-# Links from VSLive! @ Orlando 2025
+# Links from Live360 2025 in Orlando
 
 Date: **November 16-22 2025**
 
