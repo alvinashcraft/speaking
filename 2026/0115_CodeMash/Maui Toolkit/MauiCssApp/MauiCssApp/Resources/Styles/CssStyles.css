@@ -1,0 +1,13 @@
+﻿.primaryButton {
+    background-color: blue;
+    color: white;
+    padding: 10 20;
+    font-style: bold;
+    font-size: 14;
+    border: none;
+    border-radius: 5;
+}
+
+^contentpage {
+    background-color: lightgray;
+}
