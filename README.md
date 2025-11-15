@@ -11,7 +11,7 @@ Resources from my speaking engagements:
 
 ## Upcoming events in 2025 and 2026
 
-- [VSLive! / Live! 360 Orlando](https://vslive.com/ecg/live360events/events/orlando-2025/vslive.aspx) - November 16-21
+- [VSLive! / Live360 Orlando](https://vslive.com/ecg/live360events/events/orlando-2025/vslive.aspx) - November 16-21
 - [CodeMash 2026](https://events.codemash.org/2026CodeMashConference#/) - January 13-16
 
 ## My current sessions
