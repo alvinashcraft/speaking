@@ -26,7 +26,7 @@
 
             <Button
                 x:Name="CounterBtn"
-                Text="Click me" 
+                Text="Why is the sky blue?" 
                 SemanticProperties.Hint="Calls Foundry Local to get info."
                 Clicked="OnCounterClicked"
                 HorizontalOptions="Fill" />

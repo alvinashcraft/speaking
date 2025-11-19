@@ -28,7 +28,7 @@ namespace MauiFoundryLocalApp
 
             var completionUpdates = chatClient.CompleteChatStreaming("Why is the sky blue'");
 
-            var stringWriter = new StringWriter();
+            using var stringWriter = new StringWriter();
             await stringWriter.WriteLineAsync($"[ASSISTANT]: ");
             foreach (var completionUpdate in completionUpdates)
             {
