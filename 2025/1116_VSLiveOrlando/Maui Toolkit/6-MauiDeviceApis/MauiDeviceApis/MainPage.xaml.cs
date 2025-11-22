@@ -45,11 +45,16 @@
         {
             if (MediaPicker.Default.IsCaptureSupported)
             {
-                FileResult photo = await MediaPicker.Default.PickPhotoAsync();
-
-                if (photo != null)
+                var options = new MediaPickerOptions
                 {
-                    Stream sourceStream = await photo.OpenReadAsync();
+                    Title = "Please pick a photo",
+                    SelectionLimit = 1
+                };
+                List<FileResult> photos = await MediaPicker.Default.PickPhotosAsync(options);
+
+                if (photos != null && photos.Count > 0)
+                {
+                    Stream sourceStream = await photos[0].OpenReadAsync();
                     myImage.Source = ImageSource.FromStream(() => sourceStream);
                 }
             }

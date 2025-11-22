@@ -26,10 +26,11 @@ namespace MauiFoundryLocalApp
 
             var chatClient = client.GetChatClient(model?.ModelId);
 
-            var completionUpdates = chatClient.CompleteChatStreaming("Why is the sky blue'");
+            var completionUpdates = chatClient.CompleteChatStreaming("Why is the sky blue?");
 
             using var stringWriter = new StringWriter();
             await stringWriter.WriteLineAsync($"[ASSISTANT]: ");
+
             foreach (var completionUpdate in completionUpdates)
             {
                 if (completionUpdate.ContentUpdate.Count > 0)
