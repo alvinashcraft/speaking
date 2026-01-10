@@ -427,3 +427,6 @@ FodyWeavers.xsd
 
 # Editor-based HTTP Client requests
 /httpRequests/
+
+# JetBrains IDEs (IntelliJ, Rider, etc.)
+.idea/
