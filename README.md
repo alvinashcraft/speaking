@@ -9,7 +9,7 @@ Resources from my speaking engagements:
 - Links
 - Videos
 
-## Upcoming events in 2025 and 2026
+## Upcoming events in 2026
 
 - [DWX 2026](https://www.developer-world.com/dwx) - June 29 - July 2
 - [Nebraska.Code() 2026](https://nebraskacode.amegala.com/) - July 22-24
