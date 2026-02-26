@@ -11,29 +11,26 @@ Resources from my speaking engagements:
 
 ## Upcoming events in 2025 and 2026
 
-- [VSLive! / Live360 Orlando](https://vslive.com/ecg/live360events/events/orlando-2025/vslive.aspx) - November 16-21
-- [CodeMash 2026](https://events.codemash.org/2026CodeMashConference#/) - January 13-16
+- [DWX 2026](https://www.developer-world.com/dwx) - June 29 - July 2
+- [Nebraska.Code() 2026](https://nebraskacode.amegala.com/) - July 22-24
 
 ## My current sessions
 
-- Learn, Share, and Grow: How to Become a Microsoft Learn Contributor
-- Building a modern, native application for Windows: Which UI framework should you choose?
-- Get Started Building Windows Apps with WinUI and the Windows App SDK
-- The Life of a Content Developer Working on Microsoft Learn
-- Create a WinUI App with Microsoft's Community Toolkits (Workshop)
-- Explore Windows AI Dev Options with the AI Dev Gallery
-- Build beautiful multi-platform apps with Uno Platform
-- Create multi-platform apps with .NET MAUI and the MAUI Community Toolkit
-- Build intelligent apps with WinUI, Phi Silica and the Windows AI APIs
+- Inside Microsoft Learn: Mastering the Open-Source Contribution Workflow
+- Modern Windows Development: Choosing the Right UI Framework
+- Build Native: The Developer’s Guide to WinUI
+- Microsoft Learn: Building Docs at Scale with GitHub & AI
+- WinUI 3: Build a Modern Windows App from Scratch (Workshop)
+- Fast-Track Your AI App: Hands-on with the AI Dev Gallery
+- Build Beautiful Cross-Platform Apps with Uno Platform
+- Accelerate .NET MAUI Development with the Community Toolkits
+- Local AI on Windows: Integrating Phi Silica and Foundry into .NET Apps
+- PowerToys Tips & Tricks: A Lightning Tour
+- Supercharge Your Agents: Custom Tools, MCP, and Microsoft Foundry
+- The Developer’s Guide to Microsoft Foundry: Models, Agents, and SDKs
 
 ## Recent Speaking Engagements
 
-- TechBash 2024, Pocono Manor, PA
-  - September 27th (Choosing a Native Windows UI Framework)
-- CodeMash 2025, Sandusky, OH
-  - January 16th (Choosing a Native Windows UI Framework)
-- NDC London 2025
-  - January 30th (Choosing a Native Windows UI Framework) - [Recording](https://www.youtube.com/watch?v=tB32vhWq3iU)
 - VSLive! Las Vegas 2025
   - March 11th (Choosing a Native Windows UI Framework)
   - March 12th (Contributing to Microsoft Learn - Fast Focus Session)
@@ -44,6 +41,11 @@ Resources from my speaking engagements:
   - May 21st (Build intelligent apps with WinUI, Phi Silica and the Windows AI APIs)
 - Update Conference Krakow 2025
   - May 26th (Choosing a Native Windows UI Framework) - [Recording](https://www.youtube.com/watch?v=DH3xvO05lI0)
+- Live360 / VSLive! Orlando 2025
+  - November 18th (Contributing to Microsoft Learn - Fast Focus Session)
+  - November 20th (Create Multi-Platform Apps with .NET MAUI and the MAUI Community Toolkit)
+- CodeMash 2026
+  - January 15th (Create Multi-Platform Apps with .NET MAUI and the MAUI Community Toolkit)
 
 ## My books
 
