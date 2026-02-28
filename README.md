@@ -13,6 +13,7 @@ Resources from my speaking engagements:
 
 - [DWX 2026](https://www.developer-world.com/dwx) - June 29 - July 2
 - [Nebraska.Code() 2026](https://nebraskacode.amegala.com/) - July 22-24
+- [VSLive! San Diego 2026](https://vslive.com/events/san-diego-2026/home.aspx) - September 14-18
 
 ## My current sessions
 
