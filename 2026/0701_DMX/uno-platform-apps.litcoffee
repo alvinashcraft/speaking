@@ -1,13 +1,86 @@
 ---
 marp: true
-theme: default
+theme: gaia
 paginate: true
 _paginate: false
 title: Build Beautiful Cross-Platform Apps with Uno Platform
 author: Alvin Ashcraft
+footer: DMX 2026
+style: |
+  :root {
+    --color-background: #fff;
+    --color-foreground: #333;
+    --color-highlight: #7B2D8E;
+    --color-dimmed: #9B59B6;
+  }
+  section {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+  section.lead {
+    background-color: var(--color-highlight);
+    color: #fff;
+  }
+  section.lead.invert {
+    background-color: #4A0E5C;
+    color: #f0e6f6;
+  }
+  section.invert {
+    background-color: #4A0E5C;
+    color: #f0e6f6;
+  }
+  h1, h2 {
+    color: var(--color-highlight);
+  }
+  section.lead h1, section.lead h2, section.lead h3, section.lead h4 {
+    color: #fff;
+  }
+  section.invert h1, section.invert h2, section.invert h3, section.invert h4 {
+    color: #f0e6f6;
+  }
+  a {
+    color: var(--color-dimmed);
+  }
+  section.lead a, section.invert a {
+    color: #d4a8e0;
+  }
+  header {
+    color: var(--color-highlight);
+  }
+  footer {
+    font-size: 0.6em;
+  }
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .columns-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  section.lead footer {
+    display: none;
+  }
+  .fa-bluesky { color: #0085ff; }
+  .fa-github { color: #6e5494; }
+  .fa-globe { color: #7B2D8E; }
+  ul {
+    list-style-type: disc;
+  }
+  ul ul {
+    list-style-type: circle;
+  }
+  table th {
+    background-color: #7B2D8E;
+    color: #fff;
+  }
+  @import 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css'
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead invert -->
+<!-- _footer: '' -->
 
 # Build Beautiful Cross-Platform Apps with Uno Platform
 
@@ -22,10 +95,11 @@ author: Alvin Ashcraft
 ## About Me
 
 - **Alvin Ashcraft**
-- Sr. Content Developer
-- Microsoft Learn
-- [github.com/alvinashcraft](https://www.github.com/alvinashcraft/) / [alvinashcraft.com](https://www.alvinashcraft.com/)
-- [bsky.app/profile/alvinashcraft.com](https://bsky.app/profile/alvinashcraft.com)
+- Sr. Content Developer — Microsoft Learn
+
+<i class="fa-brands fa-github"></i> [github.com/alvinashcraft](https://www.github.com/alvinashcraft/)
+<i class="fa-solid fa-globe"></i> [alvinashcraft.com](https://www.alvinashcraft.com/)
+<i class="fa-brands fa-bluesky"></i> [bsky.app/profile/alvinashcraft.com](https://bsky.app/profile/alvinashcraft.com)
 
 ---
 
@@ -74,7 +148,7 @@ author: Alvin Ashcraft
 
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead invert -->
 
 # Develop Your Way
 
@@ -98,35 +172,68 @@ author: Alvin Ashcraft
 
 ## Visual Studio
 
+<div class="columns">
+<div>
+
 - XAML Hot Reload for rapid iteration
 - Solution Explorer with multi-target awareness
 - Integrated emulators and simulators
 - NuGet package management
-- <!-- TODO: Add screenshot or demo -->
+
+</div>
+<div>
+
+<!-- TODO: Add screenshot -->
+![w:450](images/vs-screenshot.png)
+
+</div>
+</div>
 
 ---
 
 ## VS Code
 
+<div class="columns">
+<div>
+
 - Uno Platform Extension for VS Code
 - C# Dev Kit integration
 - Terminal-based workflows
 - Great for Linux developers
-- <!-- TODO: Add screenshot or demo -->
+
+</div>
+<div>
+
+<!-- TODO: Add screenshot -->
+![w:450](images/vscode-screenshot.png)
+
+</div>
+</div>
 
 ---
 
 ## JetBrains Rider
 
+<div class="columns">
+<div>
+
 - First-class .NET IDE on all platforms
 - XAML preview and editing support
 - Powerful refactoring tools
 - Integrated unit testing
-- <!-- TODO: Add screenshot or demo -->
+
+</div>
+<div>
+
+<!-- TODO: Add screenshot -->
+![w:450](images/rider-screenshot.png)
+
+</div>
+</div>
 
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead invert -->
 
 # Accelerate Creation
 
@@ -159,15 +266,25 @@ author: Alvin Ashcraft
 
 ## What You Get
 
+<div class="columns">
+<div>
+
 - Multi-targeted solution structure
 - Pre-configured dependency injection
 - Navigation setup (Uno.Extensions.Navigation)
+
+</div>
+<div>
+
 - Theming with Material or Fluent styles
 - Ready-to-run on all selected platforms
 
+</div>
+</div>
+
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead invert -->
 
 # Bridge Design & Code
 
@@ -185,7 +302,7 @@ author: Alvin Ashcraft
 
 ---
 
-## Figma to Code Workflow
+## Design to Code Workflow
 
 1. Designers create UI in Figma
 2. Use the Uno Platform Figma plugin
@@ -197,7 +314,7 @@ author: Alvin Ashcraft
 
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead invert -->
 
 # Visualize Your UI
 
@@ -207,11 +324,21 @@ author: Alvin Ashcraft
 
 ## Hot Design — Uno Platform Studio
 
+<div class="columns">
+<div>
+
 - **Live visual editor** for your running app
 - Edit UI properties in real time — no recompile
 - Drag and drop components
+
+</div>
+<div>
+
 - Inspect the visual tree
 - Works alongside Hot Reload for code changes
+
+</div>
+</div>
 
 ---
 
@@ -227,7 +354,7 @@ author: Alvin Ashcraft
 
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead invert -->
 
 # Go XAML-Free
 
@@ -277,7 +404,7 @@ this.DataContext<MainViewModel>((page, vm) => page.Content(
 
 ---
 
-<!-- _class: lead -->
+<!-- _class: lead invert -->
 
 # Modernize Legacy Apps
 
@@ -309,16 +436,26 @@ this.DataContext<MainViewModel>((page, vm) => page.Content(
 
 ## Architecture Overview
 
+<div class="columns">
+<div>
+
 - **Single multi-targeted project** — UI, ViewModels, business logic
 - **Uno.WinUI** — cross-platform WinUI API implementation
 - **Skia rendering** — pixel-perfect UI via Skia (default on non-Windows)
+
+</div>
+<div>
+
 - **Uno.Extensions** — MVUX, Navigation, DI, HTTP, Auth
 - **Uno Toolkit** — pre-built cross-platform UI components
 - **MVUX pattern** — Model-View-Update eXtended with immutable records
 
+</div>
+</div>
+
 ---
 
-## Demo Time
+## Demo Time 🎉
 
 <!-- TODO: Add live demos covering:
   - Creating a project with the Live Wizard
@@ -332,12 +469,12 @@ this.DataContext<MainViewModel>((page, vm) => page.Content(
 
 ## Resources
 
-- **Uno Platform** — [platform.uno](https://platform.uno)
-- **Documentation** — [platform.uno/docs](https://platform.uno/docs/articles/intro.html)
-- **Live Wizard** — [platform.uno/create](https://platform.uno/create)
-- **GitHub** — [github.com/unoplatform/uno](https://github.com/unoplatform/uno)
-- **Uno Figma Plugin** — Available in the Figma Community
-- **Samples & Workshops** — [github.com/unoplatform/uno.samples](https://github.com/unoplatform/uno.samples)
+- <i class="fa-solid fa-globe"></i> **Uno Platform** — [platform.uno](https://platform.uno)
+- <i class="fa-solid fa-book"></i> **Documentation** — [platform.uno/docs](https://platform.uno/docs/articles/intro.html)
+- <i class="fa-solid fa-wand-magic-sparkles"></i> **Live Wizard** — [platform.uno/create](https://platform.uno/create)
+- <i class="fa-brands fa-github"></i> **GitHub** — [github.com/unoplatform/uno](https://github.com/unoplatform/uno)
+- <i class="fa-brands fa-figma"></i> **Uno Figma Plugin** — Available in the Figma Community
+- <i class="fa-solid fa-flask"></i> **Samples** — [github.com/unoplatform/uno.samples](https://github.com/unoplatform/uno.samples)
 
 <!-- TODO: Verify and update all links -->
 
@@ -345,21 +482,21 @@ this.DataContext<MainViewModel>((page, vm) => page.Content(
 
 ## Resources (cont.)
 
-- **Uno Platform Discord** — Community chat and support
-- **YouTube** — Uno Platform channel for tutorials and walkthroughs
-- **Blog** — [platform.uno/blog](https://platform.uno/blog)
-- **Uno Toolkit** — Pre-built UI components
-- **Uno MCP Servers** — AI-assisted development with docs search and app interaction
+- <i class="fa-brands fa-discord"></i> **Uno Platform Discord** — Community chat and support
+- <i class="fa-brands fa-youtube"></i> **YouTube** — Uno Platform channel for tutorials and walkthroughs
+- <i class="fa-solid fa-rss"></i> **Blog** — [platform.uno/blog](https://platform.uno/blog)
+- <i class="fa-solid fa-toolbox"></i> **Uno Toolkit** — Pre-built UI components
+- <i class="fa-solid fa-robot"></i> **Uno MCP Servers** — AI-assisted development with docs search and app interaction
 
 ---
 
-<!-- _backgroundColor: #1a1a2e -->
-<!-- _color: #eee -->
+<!-- _class: lead invert -->
 <!-- _header: '' -->
+<!-- _footer: '' -->
 
 ## <!-- fit --> Thank You!
 
 ### Questions?
 
-<!-- TODO: Add contact info / social links -->
+<i class="fa-solid fa-globe"></i> [alvinashcraft.com](https://www.alvinashcraft.com/) · <i class="fa-brands fa-bluesky"></i> [bsky.app/profile/alvinashcraft.com](https://bsky.app/profile/alvinashcraft.com)
 
