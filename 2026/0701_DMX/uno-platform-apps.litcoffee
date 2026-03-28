@@ -5,7 +5,7 @@ paginate: true
 _paginate: false
 title: Build Beautiful Cross-Platform Apps with Uno Platform
 author: Alvin Ashcraft
-footer: DMX 2026
+footer: DWX 2026
 style: |
   :root {
     --color-background: #fff;
