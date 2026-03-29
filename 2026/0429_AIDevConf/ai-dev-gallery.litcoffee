@@ -39,8 +39,7 @@ style: |
 
 <!-- _class: lead invert -->
 <!-- _footer: '' -->
-
-# Explore Windows AI Dev Options with the AI Dev Gallery
+# Explore Windows AI Development  with the AI Dev Gallery
 
 ### Alvin Ashcraft
 
@@ -100,7 +99,7 @@ style: |
 - View **C# source code** for every sample
 - **Export standalone Visual Studio projects** with a single click
 - Works **offline** — models run locally
-- Supports **x64** and **ARM64**
+- Supports **x64** and **Arm64** PCs
 
 </div>
 </div>
@@ -135,4 +134,3 @@ style: |
 ### Questions?
 
 <i class="fa-solid fa-globe"></i> [alvinashcraft.com](https://www.alvinashcraft.com/) · <i class="fa-brands fa-bluesky"></i> [bsky.app/profile/alvinashcraft.com](https://bsky.app/profile/alvinashcraft.com)
-
