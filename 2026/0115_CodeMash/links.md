@@ -1,6 +1,6 @@
 # Links from CodeMash 2026
 
-Date: **January 13-17 2025**
+Date: **January 13-17 2026**
 
 Session:
 
