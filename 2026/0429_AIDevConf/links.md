@@ -8,11 +8,11 @@ Session:
 
 ## Alvin Ashcraft's links
 
+- [About.me](https://about.me/alvinashcraft)
 - [Alvin on LinkedIn](https://www.linkedin.com/in/alvinashcraft/)
 - [Alvin's blog](https://www.alvinashcraft.com/)
-- [Alvin on Bluesky](https://bsky.app/profile/alvinashcraft.com)
 - [Alvin's GitHub](https://github.com/alvinashcraft)
-- [Buy my books](https://www.amazon.com/stores/Alvin-Ashcraft/author/B08WLD35BX)
+- [Alvin on Bluesky]((https://bsky.app/profile/alvinashcraft.com))
 
 ## Session links
 
@@ -37,5 +37,6 @@ Here are some useful links related to my AI Dev Gallery session.
 ### Other links
 
 - [TechBash Developer Conference](https://techbash.com/)
+- [Buy my books](https://www.amazon.com/stores/Alvin-Ashcraft/author/B08WLD35BX)
 - [Windows Community Toolkit on GitHub](https://github.com/CommunityToolkit/Windows)
 - [Download Visual Studio](https://visualstudio.microsoft.com/downloads/)
