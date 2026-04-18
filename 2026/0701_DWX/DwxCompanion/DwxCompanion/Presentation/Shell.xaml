@@ -1,0 +1,109 @@
+<UserControl x:Class="DwxCompanion.Presentation.Shell"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:DwxCompanion.Presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:utu="using:Uno.Toolkit.UI"
+      xmlns:uen="using:Uno.Extensions.Navigation.UI"
+      mc:Ignorable="d"
+      d:DesignHeight="600"
+      d:DesignWidth="900">
+  <Border Background="{ThemeResource BackgroundBrush}">
+    <utu:ExtendedSplashScreen x:Name="Splash"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              HorizontalContentAlignment="Stretch"
+                              VerticalContentAlignment="Stretch">
+      <utu:ExtendedSplashScreen.LoadingContentTemplate>
+        <DataTemplate>
+          <Grid Background="#0A0A0A">
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Spacing="24">
+              <TextBlock Text="DWX"
+                         FontSize="72"
+                         FontWeight="Bold"
+                         Foreground="#C9F04C"
+                         HorizontalAlignment="Center" />
+              <TextBlock Text="Companion"
+                         FontSize="20"
+                         Foreground="#E6E8EC"
+                         HorizontalAlignment="Center" />
+              <ProgressRing IsActive="True"
+                            Height="48"
+                            Width="48"
+                            Foreground="#C9F04C" />
+            </StackPanel>
+          </Grid>
+        </DataTemplate>
+      </utu:ExtendedSplashScreen.LoadingContentTemplate>
+
+      <NavigationView uen:Region.Attached="True"
+                      PaneDisplayMode="Left"
+                      IsBackButtonVisible="Collapsed"
+                      IsSettingsVisible="False"
+                      IsPaneToggleButtonVisible="True"
+                      OpenPaneLength="240">
+        <NavigationView.PaneHeader>
+          <StackPanel Orientation="Horizontal"
+                      Spacing="8"
+                      Margin="12,12,12,4">
+            <TextBlock Text="DWX"
+                       FontSize="24"
+                       FontWeight="Bold"
+                       Foreground="{ThemeResource PrimaryBrush}"
+                       VerticalAlignment="Center" />
+            <TextBlock Text="Companion"
+                       FontSize="14"
+                       VerticalAlignment="Center"
+                       Opacity="0.8" />
+          </StackPanel>
+        </NavigationView.PaneHeader>
+
+        <NavigationView.MenuItems>
+          <NavigationViewItem Content="Sessions"
+                              uen:Region.Name="Sessions"
+                              IsSelected="True">
+            <NavigationViewItem.Icon>
+              <FontIcon Glyph="&#xE8FD;" />
+            </NavigationViewItem.Icon>
+          </NavigationViewItem>
+          <NavigationViewItem Content="Speakers"
+                              uen:Region.Name="Speakers">
+            <NavigationViewItem.Icon>
+              <FontIcon Glyph="&#xE716;" />
+            </NavigationViewItem.Icon>
+          </NavigationViewItem>
+          <NavigationViewItem Content="My Agenda"
+                              uen:Region.Name="MyAgenda">
+            <NavigationViewItem.Icon>
+              <FontIcon Glyph="&#xE787;" />
+            </NavigationViewItem.Icon>
+          </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <NavigationView.FooterMenuItems>
+          <NavigationViewItem Content="Settings"
+                              uen:Region.Name="Settings">
+            <NavigationViewItem.Icon>
+              <FontIcon Glyph="&#xE713;" />
+            </NavigationViewItem.Icon>
+          </NavigationViewItem>
+        </NavigationView.FooterMenuItems>
+
+        <Grid uen:Region.Attached="True"
+              uen:Region.Navigator="Visibility">
+          <local:SessionsPage uen:Region.Name="Sessions"
+                              Visibility="Collapsed" />
+          <local:SpeakersPage uen:Region.Name="Speakers"
+                              Visibility="Collapsed" />
+          <local:MyAgendaPage uen:Region.Name="MyAgenda"
+                              Visibility="Collapsed" />
+          <local:SettingsPage uen:Region.Name="Settings"
+                              Visibility="Collapsed" />
+        </Grid>
+      </NavigationView>
+    </utu:ExtendedSplashScreen>
+  </Border>
+</UserControl>

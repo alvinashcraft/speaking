@@ -1,0 +1,95 @@
+{
+  "sessions": [
+    {
+      "id": "s1",
+      "title": "Build Beautiful Cross-Platform Apps with Uno Platform",
+      "track": "Cross-Platform",
+      "roomId": "mozart1",
+      "startsAt": "2026-07-01T14:00:00+02:00",
+      "endsAt": "2026-07-01T15:00:00+02:00",
+      "speakerIds": [ "alvin" ],
+      "abstract": "Learn how Uno Platform lets you build beautiful, native, single-codebase apps for Windows, the web, mobile, and desktop. We'll cover the Live Wizard, Hot Design, Figma-to-XAML, C# Markup, the Uno MCP servers, and migrating WinUI apps to cross-platform."
+    },
+    {
+      "id": "s2",
+      "title": "Modernizing WinUI Apps with .NET 10",
+      "track": "Windows",
+      "roomId": "mozart2",
+      "startsAt": "2026-07-01T15:30:00+02:00",
+      "endsAt": "2026-07-01T16:30:00+02:00",
+      "speakerIds": [ "jane" ],
+      "abstract": "Take your existing WinUI 3 / Windows App SDK apps to the next level with .NET 10 features, performance improvements, and cross-platform reach via Uno Platform."
+    },
+    {
+      "id": "s3",
+      "title": "MVUX Deep Dive: Reactive State for .NET Apps",
+      "track": "Architecture",
+      "roomId": "mozart1",
+      "startsAt": "2026-07-02T09:00:00+02:00",
+      "endsAt": "2026-07-02T10:00:00+02:00",
+      "speakerIds": [ "kai" ],
+      "abstract": "MVUX combines the best of MVVM and Elm-style architectures. Learn how immutable records, feeds, and states create predictable, testable apps."
+    },
+    {
+      "id": "s4",
+      "title": "From Figma to Production with Uno Platform Studio",
+      "track": "Design",
+      "roomId": "mozart2",
+      "startsAt": "2026-07-02T10:30:00+02:00",
+      "endsAt": "2026-07-02T11:30:00+02:00",
+      "speakerIds": [ "alvin", "jane" ],
+      "abstract": "Bridge the design-developer gap. Export Figma frames directly to XAML or C# Markup, and iterate visually with Hot Design."
+    },
+    {
+      "id": "s5",
+      "title": "AI-Assisted Cross-Platform Development with MCP",
+      "track": "AI",
+      "roomId": "mozart1",
+      "startsAt": "2026-07-02T13:00:00+02:00",
+      "endsAt": "2026-07-02T14:00:00+02:00",
+      "speakerIds": [ "kai", "alvin" ],
+      "abstract": "Pair your AI agent with the Uno MCP servers for grounded code generation and live app inspection. We'll build a feature end-to-end with Copilot driving."
+    }
+  ],
+  "speakers": [
+    {
+      "id": "alvin",
+      "name": "Alvin Ashcraft",
+      "title": "Sr. Content Developer, Microsoft Learn",
+      "bio": "Alvin Ashcraft is a Microsoft MVP alumnus and the curator of the Morning Dew, a daily collection of links for .NET developers. He has spent over 25 years building Windows and web apps and writes about .NET, Uno Platform, and developer productivity.",
+      "photoUrl": "ms-appx:///Assets/Speakers/alvin.png",
+      "links": {
+        "blog": "https://www.alvinashcraft.com/",
+        "bluesky": "https://bsky.app/profile/alvinashcraft.com",
+        "github": "https://github.com/alvinashcraft",
+        "linkedIn": "https://www.linkedin.com/in/alvinashcraft/"
+      }
+    },
+    {
+      "id": "jane",
+      "name": "Jane Mueller",
+      "title": "Principal Engineer, Contoso",
+      "bio": "Jane has been shipping desktop apps on Windows since the WinForms era. She specializes in modernizing legacy line-of-business apps with WinUI and Uno Platform.",
+      "photoUrl": "ms-appx:///Assets/Speakers/jane.png",
+      "links": {
+        "github": "https://github.com/example-jane"
+      }
+    },
+    {
+      "id": "kai",
+      "name": "Kai Schmidt",
+      "title": "Independent Consultant",
+      "bio": "Kai helps teams adopt reactive architectures and AI-driven workflows. He is a frequent speaker at .NET conferences across Europe.",
+      "photoUrl": "ms-appx:///Assets/Speakers/kai.png",
+      "links": {
+        "blog": "https://example.com/kai",
+        "github": "https://github.com/example-kai"
+      }
+    }
+  ],
+  "rooms": [
+    { "id": "mozart1", "name": "Mozart 1", "capacity": 200 },
+    { "id": "mozart2", "name": "Mozart 2", "capacity": 150 },
+    { "id": "beethoven", "name": "Beethoven", "capacity": 80 }
+  ]
+}

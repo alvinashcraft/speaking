@@ -455,6 +455,47 @@ this.DataContext<MainViewModel>((page, vm) => page.Content(
 
 ---
 
+<!-- _class: lead invert -->
+
+# AI-Assisted Development
+
+### Build Uno apps faster with the Uno MCP Servers
+
+---
+
+## Uno MCP Servers
+
+- **Model Context Protocol** servers tailored for Uno Platform development
+- Plug into AI assistants like GitHub Copilot, Claude, and Cursor
+- Two complementary servers:
+  - **Docs MCP** — semantic search over Uno Platform documentation
+  - **App MCP** — interact with your running Uno app (inspect visual tree, read state, drive UI)
+- Keeps AI grounded in accurate, up-to-date Uno guidance
+
+---
+
+## What You Can Do With It
+
+<div class="columns">
+<div>
+
+- Ask "How do I add navigation?" and get answers grounded in current docs
+- Generate XAML or C# Markup snippets that actually compile
+- Scaffold MVUX models, pages, and bindings
+
+</div>
+<div>
+
+- Let the AI inspect your running app to debug layout or binding issues
+- Pair with Hot Design and Hot Reload for a tight feedback loop
+
+</div>
+</div>
+
+<!-- TODO: Add demo or screenshots -->
+
+---
+
 ## Demo Time 🎉
 
 <!-- TODO: Add live demos covering:

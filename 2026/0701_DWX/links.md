@@ -12,7 +12,7 @@ Get all the links related to my Uno Platform session from Mannheim, Germany.
 - [Alvin on LinkedIn](https://www.linkedin.com/in/alvinashcraft/)
 - [Alvin's blog](https://www.alvinashcraft.com/)
 - [Alvin's GitHub](https://github.com/alvinashcraft)
-- [Alvin on Bluesky]((https://bsky.app/profile/alvinashcraft.com))
+- [Alvin on Bluesky](https://bsky.app/profile/alvinashcraft.com)
 
 ### Uno Platform links
 
