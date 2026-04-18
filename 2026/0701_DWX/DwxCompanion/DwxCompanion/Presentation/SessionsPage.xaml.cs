@@ -1,6 +1,6 @@
 namespace DwxCompanion.Presentation;
 
-public sealed partial class SessionsPage : Page
+public sealed partial class SessionsPage : UserControl
 {
     public SessionsPage()
     {

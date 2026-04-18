@@ -1,8 +1,8 @@
 namespace DwxCompanion.Presentation;
 
-public sealed partial class Shell : UserControl
+public sealed partial class MainPage : Page
 {
-    public Shell()
+    public MainPage()
     {
         this.InitializeComponent();
     }

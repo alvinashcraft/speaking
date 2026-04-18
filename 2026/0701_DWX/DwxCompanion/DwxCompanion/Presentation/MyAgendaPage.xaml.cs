@@ -1,6 +1,6 @@
 namespace DwxCompanion.Presentation;
 
-public sealed partial class MyAgendaPage : Page
+public sealed partial class MyAgendaPage : UserControl
 {
     public MyAgendaPage()
     {

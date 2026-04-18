@@ -1,0 +1,98 @@
+<Page x:Class="DwxCompanion.Presentation.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:DwxCompanion.Presentation"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:utu="using:Uno.Toolkit.UI"
+      xmlns:uen="using:Uno.Extensions.Navigation.UI"
+      mc:Ignorable="d"
+      Background="#0A0A0A">
+  <Grid uen:Region.Attached="True">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="240" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+
+    <Border Grid.Column="0"
+            Background="#181818"
+            BorderBrush="#2A2A2A"
+            BorderThickness="0,0,1,0">
+      <Grid>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="*" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Spacing="8"
+                    Margin="20,24,20,32">
+          <TextBlock Text="DWX"
+                     FontSize="28"
+                     FontWeight="Bold"
+                     Foreground="#C9F04C"
+                     VerticalAlignment="Center" />
+          <TextBlock Text="Companion"
+                     FontSize="16"
+                     Foreground="#E6E8EC"
+                     VerticalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Spacing="4"
+                    Margin="12,0">
+          <Button Content="Sessions"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Padding="16,12"
+                  Background="Transparent"
+                  Foreground="#E6E8EC"
+                  BorderThickness="0"
+                  uen:Navigation.Request="./Sessions" />
+          <Button Content="Speakers"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Padding="16,12"
+                  Background="Transparent"
+                  Foreground="#E6E8EC"
+                  BorderThickness="0"
+                  uen:Navigation.Request="./Speakers" />
+          <Button Content="My Agenda"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Padding="16,12"
+                  Background="Transparent"
+                  Foreground="#E6E8EC"
+                  BorderThickness="0"
+                  uen:Navigation.Request="./MyAgenda" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Margin="12,0,12,16">
+          <Button Content="Settings"
+                  HorizontalAlignment="Stretch"
+                  HorizontalContentAlignment="Left"
+                  Padding="16,12"
+                  Background="Transparent"
+                  Foreground="#E6E8EC"
+                  BorderThickness="0"
+                  uen:Navigation.Request="./Settings" />
+        </StackPanel>
+      </Grid>
+    </Border>
+
+    <Grid Grid.Column="1"
+          uen:Region.Attached="True"
+          uen:Region.Navigator="Visibility">
+      <local:SessionsPage uen:Region.Name="Sessions" />
+      <local:SpeakersPage uen:Region.Name="Speakers"
+                          Visibility="Collapsed" />
+      <local:MyAgendaPage uen:Region.Name="MyAgenda"
+                          Visibility="Collapsed" />
+      <local:SettingsPage uen:Region.Name="Settings"
+                          Visibility="Collapsed" />
+    </Grid>
+  </Grid>
+</Page>

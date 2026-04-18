@@ -1,10 +1,10 @@
 {
-  "background_color": "#ffffff",
-  "description": "DwxCompanion",
+  "background_color": "#0A0A0A",
+  "description": "DWX 2026 Companion",
   "display": "standalone",
-  "name": "DwxCompanion",
-  "short_name": "DwxCompanion",
+  "name": "DWX Companion",
+  "short_name": "DWX",
   "start_url": "/index.html",
-  "theme_color": "#ffffff",
+  "theme_color": "#C9F04C",
   "scope": "/"
 }

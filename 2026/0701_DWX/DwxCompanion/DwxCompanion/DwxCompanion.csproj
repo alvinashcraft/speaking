@@ -45,14 +45,25 @@
       Localization;
       Navigation;
       ThemeService;
-      SkiaRenderer;
     </UnoFeatures>
+  </PropertyGroup>
+
+  <!-- Use Skia renderer everywhere except WebAssembly, which has a canvas init NRE -->
+  <PropertyGroup Condition="'$(TargetFramework)' != 'net10.0-browserwasm'">
+    <UnoFeatures>$(UnoFeatures);SkiaRenderer;</UnoFeatures>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Update="Assets\sessions.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- DWX-branded splash with dark background painted by Resizetizer -->
+    <UnoSplashScreen Include="Assets\Splash\splash_screen.svg"
+                     BaseSize="450,450"
+                     Color="#0A0A0A" />
   </ItemGroup>
 
 </Project>

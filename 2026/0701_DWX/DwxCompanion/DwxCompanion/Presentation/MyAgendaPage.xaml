@@ -1,9 +1,8 @@
-<Page x:Class="DwxCompanion.Presentation.MyAgendaPage"
+<UserControl x:Class="DwxCompanion.Presentation.MyAgendaPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DwxCompanion.Presentation"
-      xmlns:utu="using:Uno.Toolkit.UI"
-      Background="{ThemeResource BackgroundBrush}">
+      xmlns:utu="using:Uno.Toolkit.UI">
   <Grid utu:SafeArea.Insets="VisibleBounds"
         Padding="24">
     <Grid.RowDefinitions>
@@ -12,16 +11,17 @@
     </Grid.RowDefinitions>
     <StackPanel Spacing="4">
       <TextBlock Text="My Agenda"
-                 Style="{StaticResource HeadlineMedium}" />
+                 FontSize="28"
+                 FontWeight="SemiBold" />
       <TextBlock Text="Your favorited sessions"
-                 Style="{StaticResource BodyMedium}"
+                 FontSize="14"
                  Opacity="0.7" />
     </StackPanel>
     <TextBlock Grid.Row="1"
                Text="(Favorites coming soon)"
-               Style="{StaticResource BodyLarge}"
+               FontSize="16"
                Opacity="0.5"
                HorizontalAlignment="Center"
                VerticalAlignment="Center" />
   </Grid>
-</Page>
+</UserControl>

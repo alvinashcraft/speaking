@@ -74,7 +74,30 @@ public partial class App : Application
                 {
                     services.AddSingleton<ISessionService, JsonSessionService>();
                 })
-                .UseNavigation(ReactiveViewModelMappings.ViewModelMappings, RegisterRoutes)
+                .ConfigureAppConfiguration(config =>
+                {
+#if __WASM__
+                    // Clear launchurl so WASM always starts at the Shell root,
+                    // preventing the URL-based deep-link race that replaces Shell
+                    // with the leaf page on reload.
+                    // See: https://github.com/unoplatform/uno.chefs/issues/738
+                    Microsoft.Extensions.Configuration.MemoryConfigurationBuilderExtensions
+                        .AddInMemoryCollection(config, new Dictionary<string, string?>
+                    {
+                        { HostingConstants.LaunchUrlKey, "" }
+                    });
+#endif
+                })
+                .UseNavigation(
+                    ReactiveViewModelMappings.ViewModelMappings,
+                    RegisterRoutes,
+                    configure: navConfig =>
+#if __WASM__
+                        navConfig with { AddressBarUpdateEnabled = false }
+#else
+                        navConfig
+#endif
+                    )
             );
         MainWindow = builder.Window;
 
@@ -83,13 +106,20 @@ public partial class App : Application
 #endif
                 MainWindow.SetWindowIcon();
 
-        Host = await builder.NavigateAsync<Shell>();
+        Host = await builder.NavigateAsync<
+#if __WASM__
+            Shell
+#else
+            MainPage
+#endif
+            >();
     }
 
     private static void RegisterRoutes(IViewRegistry views, IRouteRegistry routes)
     {
         views.Register(
             new ViewMap(ViewModel: typeof(ShellModel)),
+            new ViewMap<MainPage, MainModel>(),
             new ViewMap<SessionsPage, SessionsModel>(),
             new ViewMap<SpeakersPage, SpeakersModel>(),
             new ViewMap<MyAgendaPage, MyAgendaModel>(),
@@ -97,7 +127,22 @@ public partial class App : Application
         );
 
         routes.Register(
+#if __WASM__
             new RouteMap("", View: views.FindByViewModel<ShellModel>(),
+                Nested:
+                [
+                    new ("Main", View: views.FindByViewModel<MainModel>(), IsDefault: true,
+                        Nested:
+                        [
+                            new ("Sessions", View: views.FindByViewModel<SessionsModel>(), IsDefault: true),
+                            new ("Speakers", View: views.FindByViewModel<SpeakersModel>()),
+                            new ("MyAgenda", View: views.FindByViewModel<MyAgendaModel>()),
+                            new ("Settings", View: views.FindByViewModel<SettingsModel>()),
+                        ]),
+                ]
+            )
+#else
+            new RouteMap("", View: views.FindByViewModel<MainModel>(),
                 Nested:
                 [
                     new ("Sessions", View: views.FindByViewModel<SessionsModel>(), IsDefault: true),
@@ -106,6 +151,7 @@ public partial class App : Application
                     new ("Settings", View: views.FindByViewModel<SettingsModel>()),
                 ]
             )
+#endif
         );
     }
 }

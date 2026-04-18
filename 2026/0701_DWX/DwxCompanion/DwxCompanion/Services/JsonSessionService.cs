@@ -1,6 +1,9 @@
+using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+#if __WASM__
 using Windows.Storage;
+#endif
 
 namespace DwxCompanion.Services;
 
@@ -37,9 +40,17 @@ public class JsonSessionService : ISessionService
                 return _cache;
             }
 
+#if __WASM__
+            // WebAssembly has no real filesystem; read the asset through the Uno asset pipeline.
             var uri = new Uri("ms-appx:///Assets/sessions.json");
             var file = await StorageFile.GetFileFromApplicationUriAsync(uri);
-            using var stream = await file.OpenStreamForReadAsync();
+            await using var stream = await file.OpenStreamForReadAsync();
+#else
+            // Desktop, WinAppSDK (packaged & unpackaged), Android, iOS: read from the bundled
+            // file copied next to the executable via <Content CopyToOutputDirectory>.
+            var path = Path.Combine(AppContext.BaseDirectory, "Assets", "sessions.json");
+            await using var stream = File.OpenRead(path);
+#endif
 
             var dto = await JsonSerializer.DeserializeAsync<ConferenceDataDto>(stream, s_options, ct)
                 ?? throw new InvalidOperationException("sessions.json deserialized to null.");
