@@ -8,7 +8,7 @@
       "startsAt": "2026-07-01T14:00:00+02:00",
       "endsAt": "2026-07-01T15:00:00+02:00",
       "speakerIds": [ "alvin" ],
-      "abstract": "Learn how Uno Platform lets you build beautiful, native, single-codebase apps for Windows, the web, mobile, and desktop. We'll cover the Live Wizard, Hot Design, Figma-to-XAML, C# Markup, the Uno MCP servers, and migrating WinUI apps to cross-platform."
+      "summary": "Learn how Uno Platform lets you build beautiful, native, single-codebase apps for Windows, the web, mobile, and desktop. We'll cover the Live Wizard, Hot Design, Figma-to-XAML, C# Markup, the Uno MCP servers, and migrating WinUI apps to cross-platform."
     },
     {
       "id": "s2",
@@ -18,7 +18,7 @@
       "startsAt": "2026-07-01T15:30:00+02:00",
       "endsAt": "2026-07-01T16:30:00+02:00",
       "speakerIds": [ "jane" ],
-      "abstract": "Take your existing WinUI 3 / Windows App SDK apps to the next level with .NET 10 features, performance improvements, and cross-platform reach via Uno Platform."
+      "summary": "Take your existing WinUI 3 / Windows App SDK apps to the next level with .NET 10 features, performance improvements, and cross-platform reach via Uno Platform."
     },
     {
       "id": "s3",
@@ -28,7 +28,7 @@
       "startsAt": "2026-07-02T09:00:00+02:00",
       "endsAt": "2026-07-02T10:00:00+02:00",
       "speakerIds": [ "kai" ],
-      "abstract": "MVUX combines the best of MVVM and Elm-style architectures. Learn how immutable records, feeds, and states create predictable, testable apps."
+      "summary": "MVUX combines the best of MVVM and Elm-style architectures. Learn how immutable records, feeds, and states create predictable, testable apps."
     },
     {
       "id": "s4",
@@ -38,7 +38,7 @@
       "startsAt": "2026-07-02T10:30:00+02:00",
       "endsAt": "2026-07-02T11:30:00+02:00",
       "speakerIds": [ "alvin", "jane" ],
-      "abstract": "Bridge the design-developer gap. Export Figma frames directly to XAML or C# Markup, and iterate visually with Hot Design."
+      "summary": "Bridge the design-developer gap. Export Figma frames directly to XAML or C# Markup, and iterate visually with Hot Design."
     },
     {
       "id": "s5",
@@ -48,7 +48,7 @@
       "startsAt": "2026-07-02T13:00:00+02:00",
       "endsAt": "2026-07-02T14:00:00+02:00",
       "speakerIds": [ "kai", "alvin" ],
-      "abstract": "Pair your AI agent with the Uno MCP servers for grounded code generation and live app inspection. We'll build a feature end-to-end with Copilot driving."
+      "summary": "Pair your AI agent with the Uno MCP servers for grounded code generation and live app inspection. We'll build a feature end-to-end with Copilot driving."
     }
   ],
   "speakers": [

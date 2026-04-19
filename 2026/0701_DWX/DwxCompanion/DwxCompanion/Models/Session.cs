@@ -8,4 +8,4 @@ public partial record Session(
     DateTimeOffset StartsAt,
     DateTimeOffset EndsAt,
     IImmutableList<string> SpeakerIds,
-    string Abstract);
+    string Summary);

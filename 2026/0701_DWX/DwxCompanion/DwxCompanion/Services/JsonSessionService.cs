@@ -87,6 +87,28 @@ public class JsonSessionService : ISessionService
     public async ValueTask<Room?> GetRoomAsync(string id, CancellationToken ct = default)
         => (await GetConferenceDataAsync(ct)).Rooms.FirstOrDefault(r => r.Id == id);
 
+    public Session? SelectedSession { get; private set; }
+
+    public Speaker? SelectedSpeaker { get; private set; }
+
+    public event EventHandler? SelectedSessionChanged;
+
+    public event EventHandler? SelectedSpeakerChanged;
+
+    public ValueTask SelectSessionAsync(Session? session, CancellationToken ct = default)
+    {
+        SelectedSession = session;
+        SelectedSessionChanged?.Invoke(this, EventArgs.Empty);
+        return ValueTask.CompletedTask;
+    }
+
+    public ValueTask SelectSpeakerAsync(Speaker? speaker, CancellationToken ct = default)
+    {
+        SelectedSpeaker = speaker;
+        SelectedSpeakerChanged?.Invoke(this, EventArgs.Empty);
+        return ValueTask.CompletedTask;
+    }
+
     // DTOs use mutable lists so System.Text.Json (without source generation) can populate them
     // directly. They are projected to immutable types in GetConferenceDataAsync.
     private sealed class ConferenceDataDto

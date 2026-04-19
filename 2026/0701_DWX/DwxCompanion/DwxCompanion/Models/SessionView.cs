@@ -2,12 +2,12 @@ using System.Globalization;
 
 namespace DwxCompanion.Models;
 
-public partial record SessionView(Session Session, bool Use24HourFormat)
+public partial record SessionView(Session Session, bool Use24HourFormat, bool IsFavorite)
 {
     public string Id => Session.Id;
     public string Title => Session.Title;
     public string Track => Session.Track;
-    public string Abstract => Session.Abstract;
+    public string Summary => Session.Summary;
     public string DayLabel => Session.DayLabel;
     public string RoomId => Session.RoomId;
     public string SpeakerSummary => Session.SpeakerSummary;

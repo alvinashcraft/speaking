@@ -110,7 +110,23 @@ public sealed partial class SpeakerDetailPage : UserControl
         {
             if (args.NewValue is SpeakerDetailModel model)
             {
-                linksHost.Content = BuildLinksPanel(model.Speaker);
+                AttachSpeakerLinks(linksHost, model);
+            }
+        };
+    }
+
+    private static void AttachSpeakerLinks(ContentControl host, SpeakerDetailModel model)
+    {
+        // Initial build for the currently-selected speaker.
+        host.Content = BuildLinksPanel(model.Speaker);
+
+        // The model is reused across navigations (visibility-navigator caching),
+        // so we rebuild the links panel whenever Speaker fires PropertyChanged.
+        model.PropertyChanged += (_, args) =>
+        {
+            if (args.PropertyName is nameof(SpeakerDetailModel.Speaker))
+            {
+                host.Content = BuildLinksPanel(model.Speaker);
             }
         };
     }

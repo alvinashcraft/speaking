@@ -14,6 +14,13 @@ public partial class App : Application
     }
 
     protected Window? MainWindow { get; private set; }
+
+    /// <summary>
+    /// The main window's UI <see cref="Microsoft.UI.Dispatching.DispatcherQueue"/>, captured
+    /// when the host starts. Used by the SpeakerDetailModel INPC workaround to marshal
+    /// PropertyChanged back to the UI thread (the model can be constructed off-thread by DI).
+    /// </summary>
+    public static Microsoft.UI.Dispatching.DispatcherQueue? UIDispatcher { get; private set; }
     protected IHost? Host { get; private set; }
 
     protected async override void OnLaunched(LaunchActivatedEventArgs args)
@@ -74,6 +81,7 @@ public partial class App : Application
                 {
                     services.AddSingleton<ISessionService, JsonSessionService>();
                     services.AddSingleton<ISettingsService, SettingsService>();
+                    services.AddSingleton<IFavoritesService, FavoritesService>();
                 })
                 .ConfigureAppConfiguration(config =>
                 {
@@ -101,6 +109,7 @@ public partial class App : Application
                     )
             );
         MainWindow = builder.Window;
+        UIDispatcher = MainWindow.DispatcherQueue;
 
         #if DEBUG
         MainWindow.UseStudio();
@@ -122,9 +131,9 @@ public partial class App : Application
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
             new ViewMap<SessionsPage, SessionsModel>(),
-            new DataViewMap<SessionDetailPage, SessionDetailModel, Session>(),
+            new ViewMap<SessionDetailPage, SessionDetailModel>(),
             new ViewMap<SpeakersPage, SpeakersModel>(),
-            new DataViewMap<SpeakerDetailPage, SpeakerDetailModel, Speaker>(),
+            new ViewMap<SpeakerDetailPage, SpeakerDetailModel>(),
             new ViewMap<MyAgendaPage, MyAgendaModel>(),
             new ViewMap<SettingsPage, SettingsModel>()
         );

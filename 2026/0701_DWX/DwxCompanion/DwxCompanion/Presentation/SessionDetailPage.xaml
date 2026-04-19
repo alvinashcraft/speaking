@@ -61,6 +61,38 @@
             <Run Text="{Binding Session.RoomId}" />
           </TextBlock>
         </StackPanel>
+
+        <Button Background="#181818"
+                BorderBrush="#2A2A2A"
+                BorderThickness="1"
+                Foreground="#F5F5F5"
+                Padding="14,8"
+                CornerRadius="20"
+                HorizontalAlignment="Left"
+                Margin="0,4,0,0"
+                Command="{Binding ToggleFavorite}">
+          <StackPanel Orientation="Horizontal"
+                      Spacing="8">
+            <TextBlock FontSize="14">
+              <TextBlock.Text>
+                <Binding Path="IsFavorite">
+                  <Binding.Converter>
+                    <conv:BoolToStarConverter />
+                  </Binding.Converter>
+                </Binding>
+              </TextBlock.Text>
+            </TextBlock>
+            <TextBlock FontSize="13">
+              <TextBlock.Text>
+                <Binding Path="IsFavorite">
+                  <Binding.Converter>
+                    <conv:BoolToAgendaLabelConverter />
+                  </Binding.Converter>
+                </Binding>
+              </TextBlock.Text>
+            </TextBlock>
+          </StackPanel>
+        </Button>
       </StackPanel>
 
       <Border Background="#181818"
@@ -68,7 +100,7 @@
               BorderThickness="1"
               CornerRadius="12"
               Padding="20">
-        <TextBlock Text="{Binding Session.Abstract}"
+        <TextBlock Text="{Binding Session.Summary}"
                    FontSize="14"
                    LineHeight="22"
                    TextWrapping="Wrap"

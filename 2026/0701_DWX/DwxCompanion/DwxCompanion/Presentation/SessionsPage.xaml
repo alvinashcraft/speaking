@@ -28,6 +28,7 @@
     </StackPanel>
 
     <ListView Grid.Row="1"
+              x:Name="SessionsList"
               ItemsSource="{Binding Sessions}"
               SelectionMode="Single"
               IsItemClickEnabled="True"
@@ -94,7 +95,7 @@
                            TextWrapping="Wrap"
                            Foreground="#F5F5F5" />
 
-                <TextBlock Text="{Binding Abstract}"
+                <TextBlock Text="{Binding Summary}"
                            FontSize="13"
                            Opacity="0.75"
                            TextWrapping="Wrap"
@@ -125,6 +126,27 @@
                   </TextBlock>
                 </StackPanel>
               </StackPanel>
+
+              <Button Grid.Column="2"
+                      VerticalAlignment="Top"
+                      HorizontalAlignment="Right"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Padding="8"
+                      Margin="8,-4,-8,0"
+                      ToolTipService.ToolTip="Toggle agenda"
+                      Command="{Binding ElementName=SessionsList, Path=DataContext.ToggleFavorite}"
+                      CommandParameter="{Binding}">
+                <TextBlock FontSize="20">
+                  <TextBlock.Text>
+                    <Binding Path="IsFavorite">
+                      <Binding.Converter>
+                        <conv:BoolToStarConverter />
+                      </Binding.Converter>
+                    </Binding>
+                  </TextBlock.Text>
+                </TextBlock>
+              </Button>
             </Grid>
           </Border>
         </DataTemplate>
