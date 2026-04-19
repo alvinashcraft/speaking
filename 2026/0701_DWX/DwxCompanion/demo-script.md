@@ -287,6 +287,39 @@ private async void OnExternalChanged(object? s, EventArgs e)
 
 ---
 
+## 5b. Hot Design — live UI editing in the running WASM app (≈ 2 minutes)
+
+> "We just watched state flow across pages without a reload. Now let's make the UI itself change — in the live WebAssembly app — without a rebuild."
+
+**Switch to the WASM browser tab.** At the top of the running app you'll see the **Uno Studio toolbar** (a small floating bar — if it's not visible, click anywhere in the app first). Click the **Hot Design** icon (the pencil/paintbrush).
+
+The browser app pauses rendering and the designer panel opens. The live XAML tree is on the left; the canvas shows the running UI.
+
+**Suggested live tweak (small, safe, visible):**
+
+1. In the Sessions page, click any session card in the canvas.
+2. In the property panel find `CornerRadius` — change `12` to `24`.
+3. Find the card's outer `Border` `Padding` — increase from `12` to `20`.
+4. Hit **Save** (or the keyboard shortcut shown in the toolbar).
+
+The browser canvas updates **immediately**. No rebuild, no reload, no lost state — the favorites you toggled earlier are still there.
+
+> "Same compiled WebAssembly binary. Same MVUX state. I just changed the live XAML tree of a .NET app running in my browser from a visual designer. The XAML file on disk was also updated — if I rebuild now, the change is permanent."
+
+**Talking points:**
+
+- Hot Design works because Uno uses a **retained-mode element tree** on every platform. The designer drives the same tree the bindings drive.
+- Changes roundtrip cleanly **from `.xaml` pages** (like SessionsPage). Avoid tweaking `SpeakerDetailPage` — it's C# Markup, and the roundtrip back to source is less clean.
+- This is enabled in the project by a single call in `App.xaml.cs`:
+  ```csharp
+  MainWindow.UseStudio();
+  ```
+- For the Windows head, Hot Reload (not Hot Design) is the equivalent — change a XAML property in Visual Studio and see it update without a rebuild. Same story, different entry point.
+
+> "One codebase, two runtimes, one designer. That's the pitch."
+
+---
+
 ## 6. Favorites & My Agenda — putting it all together (≈ 3 minutes)
 
 **On the Sessions page**, tap the ☆ on three sessions on Windows. The star fills (★). **Switch to WASM** — different state because each runtime has its own local store. Tap a couple over there too.
