@@ -89,6 +89,8 @@
       <local:SessionsPage uen:Region.Name="Sessions" />
       <local:SpeakersPage uen:Region.Name="Speakers"
                           Visibility="Collapsed" />
+      <local:SpeakerDetailPage uen:Region.Name="SpeakerDetail"
+                               Visibility="Collapsed" />
       <local:MyAgendaPage uen:Region.Name="MyAgenda"
                           Visibility="Collapsed" />
       <local:SettingsPage uen:Region.Name="Settings"

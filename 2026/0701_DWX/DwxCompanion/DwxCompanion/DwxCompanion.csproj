@@ -45,6 +45,7 @@
       Localization;
       Navigation;
       ThemeService;
+      CSharpMarkup;
     </UnoFeatures>
   </PropertyGroup>
 

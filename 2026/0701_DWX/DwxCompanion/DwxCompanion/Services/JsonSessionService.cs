@@ -48,7 +48,7 @@ public class JsonSessionService : ISessionService
 #else
             // Desktop, WinAppSDK (packaged & unpackaged), Android, iOS: read from the bundled
             // file copied next to the executable via <Content CopyToOutputDirectory>.
-            var path = Path.Combine(AppContext.BaseDirectory, "Assets", "sessions.json");
+            var path = System.IO.Path.Combine(AppContext.BaseDirectory, "Assets", "sessions.json");
             await using var stream = File.OpenRead(path);
 #endif
 

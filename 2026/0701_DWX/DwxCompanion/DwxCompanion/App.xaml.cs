@@ -122,6 +122,7 @@ public partial class App : Application
             new ViewMap<MainPage, MainModel>(),
             new ViewMap<SessionsPage, SessionsModel>(),
             new ViewMap<SpeakersPage, SpeakersModel>(),
+            new DataViewMap<SpeakerDetailPage, SpeakerDetailModel, Speaker>(),
             new ViewMap<MyAgendaPage, MyAgendaModel>(),
             new ViewMap<SettingsPage, SettingsModel>()
         );
@@ -136,6 +137,7 @@ public partial class App : Application
                         [
                             new ("Sessions", View: views.FindByViewModel<SessionsModel>(), IsDefault: true),
                             new ("Speakers", View: views.FindByViewModel<SpeakersModel>()),
+                            new ("SpeakerDetail", View: views.FindByViewModel<SpeakerDetailModel>()),
                             new ("MyAgenda", View: views.FindByViewModel<MyAgendaModel>()),
                             new ("Settings", View: views.FindByViewModel<SettingsModel>()),
                         ]),
@@ -147,6 +149,7 @@ public partial class App : Application
                 [
                     new ("Sessions", View: views.FindByViewModel<SessionsModel>(), IsDefault: true),
                     new ("Speakers", View: views.FindByViewModel<SpeakersModel>()),
+                    new ("SpeakerDetail", View: views.FindByViewModel<SpeakerDetailModel>()),
                     new ("MyAgenda", View: views.FindByViewModel<MyAgendaModel>()),
                     new ("Settings", View: views.FindByViewModel<SettingsModel>()),
                 ]
