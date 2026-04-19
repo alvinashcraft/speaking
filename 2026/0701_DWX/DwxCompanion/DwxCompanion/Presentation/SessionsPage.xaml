@@ -29,7 +29,9 @@
 
     <ListView Grid.Row="1"
               ItemsSource="{Binding Sessions}"
-              SelectionMode="None"
+              SelectionMode="Single"
+              IsItemClickEnabled="True"
+              utu:CommandExtensions.Command="{Binding OpenSession}"
               Background="Transparent"
               Padding="0"
               ScrollViewer.HorizontalScrollMode="Disabled"
@@ -47,7 +49,7 @@
         </Style>
       </ListView.ItemContainerStyle>
       <ListView.ItemTemplate>
-        <DataTemplate x:DataType="models:Session">
+        <DataTemplate x:DataType="models:SessionView">
           <Border Background="#181818"
                   BorderBrush="#2A2A2A"
                   BorderThickness="1"

@@ -87,6 +87,8 @@
           uen:Region.Attached="True"
           uen:Region.Navigator="Visibility">
       <local:SessionsPage uen:Region.Name="Sessions" />
+      <local:SessionDetailPage uen:Region.Name="SessionDetail"
+                               Visibility="Collapsed" />
       <local:SpeakersPage uen:Region.Name="Speakers"
                           Visibility="Collapsed" />
       <local:SpeakerDetailPage uen:Region.Name="SpeakerDetail"

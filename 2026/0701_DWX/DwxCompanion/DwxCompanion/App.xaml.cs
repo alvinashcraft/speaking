@@ -73,6 +73,7 @@ public partial class App : Application
                 .ConfigureServices((context, services) =>
                 {
                     services.AddSingleton<ISessionService, JsonSessionService>();
+                    services.AddSingleton<ISettingsService, SettingsService>();
                 })
                 .ConfigureAppConfiguration(config =>
                 {
@@ -121,6 +122,7 @@ public partial class App : Application
             new ViewMap(ViewModel: typeof(ShellModel)),
             new ViewMap<MainPage, MainModel>(),
             new ViewMap<SessionsPage, SessionsModel>(),
+            new DataViewMap<SessionDetailPage, SessionDetailModel, Session>(),
             new ViewMap<SpeakersPage, SpeakersModel>(),
             new DataViewMap<SpeakerDetailPage, SpeakerDetailModel, Speaker>(),
             new ViewMap<MyAgendaPage, MyAgendaModel>(),
@@ -136,6 +138,7 @@ public partial class App : Application
                         Nested:
                         [
                             new ("Sessions", View: views.FindByViewModel<SessionsModel>(), IsDefault: true),
+                            new ("SessionDetail", View: views.FindByViewModel<SessionDetailModel>()),
                             new ("Speakers", View: views.FindByViewModel<SpeakersModel>()),
                             new ("SpeakerDetail", View: views.FindByViewModel<SpeakerDetailModel>()),
                             new ("MyAgenda", View: views.FindByViewModel<MyAgendaModel>()),
@@ -148,6 +151,7 @@ public partial class App : Application
                 Nested:
                 [
                     new ("Sessions", View: views.FindByViewModel<SessionsModel>(), IsDefault: true),
+                    new ("SessionDetail", View: views.FindByViewModel<SessionDetailModel>()),
                     new ("Speakers", View: views.FindByViewModel<SpeakersModel>()),
                     new ("SpeakerDetail", View: views.FindByViewModel<SpeakerDetailModel>()),
                     new ("MyAgenda", View: views.FindByViewModel<MyAgendaModel>()),
