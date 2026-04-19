@@ -146,38 +146,111 @@ Talking points (don't read every line — pick 2-3):
 
 ---
 
-## 4. Typed navigation with data — Session detail (≈ 2 minutes)
+## 4. Re-navigable detail pages — Session detail (≈ 3 minutes)
 
-**Click any session card.** Detail page slides in (visibility swap, instant). Click "← Sessions" to go back. Click the same card again on the WASM side.
+**Click any session card.** Detail page slides in. Back. **Click a different card.** Different session opens — not the one you clicked first. Repeat on WASM.
 
-**Code to show:** `Presentation/SessionDetailModel.cs`
+> "That last sentence sounds trivial. It's not. We had to work for it. Let me show you why — it's a great example of a leaky abstraction in any framework, and how MVUX gives you a clean exit."
+
+**Set the scene** — open `Presentation/MainPage.xaml`:
+
+```xml
+<Grid uen:Region.Attached="True" uen:Region.Navigator="Visibility">
+    <SessionsPage      uen:Region.Name="Sessions"      Visibility="Collapsed"/>
+    <SessionDetailPage uen:Region.Name="SessionDetail" Visibility="Collapsed"/>
+    <SpeakersPage      uen:Region.Name="Speakers"      Visibility="Collapsed"/>
+    <SpeakerDetailPage uen:Region.Name="SpeakerDetail" Visibility="Collapsed"/>
+    …
+</Grid>
+```
+
+> "The **Visibility navigator** is fast — every page is pre-instantiated, navigation just toggles `Visibility`. No allocation, no flash. Lovely. Until you re-navigate to a detail page with different data."
+
+**The trap.** With `DataViewMap<SessionDetailPage, SessionDetailModel, Session>()`, the `Session` ctor parameter is filled in **once** — the first navigation. The page and the bound MVUX model are cached forever. Click a second session and you'd see the first one. (We had this bug last week; demo it from a `git stash` if you want the laugh.)
+
+**The fix — selection state on a singleton service.** Show `Services/ISessionService.cs`:
 
 ```csharp
-public SessionDetailModel(Session entity, ISessionService s, ISettingsService settings, IFavoritesService favorites)
+Session?  SelectedSession   { get; }
+event EventHandler? SelectedSessionChanged;
+ValueTask SelectSessionAsync(Session? session, CancellationToken ct = default);
+```
+
+Then `SessionsModel.OpenSession`:
+
+```csharp
+public async ValueTask OpenSession(SessionView view, CancellationToken ct)
 {
-    Session = entity;
-    Speakers   = ListFeed.Async(ct => ResolveSpeakersAsync(entity, s, ct));
-    Room       = Feed.Async(ct => s.GetRoomAsync(entity.RoomId, ct));
-    TimeRange  = State.Value(this, () => Format(entity, settings.Use24HourFormat));
-    IsFavorite = State.Value(this, () => favorites.IsFavorite(entity.Id));
+    await _sessionService.SelectSessionAsync(view.Session, ct);
+    await _navigator.NavigateRouteAsync(this, "SessionDetail", cancellation: ct);
 }
 ```
 
-Talking points:
+> "Select **then** navigate. The selection lands on the singleton service before the navigator switches visibility, so the (already-alive) detail model has fresh data to project from."
 
-- The `Session entity` ctor parameter is **the navigation data argument** declared back in `App.xaml.cs` via `DataViewMap<…, …, Session>`. The framework injected it. No global state, no message bus.
-- `Feed` = read-only async pull. `IListFeed` = async list. `IState` = mutable observable. Pick the smallest one that solves the problem.
-- `Speakers` and `Room` are computed lazily; the page binding starts them.
-
-**Code-behind in `SessionDetailPage.xaml.cs`** is one line of navigation glue, nothing else:
+And `SessionDetailModel.cs` — pure MVUX, no `Session` ctor arg:
 
 ```csharp
-private async void OnBackClick(object sender, RoutedEventArgs e)
-    => await ((FrameworkElement)sender).Navigator()!
-        .NavigateViewModelAsync<SessionsModel>(this);
+public SessionDetailModel(ISessionService sessions, ISettingsService settings, IFavoritesService favorites)
+{
+    Session    = State<Session?>.Value(this, () => null);
+    Speakers   = State<IImmutableList<Speaker>>.Value(this, () => …Empty);
+    Room       = State<Room?>.Value(this, () => null);
+    TimeRange  = State.Value(this, () => string.Empty);
+    IsFavorite = State.Value(this, () => false);
+
+    _ = RefreshAsync(default);                    // first-time projection
+    sessions.SelectedSessionChanged  += OnSelectionChanged;
+    settings.SettingsChanged         += OnSettingsChanged;
+    favorites.FavoritesChanged       += OnFavoritesChanged;
+}
 ```
 
-> "Note we use the `Navigator()` extension on the element, not stored references. This avoids a gotcha where `DataContext` is the generated `BindableSessionDetailModel` wrapper, not the raw record."
+`RefreshAsync` reads `_sessions.SelectedSession` and pushes through every `IState.UpdateAsync(...)`. The XAML bindings (`{Binding Session.Track}`, `{Binding TimeRange}`, etc.) re-evaluate via the source-generated `BindableSessionDetailModel`. **MVUX dispatches the value onto the UI thread for us** — that detail matters in 2 minutes.
+
+In `App.xaml.cs` the route is now plain `ViewMap`, no data:
+
+```csharp
+new ViewMap<SessionDetailPage, SessionDetailModel>(),
+```
+
+> "Two-line moral: **the framework's caching is a feature, not a bug. You just hold the selection in a service instead of in a ctor argument.** The pitfall is documented in `.github/skills/uno-mvux/SKILL.md` so Copilot can warn the next person."
+
+---
+
+## 4b. Same pitfall, different escape hatch — Speaker detail (≈ 90 seconds)
+
+**Click two different speakers.** Works. Open `Presentation/SpeakerDetailModel.cs` and lean in:
+
+```csharp
+public sealed class SpeakerDetailModel : INotifyPropertyChanged   // 👈 not a record
+{
+    private readonly DispatcherQueue? _dispatcher;
+    public Speaker Speaker => _sessions.SelectedSpeaker ?? throw …;
+    …
+}
+```
+
+> "Why the about-face from MVUX records to plain INPC here? Because **`SpeakerDetailPage` is C# Markup**, and its bindings are typed lambdas: `() => vm.Speaker.Initials`. `IState<Speaker?>` doesn't have an `Initials` member, so the lambda won't compile. We need `Speaker` to be a real `Speaker`."
+
+The catch — and the reason the comment block at the top of this file says **"do not copy this pattern"**:
+
+```csharp
+private void OnSelectedSpeakerChanged(object? sender, EventArgs e)
+{
+    if (_dispatcher is not null && !_dispatcher.HasThreadAccess)
+        _dispatcher.TryEnqueue(RaiseSpeakerChanged);
+    else
+        RaiseSpeakerChanged();
+}
+```
+
+> "MVUX item-click commands run on the threadpool. The service event fires on whatever thread called it. A naive `PropertyChanged?.Invoke(...)` will raise on a background thread, the WinUI binding tries to push a string into a TextBlock that lives on the UI thread, and you get a `COMException` — the second time you click. **MVUX would have dispatched this for us automatically through the source-generated bindable wrapper.** This is the line we had to add by hand. That's the cost of the C# Markup convenience."
+
+Two-line moral worth saying out loud:
+
+1. **MVUX gives you free UI-thread marshaling.** If you use it, you don't think about threads. If you opt out into INPC, you own the dispatching.
+2. **The escape hatch exists.** Uno doesn't trap you in MVUX — when a real constraint forces a different shape, you reach for plain .NET patterns. Just document it.
 
 ---
 
@@ -272,6 +345,7 @@ Three things worth saying out loud:
 1. **One project, two heads.** `dotnet build -f net10.0-desktop` and `dotnet build -f net10.0-browserwasm`. No platform `#if` in the screens you saw.
 2. **MVUX is small.** `IFeed`, `IListFeed`, `IState`, `IListState`, methods-as-commands. That's most of it.
 3. **The Toolkit fills the gaps.** `CommandExtensions`, `SafeArea`, `AutoLayout`, `NavigationBar` — paged through earlier slides.
+4. **MVUX pays off when you go off the happy path.** The visibility-navigator caching trap (Section 4) was a 30-minute fix because we could swap `IState` projections without touching XAML or threading code. The C# Markup INPC escape hatch (Section 4b) needed manual UI-thread marshaling. **That delta is the case for MVUX in one slide.**
 
 > "Every line of code you saw today ships in this repo: github.com/alvinashcraft/speaking — the `0701_DWX` folder."
 
@@ -283,10 +357,12 @@ Run on **both** Windows and WASM:
 
 - [ ] Side rail: Sessions / Speakers / My Agenda / Settings — each page renders, no XAML parse errors.
 - [ ] Sessions list: cards render with track stripe, time, room, speaker name.
-- [ ] Tap a session card → SessionDetail opens with abstract + speakers list.
+- [ ] Tap a session card → SessionDetail opens with summary + speakers list.
+- [ ] Back, tap a **different** session → detail shows the new one (regression check for the visibility-navigator workaround).
 - [ ] "← Sessions" returns to the list.
 - [ ] Speakers list: avatar circles + names.
 - [ ] Tap a speaker → SpeakerDetail opens.
+- [ ] Back, tap a **second different speaker** → detail shows the new one, no `COMException` in the debugger (regression check for the SpeakerDetailModel dispatcher fix).
 - [ ] "← Speakers" returns.
 - [ ] Settings: 24h toggle persists across navigation; Sessions/Detail times update live.
 - [ ] Tap ☆ on a card → fills to ★, no navigation triggered.
