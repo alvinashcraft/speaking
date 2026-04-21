@@ -430,3 +430,4 @@ FodyWeavers.xsd
 
 # JetBrains IDEs (IntelliJ, Rider, etc.)
 .idea/
+*.lscache
