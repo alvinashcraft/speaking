@@ -1,6 +1,6 @@
 # Links from AI Dev Conference 2026
 
-Date: **April 27-30 2026**
+Date: **April 26-30 2026**
 
 Session:
 

@@ -14,6 +14,7 @@ Resources from my speaking engagements:
 - [AI Agents Conference 2026](https://aiagentsconference.live/) - April 26-30
 - [DWX 2026](https://www.developer-world.com/dwx) - June 29 - July 2
 - [Nebraska.Code() 2026](https://nebraskacode.amegala.com/) - July 22-24
+- [.NET Day Switzerland 2026](https://dotnetday.ch/) - August 25
 - [VSLive! San Diego 2026](https://vslive.com/events/san-diego-2026/home.aspx) - September 14-18
 
 ## My current sessions
