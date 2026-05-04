@@ -11,7 +11,6 @@ Resources from my speaking engagements:
 
 ## Upcoming events in 2026
 
-- [AI Agents Conference 2026](https://aiagentsconference.live/) - April 26-30
 - [DWX 2026](https://www.developer-world.com/dwx) - June 29 - July 2
 - [Nebraska.Code() 2026](https://nebraskacode.amegala.com/) - July 22-24
 - [.NET Day Switzerland 2026](https://dotnetday.ch/) - August 25
@@ -34,12 +33,6 @@ Resources from my speaking engagements:
 
 ## Recent Speaking Engagements
 
-- VSLive! Las Vegas 2025
-  - March 11th (Choosing a Native Windows UI Framework)
-  - March 12th (Contributing to Microsoft Learn - Fast Focus Session)
-  - March 12th (Get Started Building Windows Apps with WinUI)
-- .NET Conference 2025
-  - April 24th (Get Started Building Windows Apps with WinUI)
 - Philly .NET Meetup
   - May 21st (Build intelligent apps with WinUI, Phi Silica and the Windows AI APIs)
 - Update Conference Krakow 2025
@@ -49,6 +42,8 @@ Resources from my speaking engagements:
   - November 20th (Create Multi-Platform Apps with .NET MAUI and the MAUI Community Toolkit)
 - CodeMash 2026
   - January 15th (Create Multi-Platform Apps with .NET MAUI and the MAUI Community Toolkit)
+- AI Agents Conference 2026
+  - April 26th (Explore Windows AI Dev Options with the AI Dev Gallery)
 
 ## My books
 

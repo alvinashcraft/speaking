@@ -4,7 +4,7 @@ Date: **April 26-30 2026**
 
 Session:
 
-- Create Multi-platform Apps with .NET MAUI and the MAUI Community Toolkit
+- Explore Windows AI Dev Options with the AI Dev Gallery
 
 ## Alvin Ashcraft's links
 
