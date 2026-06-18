@@ -9,23 +9,27 @@ The app is a small DWX 2026 conference companion: a sessions list, speakers, ses
 ## 0. Pre-flight (before you go on stage)
 
 1. **Close any running instances.** WinAppSDK locks output files and a stale WASM dev server will hijack the port.
-2. **Build both heads cold** so the first run on stage isn't a 30-second wait:
+1. **Build both heads cold** so the first run on stage isn't a 30-second wait:
+
    ```powershell
    cd DwxCompanion\DwxCompanion
    dotnet build -f net10.0-desktop
    dotnet build -f net10.0-browserwasm
    ```
-3. **Wipe demo state** (so favorites/settings start clean):
+
+1. **Wipe demo state** (so favorites/settings start clean):
+
    ```powershell
    Remove-Item "$env:LOCALAPPDATA\DwxCompanion" -Recurse -Force -ErrorAction SilentlyContinue
    ```
-4. **Open these tabs in your IDE** so they're one Ctrl+Tab away:
+
+1. **Open these tabs in your IDE** so they're one Ctrl+Tab away:
    - `App.xaml.cs` (DI + routes)
    - `Presentation/SessionsModel.cs` (MVUX)
    - `Presentation/SessionsPage.xaml` (XAML + bindings)
    - `Presentation/MyAgendaPage.xaml` (empty state + reuse)
    - `Services/FavoritesService.cs` (cross-platform persistence)
-2. **Have both apps running side-by-side** on the same monitor. Easier than hot-swapping.
+1. **Have both apps running side-by-side** on the same monitor. Easier than hot-swapping.
 
    ```powershell
    # Desktop (WinAppSDK)
@@ -76,22 +80,26 @@ Drag/resize the WASM browser to show responsive behavior. Hover the side rail on
 Highlight three things:
 
 1. **Hosting + DI registration** (around line 70-80) — same `IHostBuilder` pattern as ASP.NET / .NET MAUI:
+
    ```csharp
    services.AddSingleton<ISessionService, JsonSessionService>();
    services.AddSingleton<ISettingsService, SettingsService>();
    services.AddSingleton<IFavoritesService, FavoritesService>();
    ```
 
-2. **ViewMap + RouteMap** — the contract between routes and view-models:
+1. **ViewMap + RouteMap** — the contract between routes and view-models:
+
    ```csharp
    new ViewMap<SessionsPage, SessionsModel>(),
    new DataViewMap<SessionDetailPage, SessionDetailModel, Session>(),
    ```
+
    > "DataViewMap is the magic for typed navigation — pass a `Session` and the framework hands the view-model its strongly-typed data argument."
 
-3. **Region navigator on MainPage** — `Region.Navigator="Visibility"` keeps every page **pre-instantiated** as siblings in the content grid and toggles `Visibility`. Tabs/rails feel instant because nothing is being constructed on click.
+1. **Region navigator on MainPage** — `Region.Navigator="Visibility"` keeps every page **pre-instantiated** as siblings in the content grid and toggles `Visibility`. Tabs/rails feel instant because nothing is being constructed on click.
 
    In `MainPage.xaml`:
+
    ```xml
    <Grid uen:Region.Attached="True"
          uen:Region.Navigator="Visibility">
@@ -311,9 +319,11 @@ The browser canvas updates **immediately**. No rebuild, no reload, no lost state
 - Hot Design works because Uno uses a **retained-mode element tree** on every platform. The designer drives the same tree the bindings drive.
 - Changes roundtrip cleanly **from `.xaml` pages** (like SessionsPage). Avoid tweaking `SpeakerDetailPage` — it's C# Markup, and the roundtrip back to source is less clean.
 - This is enabled in the project by a single call in `App.xaml.cs`:
+
   ```csharp
   MainWindow.UseStudio();
   ```
+
 - For the Windows head, Hot Reload (not Hot Design) is the equivalent — change a XAML property in Visual Studio and see it update without a rebuild. Same story, different entry point.
 
 > "One codebase, two runtimes, one designer. That's the pitch."
@@ -349,7 +359,6 @@ private static string FilePath => System.IO.Path.Combine(
 ```
 
 > "Same code path on Windows and WASM. On WASM, Uno emulates `LocalApplicationData` against IndexedDB so persistence survives a refresh."
-
 > "We considered SQLite for the demo and decided against it. ~30 sessions and a `HashSet<string>` of favorites doesn't earn the dependency — but if you're storing thousands of records, SQLite via `Microsoft.Data.Sqlite` works on every Uno target, including WASM."
 
 **Then `Presentation/MyAgendaModel.cs`** — point out it's the same shape as `SessionsModel`:
@@ -405,6 +414,7 @@ Run on **both** Windows and WASM:
 - [ ] Close + relaunch the app — favorites and time format survive.
 
 If anything fails, re-run with a clean local store:
+
 ```powershell
 Remove-Item "$env:LOCALAPPDATA\DwxCompanion" -Recurse -Force
 ```
