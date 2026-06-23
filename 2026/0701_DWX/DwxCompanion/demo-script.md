@@ -46,7 +46,7 @@ The app is a small DWX 2026 conference companion: a sessions list, speakers, ses
 
 > "What you're looking at is **one C# + XAML codebase**. The window on the left is a native Windows app — WinAppSDK, Skia-rendered. The browser tab on the right is the **same project**, compiled to WebAssembly. No code-behind branching for the screens you'll see; one App, one Shell, one set of pages."
 
-Drag/resize the WASM browser to show responsive behavior. Hover the side rail on each.
+Drag/resize the WASM browser to show responsive behavior. Hover the side rail on each. **Narrow the browser below 600 px** — the sidebar collapses and a bottom tab bar (Sessions / Speakers / Agenda / Settings) slides in. Widen it again and the rail snaps back. Same destinations, same `uen:Navigation.Request` attached properties, adaptive layout only.
 
 **Code to show:** `DwxCompanion.csproj`
 
@@ -98,21 +98,47 @@ Highlight three things:
 
 1. **Region navigator on MainPage** — `Region.Navigator="Visibility"` keeps every page **pre-instantiated** as siblings in the content grid and toggles `Visibility`. Tabs/rails feel instant because nothing is being constructed on click.
 
-   In `MainPage.xaml`:
+   In `MainPage.xaml`, the content region sits in `Grid.Column="1"`, `Grid.Row="0"`:
 
    ```xml
-   <Grid uen:Region.Attached="True"
+   <Grid x:Name="ContentGrid"
+         Grid.Column="1"
+         Grid.Row="0"
+         uen:Region.Attached="True"
          uen:Region.Navigator="Visibility">
-     <local:SessionsPage   uen:Region.Name="Sessions" />
-     <local:SpeakersPage   uen:Region.Name="Speakers"   Visibility="Collapsed" />
-     <local:MyAgendaPage   uen:Region.Name="MyAgenda"   Visibility="Collapsed" />
-     <local:SettingsPage   uen:Region.Name="Settings"   Visibility="Collapsed" />
-     <local:SessionDetailPage  uen:Region.Name="SessionDetail" Visibility="Collapsed" />
-     <local:SpeakerDetailPage  uen:Region.Name="SpeakerDetail" Visibility="Collapsed" />
+     <local:SessionsPage       uen:Region.Name="Sessions" />
+     <local:SpeakersPage       uen:Region.Name="Speakers"       Visibility="Collapsed" />
+     <local:MyAgendaPage       uen:Region.Name="MyAgenda"       Visibility="Collapsed" />
+     <local:SettingsPage       uen:Region.Name="Settings"       Visibility="Collapsed" />
+     <local:SessionDetailPage  uen:Region.Name="SessionDetail"  Visibility="Collapsed" />
+     <local:SpeakerDetailPage  uen:Region.Name="SpeakerDetail"  Visibility="Collapsed" />
    </Grid>
    ```
 
-   > "Side-rail buttons are just `uen:Navigation.Request='Sessions'` attached properties. No code-behind, no event handlers."
+   `Grid.Row="1"` holds the mobile bottom tab bar (`x:Name="BottomNavBar"`), collapsed by default. A `VisualStateManager` on the outer grid drives the switch purely in XAML:
+
+   ```xml
+   <VisualStateManager.VisualStateGroups>
+     <VisualStateGroup>
+       <VisualState x:Name="NarrowState">
+         <VisualState.StateTriggers>
+           <AdaptiveTrigger MinWindowWidth="0" />
+         </VisualState.StateTriggers>
+         <VisualState.Setters>
+           <Setter Target="SidebarBorder.Visibility" Value="Collapsed" />
+           <Setter Target="BottomNavBar.Visibility"  Value="Visible"   />
+         </VisualState.Setters>
+       </VisualState>
+       <VisualState x:Name="WideState">
+         <VisualState.StateTriggers>
+           <AdaptiveTrigger MinWindowWidth="600" />
+         </VisualState.StateTriggers>
+       </VisualState>
+     </VisualStateGroup>
+   </VisualStateManager.VisualStateGroups>
+   ```
+
+   > "Side-rail buttons are `uen:Navigation.Request='./Sessions'` attached properties. The bottom tab bar buttons carry the **same** attached properties — `AdaptiveTrigger` swaps the chrome, the navigation contract stays identical. No code-behind, no platform branches, no event handlers."
 
 ---
 
@@ -160,14 +186,18 @@ Talking points (don't read every line — pick 2-3):
 
 > "That last sentence sounds trivial. It's not. We had to work for it. Let me show you why — it's a great example of a leaky abstraction in any framework, and how MVUX gives you a clean exit."
 
-**Set the scene** — open `Presentation/MainPage.xaml`:
+**Set the scene** — open `Presentation/MainPage.xaml`, scroll past the `VisualStateManager` block to the content grid:
 
 ```xml
-<Grid uen:Region.Attached="True" uen:Region.Navigator="Visibility">
-    <SessionsPage      uen:Region.Name="Sessions"      Visibility="Collapsed"/>
-    <SessionDetailPage uen:Region.Name="SessionDetail" Visibility="Collapsed"/>
-    <SpeakersPage      uen:Region.Name="Speakers"      Visibility="Collapsed"/>
-    <SpeakerDetailPage uen:Region.Name="SpeakerDetail" Visibility="Collapsed"/>
+<Grid x:Name="ContentGrid"
+      Grid.Column="1"
+      Grid.Row="0"
+      uen:Region.Attached="True"
+      uen:Region.Navigator="Visibility">
+    <SessionsPage      uen:Region.Name="Sessions" />
+    <SessionDetailPage uen:Region.Name="SessionDetail" Visibility="Collapsed" />
+    <SpeakersPage      uen:Region.Name="Speakers"      Visibility="Collapsed" />
+    <SpeakerDetailPage uen:Region.Name="SpeakerDetail" Visibility="Collapsed" />
     …
 </Grid>
 ```
@@ -380,14 +410,15 @@ _favorites.FavoritesChanged += OnExternalChanged;
 
 ## 7. Closing & the "wow" moments to land (≈ 60 seconds)
 
-Reload the WASM tab in the browser to drive home that "yes, this is really running in the browser." Resize both windows to show the responsive layout reflowing.
+Reload the WASM tab in the browser to drive home that "yes, this is really running in the browser." **Narrow the WASM window below 600 px** — sidebar collapses, bottom tab bar appears; widen it back and the rail returns. Repeat on the Windows desktop app. That switch is a `VisualStateManager` + `AdaptiveTrigger` in a single XAML file — no `#if`, no code-behind, no platform branches.
 
-Three things worth saying out loud:
+Four things worth saying out loud:
 
 1. **One project, two heads.** `dotnet build -f net10.0-desktop` and `dotnet build -f net10.0-browserwasm`. No platform `#if` in the screens you saw.
 2. **MVUX is small.** `IFeed`, `IListFeed`, `IState`, `IListState`, methods-as-commands. That's most of it.
 3. **The Toolkit fills the gaps.** `CommandExtensions`, `SafeArea`, `AutoLayout`, `NavigationBar` — paged through earlier slides.
-4. **MVUX pays off when you go off the happy path.** The visibility-navigator caching trap (Section 4) was a 30-minute fix because we could swap `IState` projections without touching XAML or threading code. The C# Markup INPC escape hatch (Section 4b) needed manual UI-thread marshaling. **That delta is the case for MVUX in one slide.**
+4. **Adaptive layout is just XAML.** `VisualStateManager` + `AdaptiveTrigger`. The sidebar nav and the bottom tab bar share the same `uen:Navigation.Request` attached properties. No platform branches required — the same binary adapts to a 375 px phone and a 1440 px desktop.
+5. **MVUX pays off when you go off the happy path.** The visibility-navigator caching trap (Section 4) was a 30-minute fix because we could swap `IState` projections without touching XAML or threading code. The C# Markup INPC escape hatch (Section 4b) needed manual UI-thread marshaling. **That delta is the case for MVUX in one slide.**
 
 > "Every line of code you saw today ships in this repo: github.com/alvinashcraft/speaking — the `0701_DWX` folder."
 
@@ -398,6 +429,12 @@ Three things worth saying out loud:
 Run on **both** Windows and WASM:
 
 - [ ] Side rail: Sessions / Speakers / My Agenda / Settings — each page renders, no XAML parse errors.
+- [ ] **Responsive — narrow:** resize WASM browser (or WinAppSDK window) below 600 px wide — sidebar collapses, bottom tab bar (Sessions / Speakers / Agenda / Settings) appears.
+- [ ] **Responsive — bottom nav:** all four bottom tab bar buttons navigate to the correct page.
+- [ ] **Responsive — wide:** widen above 600 px — bottom tab bar hides, sidebar reappears.
+- [ ] Session detail in narrow layout: title uses smaller font (24 px), side padding is reduced to 16 px, content not clipped.
+- [ ] Settings page in narrow layout: side padding reduced to 16 px, toggle switch and cards fully visible without horizontal overflow.
+- [ ] SpeakerDetail page: scroll past a long bio — content scrolls rather than being clipped.
 - [ ] Sessions list: cards render with track stripe, time, room, speaker name.
 - [ ] Tap a session card → SessionDetail opens with summary + speakers list.
 - [ ] Back, tap a **different** session → detail shows the new one (regression check for the visibility-navigator workaround).
