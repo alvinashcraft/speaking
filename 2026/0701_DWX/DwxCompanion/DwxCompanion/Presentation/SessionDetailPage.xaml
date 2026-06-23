@@ -1,4 +1,4 @@
-<UserControl x:Class="DwxCompanion.Presentation.SessionDetailPage"
+﻿<UserControl x:Class="DwxCompanion.Presentation.SessionDetailPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DwxCompanion.Presentation"
@@ -9,12 +9,34 @@
   <UserControl.Resources>
     <conv:TrackToBrushConverter x:Key="TrackBrush" />
   </UserControl.Resources>
-  <ScrollViewer Padding="32"
+  <ScrollViewer x:Name="DetailScrollViewer"
+                Padding="32"
                 Background="#0A0A0A"
-                HorizontalScrollMode="Disabled">
-    <StackPanel Spacing="24"
+                HorizontalScrollMode="Disabled"
+                utu:SafeArea.Insets="VisibleBounds">
+    <StackPanel x:Name="DetailContentStack"
+                Spacing="24"
                 MaxWidth="900"
-                HorizontalAlignment="Left">
+                HorizontalAlignment="Center">
+      <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+          <VisualState x:Name="NarrowState">
+            <VisualState.StateTriggers>
+              <AdaptiveTrigger MinWindowWidth="0" />
+            </VisualState.StateTriggers>
+            <VisualState.Setters>
+              <Setter Target="DetailScrollViewer.Padding" Value="16" />
+              <Setter Target="DetailContentStack.HorizontalAlignment" Value="Stretch" />
+              <Setter Target="DetailTitle.FontSize" Value="24" />
+            </VisualState.Setters>
+          </VisualState>
+          <VisualState x:Name="WideState">
+            <VisualState.StateTriggers>
+              <AdaptiveTrigger MinWindowWidth="600" />
+            </VisualState.StateTriggers>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateManager.VisualStateGroups>
 
       <HyperlinkButton Content="← Sessions"
                        Foreground="#C9F04C"
@@ -40,7 +62,8 @@
                      Foreground="#E6E8EC" />
         </StackPanel>
 
-        <TextBlock Text="{Binding Session.Title}"
+        <TextBlock x:Name="DetailTitle"
+                   Text="{Binding Session.Title}"
                    FontSize="32"
                    FontWeight="SemiBold"
                    TextWrapping="Wrap"

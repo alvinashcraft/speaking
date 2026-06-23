@@ -39,9 +39,11 @@ public sealed partial class SpeakerDetailPage : UserControl
 
         this.DataContext<SpeakerDetailModel>((page, vm) => page
             .Background(Brush(0x0A, 0x0A, 0x0A))
-            .Content(new Grid()
-                .Padding(32)
-                .RowDefinitions("Auto,Auto,*")
+            .Content(new ScrollViewer()
+                .HorizontalScrollMode(ScrollMode.Disabled)
+                .Padding(20)
+                .Content(new Grid()
+                .RowDefinitions("Auto,Auto,Auto")
                 .Children(
                     backButton,
                     // Header row: avatar + name + title
@@ -104,7 +106,7 @@ public sealed partial class SpeakerDetailPage : UserControl
                                 .Foreground(Brush(0xF5, 0xF5, 0xF5))
                                 .Margin(0, 8, 0, 0),
                             new ContentControl()
-                                .Content(linksHost)))));
+                                .Content(linksHost))))));
 
         linksHost.DataContextChanged += (_, args) =>
         {

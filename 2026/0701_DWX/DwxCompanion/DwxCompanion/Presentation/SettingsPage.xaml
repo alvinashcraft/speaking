@@ -1,15 +1,36 @@
-<UserControl x:Class="DwxCompanion.Presentation.SettingsPage"
+﻿<UserControl x:Class="DwxCompanion.Presentation.SettingsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="using:DwxCompanion.Presentation"
       xmlns:toolkit="using:Uno.Toolkit.UI"
       xmlns:utu="using:Uno.Toolkit.UI">
-  <ScrollViewer Padding="32"
+  <ScrollViewer x:Name="SettingsScrollViewer"
+                Padding="32"
                 Background="#0A0A0A"
-                HorizontalScrollMode="Disabled">
-    <StackPanel Spacing="32"
+                HorizontalScrollMode="Disabled"
+                utu:SafeArea.Insets="VisibleBounds">
+    <StackPanel x:Name="SettingsContentStack"
+                Spacing="32"
                 MaxWidth="700"
-                HorizontalAlignment="Left">
+                HorizontalAlignment="Center">
+      <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+          <VisualState x:Name="NarrowState">
+            <VisualState.StateTriggers>
+              <AdaptiveTrigger MinWindowWidth="0" />
+            </VisualState.StateTriggers>
+            <VisualState.Setters>
+              <Setter Target="SettingsScrollViewer.Padding" Value="16" />
+              <Setter Target="SettingsContentStack.HorizontalAlignment" Value="Stretch" />
+            </VisualState.Setters>
+          </VisualState>
+          <VisualState x:Name="WideState">
+            <VisualState.StateTriggers>
+              <AdaptiveTrigger MinWindowWidth="600" />
+            </VisualState.StateTriggers>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateManager.VisualStateGroups>
 
       <StackPanel Spacing="6">
         <TextBlock Text="Settings"
