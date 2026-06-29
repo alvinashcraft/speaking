@@ -237,30 +237,40 @@ style: |
 
 # Accelerate Creation
 
-### Launch projects instantly with the Live Wizard
+### Launch projects instantly with the Template Wizard
 
 ---
 
-## Uno Platform Live Wizard
+## Uno Platform Template Wizard
 
 - Web-based project template generator
-- Available at **platform.uno/create**
+- Available at **new.platform.uno**
 - Choose your target platforms
 - Select authentication, navigation, and theming options
 - Generates a fully configured solution in seconds
 
 ---
 
-## Live Wizard Walkthrough
+## Template Wizard Walkthrough
 
-1. Visit the Uno Platform Live Wizard
+<div class="columns">
+<div>
+
+1. Visit the Uno Template Wizard
 2. Name your project
-3. Select target platforms
+3. Select target platform(s)
 4. Pick a UI framework (XAML or C# Markup)
-5. Choose a preset (Blank or Recommended) and optionally Customize
-6. Download and open in your IDE
+5. Choose a preset (Blank or Recommended) and Customize
+6. Download and open in IDE
 
-<!-- TODO: Add demo or screenshots of the wizard -->
+</div>
+<div>
+
+<!-- TODO: Add screenshot -->
+![w:450](images/template-wizard.jpg)
+
+</div>
+</div>
 
 ---
 
