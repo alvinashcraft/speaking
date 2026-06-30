@@ -2,15 +2,14 @@
 
 ## Slide 1: Title Slide
 
-- Welcome, introduce topic
+- Welcome and intro
 - Quick eye contact with audience
 - Set tone: exciting possibilities for cross-platform development
 
 ## Slide 2: About Me
 
-- Give brief background (Sr. Content Developer at Microsoft Learn)
+- Give brief background (Sr. Content Developer at Microsoft on Foundry Learn docs)
 - Social handles for follow-up
-- Accessibility: screen reader friendly, clear links
 
 ## Slide 3: Agenda
 
