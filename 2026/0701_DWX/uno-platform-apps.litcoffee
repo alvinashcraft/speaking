@@ -172,64 +172,28 @@ style: |
 
 ## Visual Studio
 
-<div class="columns">
-<div>
-
 - XAML Hot Reload for rapid iteration
 - Solution Explorer with multi-target awareness
 - Integrated emulators and simulators
 - NuGet package management
 
-</div>
-<div>
-
-<!-- TODO: Add screenshot -->
-![w:450](images/vs-screenshot.png)
-
-</div>
-</div>
-
 ---
 
 ## VS Code
-
-<div class="columns">
-<div>
 
 - Uno Platform Extension for VS Code
 - C# Dev Kit integration
 - Terminal-based workflows
 - Great for Linux developers
 
-</div>
-<div>
-
-<!-- TODO: Add screenshot -->
-![w:450](images/vscode-screenshot.png)
-
-</div>
-</div>
-
 ---
 
 ## JetBrains Rider
-
-<div class="columns">
-<div>
 
 - First-class .NET IDE on all platforms
 - XAML preview and editing support
 - Powerful refactoring tools
 - Integrated unit testing
-
-</div>
-<div>
-
-<!-- TODO: Add screenshot -->
-![w:450](images/rider-screenshot.png)
-
-</div>
-</div>
 
 ---
 
