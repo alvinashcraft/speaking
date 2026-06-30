@@ -17,6 +17,9 @@ Get all the links related to my Uno Platform session from Mannheim, Germany.
 ### Uno Platform links
 
 - [Uno Platform Documentation](https://platform.uno/docs/articles/intro.html)
+- [Uno Platform Template Wizard](https://new.platform.uno/)
+- [MVUX Overview](https://platform.uno/docs/articles/external/uno.extensions/doc/Learn/Mvux/Overview.html)
+- [Uno Platform for VS Code](https://marketplace.visualstudio.com/items?itemName=unoplatform.vscode)
 
 ### Other Links
 
