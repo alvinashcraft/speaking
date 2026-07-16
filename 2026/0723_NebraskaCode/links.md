@@ -20,13 +20,15 @@ Microsoft Foundry on Windows is the platform for AI development on Windows. The 
 - [WinUI 3 Documentation](https://learn.microsoft.com/windows/apps/winui/winui3/)
 - [Windows App SDK Documentation](https://learn.microsoft.com/windows/apps/windows-app-sdk/)
 - [Get started with Phi Silica in the Windows App SDK](https://learn.microsoft.com/windows/ai/apis/phi-silica)
-- [API ref for Phi Silica in the Windows App SDK](https://learn.microsoft.com/windows/ai/apis/phi-silica-api-ref)
+- [Windows AI API ref in the Windows App SDK](https://learn.microsoft.com/windows/windows-app-sdk/api/winrt/microsoft.windows.ai)
 - [Developing Responsible Generative AI Applications and Features on Windows](https://learn.microsoft.com/windows/ai/rai)
 - [What is the AI Dev Gallery?](https://learn.microsoft.com/windows/ai/ai-dev-gallery/)
 - [Get started with AI on Windows](https://learn.microsoft.com/windows/ai/overview)
 - [Get Started with AI Text Recognition (OCR) in the Windows App SDK](https://learn.microsoft.com/windows/ai/apis/text-recognition)
-- [Recall overview](https://learn.microsoft.com/windows/ai/apis/recall)
+- [Recall overview](https://learn.microsoft.com/windows/apps/develop/windows-integration/recall/)
 - [Copilot+ PCs Developer Guide](https://learn.microsoft.com/windows/ai/npu-devices/)
+- [Get started with Foundry Local](https://learn.microsoft.com/azure/foundry-local/get-started?tabs=windows&pivots=programming-language-csharp)
+- [Foundry Local CLI reference](https://learn.microsoft.com/azure/foundry-local/reference/reference-cli)
 
 ### Other Links
 
@@ -34,5 +36,7 @@ Microsoft Foundry on Windows is the platform for AI development on Windows. The 
 - [Uno Platform Documentation](https://platform.uno/docs/articles/intro.html)
 - [WinUI 3 on GitHub](https://github.com/microsoft/microsoft-ui-xaml)
 - [Windows App SDK on GitHub](https://github.com/microsoft/WindowsAppSDK)
+- [WPF Roadmap on GitHub](https://github.com/dotnet/wpf/blob/main/roadmap.md)
 - [Windows Community Toolkit on GitHub](https://github.com/CommunityToolkit/WindowsCommunityToolkit)
-- [Available today: DeepSeek R1 7B & 14B distilled models for Copilot+ PCs via Azure AI Foundry – further expanding AI on the edge](https://blogs.windows.com/windowsdeveloper/2025/03/03/available-today-deepseek-r1-7b-14b-distilled-models-for-copilot-pcs-via-azure-ai-foundry-further-expanding-ai-on-the-edge/)
+- [AI Dev Gallery on GitHub](https://github.com/microsoft/ai-dev-gallery/)
+- [AI Dev Gallery on the Microsoft Store](http://aka.ms/ai-dev-gallery-store)
