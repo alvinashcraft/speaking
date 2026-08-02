@@ -11,11 +11,11 @@
 ## Narrative
 
 1. Start with the agent landscape: Microsoft Foundry brings models, agents, tools, and operational controls into one platform.
-2. Compare prompt agents with hosted agents. Prompt agents are authored and run by Foundry; hosted agents let developers bring their own code and runtime.
-3. Show the hosted-agent development loop: create, run locally, deploy, invoke, and inspect.
-4. Explain that tools are the action and knowledge boundary of an agent. Use built-in tools when they fit; use custom tools when the capability belongs to your application or organization.
-5. Demonstrate MCP and toolboxes. A toolbox packages capabilities behind one MCP-compatible endpoint, so the same tool set can be reused by multiple runtimes.
-6. Close with the control-plane view: inventory, lifecycle, tracing, usage, and cost become important as the number of agents grows.
+1. Compare prompt agents with hosted agents. Prompt agents are authored and run by Foundry; hosted agents let developers bring their own code and runtime.
+1. Show the hosted-agent development loop: create, run locally, deploy, invoke, and inspect.
+1. Explain that tools are the action and knowledge boundary of an agent. Use built-in tools when they fit; use custom tools when the capability belongs to your application or organization.
+1. Demonstrate MCP and toolboxes. A toolbox packages capabilities behind one MCP-compatible endpoint, so the same tool set can be reused by multiple runtimes.
+1. Close with the control-plane view: inventory, lifecycle, tracing, usage, and cost become important as the number of agents grows.
 
 ## Run of Show
 
