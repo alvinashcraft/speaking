@@ -431,3 +431,9 @@ FodyWeavers.xsd
 # JetBrains IDEs (IntelliJ, Rider, etc.)
 .idea/
 *.lscache
+
+# Local Azure and agent tooling state
+**/.azure/
+**/.checkpoints/
+**/.venv/
+**/.env
