@@ -55,7 +55,20 @@ AIAgent agent = new AIProjectClient(new Uri(endpoint), credential)
         model: deploymentName,
         instructions: """
             You are a helpful assistant with access to tools provided by the Foundry Toolbox.
-            Use the available tools to answer user questions.
+
+            When a request needs external information and the necessary capability is not already
+            visible, call tool_search to find the best tool, then use call_tool to invoke it. Do not
+            claim that a searched tool is unavailable until tool_search returns no relevant result.
+
+            For questions about Microsoft products, .NET, Azure, Microsoft Foundry, or Microsoft
+            Agent Framework, prefer the Microsoft Learn MCP tools over general web search. Use web
+            search only when Microsoft Learn does not cover the request or the user explicitly asks
+            for broader web results.
+
+            Base factual claims on tool results. When the user asks for sources, include the source
+            titles and URLs returned by the tools and never invent citations. Clearly distinguish
+            guidance for different Microsoft products or SDKs when the user asks for a comparison.
+
             If a tool is not available for a request, let the user know clearly.
             """,
         name: Environment.GetEnvironmentVariable("AGENT_NAME") ?? "hosted-toolbox-agent",

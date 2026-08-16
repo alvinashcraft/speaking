@@ -9,6 +9,8 @@ services:
         uses:
             - ai-project
         tools:
+            - type: toolbox_search
+              name: toolbox_search
             - type: mcp
               server_label: learn-mcp-conn
               server_url: https://learn.microsoft.com/api/mcp
