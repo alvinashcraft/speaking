@@ -21,14 +21,17 @@ AIProjectClient projectClient = new(
 ProjectResponsesClient responsesClient = projectClient.ProjectOpenAIClient
 	.GetProjectResponsesClientForAgentEndpoint(agentName);
 
+string prompt = "Using Microsoft Learn, explain in three concise bullets how Foundry hosted agents " +
+	"differ from prompt agents, and include source links.";
+
+Console.WriteLine($"Prompt: {prompt}");
+
 ResponseResult response = await responsesClient.CreateResponseAsync(
 	new CreateResponseOptions
 	{
 		InputItems =
 		{
-			ResponseItem.CreateUserMessageItem(
-				"Using Microsoft Learn, explain in three concise bullets how Foundry hosted agents " +
-				"differ from prompt agents, and include source links.")
+			ResponseItem.CreateUserMessageItem(prompt)
 		}
 	});
 
