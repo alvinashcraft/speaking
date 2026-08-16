@@ -1,0 +1,15 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build agent-toolbox",
+      "type": "process",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/agent-toolbox.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

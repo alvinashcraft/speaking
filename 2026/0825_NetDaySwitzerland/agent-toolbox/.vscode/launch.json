@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch agent-toolbox",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build agent-toolbox",
+      "program": "${workspaceFolder}/bin/Debug/net10.0/agent-toolbox.dll",
+      "cwd": "${workspaceFolder}",
+      "envFile": "${workspaceFolder}/.env",
+      "console": "integratedTerminal"
+    }
+  ]
+}
