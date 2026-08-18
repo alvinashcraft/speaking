@@ -8,6 +8,23 @@
 - **Session:** Supercharge Your Agents: Custom Tools, MCP, and Microsoft Foundry
 - **Audience outcome:** Attendees leave with a practical mental model for choosing a Foundry agent hosting option and extending an agent with reusable tools.
 
+## Conference Abstract
+
+AI agents become far more useful when they can reach beyond the model to retrieve current information, call application logic, and take action. But as those capabilities grow, so do the decisions around hosting, reuse, identity, versioning, and observability.
+
+In this practical session, you will learn how Microsoft Foundry supports the full agent lifecycle and how to choose between prompt agents and hosted agents. We will take a code-led agent from local development to a managed Foundry endpoint, then inspect the identity, deployment version, and trace that turn application code into an operable service.
+
+Next, we will explore tools as the boundary between an agent and the systems it can use. You will see where function tools fit, how the Model Context Protocol (MCP) standardizes access to external capabilities, and how a Foundry toolbox can package Web Search and Microsoft Learn into a reusable, versioned endpoint. Along the way, we will examine real tool calls, grounded answers, and citations without coupling the agent's orchestration code to every tool implementation.
+
+You will leave with a practical framework for deciding what belongs in your agent, what belongs behind MCP, and what Foundry can manage for you.
+
+### Key Takeaways
+
+- Choose between prompt agents and hosted agents based on how much code and runtime control your application needs.
+- Build, deploy, version, and inspect a hosted agent in Microsoft Foundry.
+- Use function tools, MCP servers, and toolboxes at the right capability boundaries.
+- Design identity, approval, data access, tracing, and versioning into the solution from the start.
+
 ## Narrative
 
 1. Start with the agent landscape: Microsoft Foundry brings models, agents, tools, and operational controls into one platform.
