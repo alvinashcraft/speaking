@@ -11,6 +11,7 @@ This project is a **Microsoft Foundry hosted agent** — a containerized AI agen
 The **Azure Developer CLI (`azd`)** manages the full lifecycle:
 
 ```bash
+azd ai agent init                          # Initialize the agent project from an azure.yaml file
 azd ai agent run                           # Run locally on http://localhost:8088
 azd ai agent invoke --local "your message" # Test the local agent
 azd deploy                                 # Deploy to Foundry
