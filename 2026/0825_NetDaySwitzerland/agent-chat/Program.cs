@@ -32,7 +32,7 @@ try
         {
             InputItems =
             {
-                ResponseItem.CreateUserMessageItem("What is the size of Switzerland in square miles?")
+                ResponseItem.CreateUserMessageItem("What is the size of Switzerland in square kilometers?")
             }
         });
     WriteResponse(response);
