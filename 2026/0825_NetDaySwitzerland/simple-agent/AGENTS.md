@@ -14,6 +14,7 @@ The **Azure Developer CLI (`azd`)** manages the full lifecycle:
 azd ai agent init                          # Initialize the agent project from an azure.yaml file
 azd ai agent run                           # Run locally on http://localhost:8088
 azd ai agent invoke --local "your message" # Test the local agent
+azd provision                              # Provision Foundry resources (if not yet created)
 azd deploy                                 # Deploy to Foundry
 azd ai agent invoke "your message"         # Invoke the deployed agent
 ```
