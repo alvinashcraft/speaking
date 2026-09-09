@@ -1,0 +1,115 @@
+{
+  "id": "2026-0825-net-day-switzerland",
+  "event": ".NET Day Switzerland 2026",
+  "date": "August 25, 2026",
+  "location": "Arena Cinemas, Sihlcity, Zurich",
+  "title": "Supercharge Your Agents",
+  "subtitle": "Custom Tools, MCP, and Microsoft Foundry",
+  "startTime": "13:45",
+  "targetMinutes": 45,
+  "sourceFiles": [
+    "presentation-outline.md",
+    "demo-steps-and-talking-points.md",
+    "slide-notes.md",
+    "links.md"
+  ],
+  "flow": [
+    {
+      "time": "0:00",
+      "duration": "10 min",
+      "kind": "Talk",
+      "slides": "1-8",
+      "title": "Welcome and the agent landscape",
+      "detail": "Frame Foundry, compare prompt and hosted agents, and establish the code-versus-platform boundary."
+    },
+    {
+      "time": "10:00",
+      "duration": "10 min",
+      "kind": "Demo 1",
+      "slides": "9",
+      "title": "Create and deploy a hosted agent",
+      "detail": "Show the local loop, deployment, managed endpoint, versioning, and one trace."
+    },
+    {
+      "time": "20:00",
+      "duration": "5 min",
+      "kind": "Talk",
+      "slides": "10-11",
+      "title": "Extend agents with tools and MCP",
+      "detail": "Explain function tools, MCP, and the toolbox as a reusable operational boundary."
+    },
+    {
+      "time": "25:00",
+      "duration": "10 min",
+      "kind": "Demo 2",
+      "slides": "12",
+      "title": "Use the prepared Microsoft Learn toolbox",
+      "detail": "Attach the toolbox, ask a current question, inspect the tool call and citations, then ask a follow-up."
+    },
+    {
+      "time": "35:00",
+      "duration": "3 min",
+      "kind": "Portal tour",
+      "slides": "13",
+      "title": "Manage agents at scale",
+      "detail": "Open inventory and a trace; call out tool calls, latency, usage, and sensitive-data handling."
+    },
+    {
+      "time": "38:00",
+      "duration": "2 min",
+      "kind": "Talk",
+      "slides": "14-15",
+      "title": "Resources and close",
+      "detail": "Point to the links, reinforce the hosting and tool-selection rules, and invite questions."
+    },
+    {
+      "time": "40:00",
+      "duration": "5 min",
+      "kind": "Buffer",
+      "slides": "15",
+      "title": "Questions and deployment buffer",
+      "detail": "Use for questions, deployment latency, or a fallback walkthrough."
+    }
+  ],
+  "demos": [
+    {
+      "id": "demo-1",
+      "title": "Demo 1: Hosted agent",
+      "goal": "Show that a developer-owned agent can keep its application code while Foundry supplies managed hosting, identity, versioning, scaling, and telemetry.",
+      "prompt": "Explain the difference between a prompt agent and a hosted agent in two sentences.",
+      "steps": [
+        "Open the .NET agent project; show instructions, model configuration, tool registration, and hosting manifest.",
+        "Run the agent locally and send the prepared prompt.",
+        "Explain the boundary: local code works, but it is not yet a managed Foundry endpoint.",
+        "Deploy with azd deploy; mention provisioning only when using a fresh environment.",
+        "Show the active agent version in Foundry and invoke the deployed endpoint.",
+        "Compare local and hosted responses, then open a trace."
+      ],
+      "fallback": "Use Foundry Toolkit: Deploy Hosted Agent from VS Code. If deployment is pending, switch to the pre-deployed version and explain the lifecycle."
+    },
+    {
+      "id": "demo-2",
+      "title": "Demo 2: Microsoft Learn toolbox",
+      "goal": "Show that a toolbox exposes reusable MCP capabilities without rewriting the agent's orchestration code.",
+      "prompt": "What is the current Microsoft guidance for connecting a .NET agent to an MCP server? Cite Microsoft Learn sources and separate Foundry Agent Service guidance from Agent Framework guidance.",
+      "steps": [
+        "Show the prepared toolbox version and its Web Search and Microsoft Learn MCP capabilities.",
+        "Attach or select the toolbox for the demo agent using its MCP endpoint.",
+        "Ask the prepared documentation question.",
+        "Show tool selection, the Microsoft Learn result, and citations.",
+        "Ask the prepared five-step local-demo checklist follow-up.",
+        "If time permits, show the version list or prepared screenshot of a second version."
+      ],
+      "fallback": "If the MCP server does not load, verify endpoint, connection, project, and network access. If citations are absent, explicitly request Microsoft Learn citations."
+    }
+  ],
+  "checklist": [
+    "Confirm the Foundry project, model deployment, region, and RBAC roles.",
+    "Deploy and invoke Demo 1 before attendees arrive.",
+    "Create and test the Microsoft Learn MCP connection and toolbox.",
+    "Record the toolbox name, version, endpoint, and agent configuration.",
+    "Have a pre-recorded deployment or provisioning screen capture available.",
+    "Remove secrets, tokens, personal data, and attendee information from prompts and traces.",
+    "Verify preview features and the presentation-machine setup shortly before the session."
+  ]
+}
