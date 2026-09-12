@@ -14,9 +14,9 @@
                 SemanticProperties.Description="Image header." />
 
             <Label
-                x:Name="batteryInfoLabel"
-                Text="Battery info not yet checked."
-                SemanticProperties.Description="Shows the battery information"
+                x:Name="deviceInfoLabel"
+                Text="Device info not yet checked."
+                SemanticProperties.Description="Shows the device information"
                 HorizontalOptions="Center" />
             
             <Button
@@ -26,15 +26,15 @@
                 HorizontalOptions="Fill" />
 
             <Button
+                Text="Check network" 
+                SemanticProperties.Hint="Checks the network connectivity"
+                Clicked="OnCheckNetworkClicked"
+                HorizontalOptions="Fill" />
+            
+            <Button
                 Text="Pick an image" 
                 SemanticProperties.Hint="Picks an image to display"
                 Clicked="OnPickImageClicked"
-                HorizontalOptions="Fill" />
-
-            <Button
-                Text="Take picture" 
-                SemanticProperties.Hint="Takes a picture to display"
-                Clicked="OnTakePictureClicked"
                 HorizontalOptions="Fill" />
 
             <Button

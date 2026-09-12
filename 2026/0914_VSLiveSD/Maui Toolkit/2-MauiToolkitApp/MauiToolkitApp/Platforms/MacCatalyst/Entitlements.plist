@@ -9,6 +9,12 @@
         <!-- When App Sandbox is enabled, this value is required to open outgoing network connections. -->
         <key>com.apple.security.network.client</key>
         <true/>
+        <!-- When App Sandbox is enabled, this value is required to get read-only access to user-selected files. -->
+        <key>com.apple.security.files.user-selected.read-only</key>
+        <true/>
+        <!-- When App Sandbox is enabled, this value is required to get read-write access to user-selected files. -->
+        <key>com.apple.security.files.user-selected.read-write</key>
+        <true/>
     </dict>
 </plist>
 

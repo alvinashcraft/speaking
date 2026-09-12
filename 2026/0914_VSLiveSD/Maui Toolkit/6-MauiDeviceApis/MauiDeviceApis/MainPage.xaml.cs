@@ -17,9 +17,9 @@
             await PickPhotoAsync();
         }
 
-        private async void OnTakePictureClicked(object? sender, EventArgs e)
+        private async void OnCheckNetworkClicked(object? sender, EventArgs e)
         {
-            await TakePhotoAsync();
+            await CheckNetworkAsync();
         }
 
         private async void OnTakeScreenshotClicked(object? sender, EventArgs e)
@@ -27,18 +27,18 @@
             await TakeScreenshotAsync();
         }
 
-        public async Task TakePhotoAsync()
+        public async Task CheckNetworkAsync()
         {
-            if (MediaPicker.Default.IsCaptureSupported)
+            var access = Connectivity.Current.NetworkAccess;
+            
+            deviceInfoLabel.Text = access switch
             {
-                FileResult photo = await MediaPicker.Default.CapturePhotoAsync();
-
-                if (photo != null)
-                {
-                    Stream sourceStream = await photo.OpenReadAsync();
-                    myImage.Source = ImageSource.FromStream(() => sourceStream);
-                }
-            }
+                NetworkAccess.Internet => "Internet is available",
+                NetworkAccess.ConstrainedInternet => "Internet is available but constrained",
+                NetworkAccess.Local => "Local network only",
+                NetworkAccess.None => "No network access",
+                _ => "Unknown network access"
+            };
         }
 
         public async Task PickPhotoAsync()
@@ -74,7 +74,7 @@
 
         private void SetChargeModeLabel()
         {
-            batteryInfoLabel.Text = Battery.Default.PowerSource switch
+            deviceInfoLabel.Text = Battery.Default.PowerSource switch
             {
                 BatteryPowerSource.Wireless => "Wireless charging",
                 BatteryPowerSource.Usb => "USB cable charging",

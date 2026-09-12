@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Core.Extensions;
+﻿using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Storage;
 
@@ -22,15 +20,9 @@ namespace MauiToolkitApp
 
         private async Task PickFolderAsync()
         {
+            var readPermissionsRequest = await Permissions.RequestAsync<Permissions.StorageRead>();
             var result = await FolderPicker.Default.PickAsync();
-            if (result.IsSuccessful)
-            {
-                centerButton.Text = result.Folder.Name;
-            }
-            else
-            {
-                centerButton.Text = "No folder selected";
-            }
+            centerButton.Text = result.IsSuccessful ? result.Folder.Name : "No folder selected";
         }
 
         private async void centerButton_Clicked(object sender, EventArgs e)
