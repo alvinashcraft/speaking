@@ -9,12 +9,9 @@ Resources from my speaking engagements:
 - Links
 - Videos
 
-## Upcoming events in 2026
+## Upcoming events in 2027
 
-- [DWX 2026](https://www.developer-world.com/dwx) - June 29 - July 2
-- [Nebraska.Code() 2026](https://nebraskacode.amegala.com/) - July 22-24
-- [.NET Day Switzerland 2026](https://dotnetday.ch/) - August 25
-- [VSLive! San Diego 2026](https://vslive.com/events/san-diego-2026/home.aspx) - September 14-18
+- [CodeMash Great Lakes 2027](https://codemash.org/) - January 12 - 15
 
 ## My current sessions
 
@@ -33,17 +30,20 @@ Resources from my speaking engagements:
 
 ## Recent Speaking Engagements
 
-- Philly .NET Meetup
-  - May 21st (Build intelligent apps with WinUI, Phi Silica and the Windows AI APIs)
-- Update Conference Krakow 2025
-  - May 26th (Choosing a Native Windows UI Framework) - [Recording](https://www.youtube.com/watch?v=DH3xvO05lI0)
-- Live360 / VSLive! Orlando 2025
-  - November 18th (Contributing to Microsoft Learn - Fast Focus Session)
-  - November 20th (Create Multi-Platform Apps with .NET MAUI and the MAUI Community Toolkit)
 - CodeMash 2026
   - January 15th (Create Multi-Platform Apps with .NET MAUI and the MAUI Community Toolkit)
 - AI Agents Conference 2026
   - April 26th (Explore Windows AI Dev Options with the AI Dev Gallery)
+- DWX 2026
+  - July 1 (Build Beautiful Cross-Platform Apps with Uno Platform)
+- Nebraska.Code 2026
+  - July 23 (Local AI on Windows: Integrating Phi Silica and Foundry into .NET Apps)
+- .NET Day Switzerland 2026
+  - August 25 (Supercharge Your Agents: Custom Tools, MCP, and Microsoft Foundry)
+- VSLive! San Diego 2026
+  - September 16 (Accelerate .NET MAUI Development with the Community Toolkits)
+  - September 16 (Windows AI Development with AI Dev Gallery)
+  - September 17 (Local AI on Windows: Integrating Phi Silica and Foundry into .NET Apps)
 
 ## My books
 
