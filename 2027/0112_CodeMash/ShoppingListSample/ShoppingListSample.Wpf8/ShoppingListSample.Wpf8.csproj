@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\ShoppingListSample.Shared\Category.cs" Link="Shared\Category.cs" />
+    <Compile Include="..\ShoppingListSample.Shared\Item.cs" Link="Shared\Item.cs" />
+    <Compile Include="..\ShoppingListSample.Shared\ShoppingListHelpers.cs" Link="Shared\ShoppingListHelpers.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\" />
+  </ItemGroup>
+
+</Project>
