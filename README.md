@@ -50,4 +50,4 @@ Resources from my speaking engagements:
 - [Learn WinUI 3: Leverage WinUI and the Windows App SDK to create modern Windows applications with C# and XAML, 2nd Edition](https://www.amazon.com/Learn-WinUI-Leverage-Windows-applications/dp/1805120069/)
 - [Parallel Programming and Concurrency with C# 10 and .NET 6: A modern approach to building faster, more responsive, and asynchronous .NET applications using C#](https://www.amazon.com/Parallel-Programming-Concurrency-NET-asynchronous/dp/1803243678/) - *Use it with .NET 9 too!*
 - [Learn WinUI 3.0: Leverage the power of WinUI, the future of native Windows application development](https://www.amazon.com/Learn-WinUI-3-0-application-development/dp/1800208669/) - *The 1st edition*
-- Hands-On Model Context Protocol for C# and .NET Developers (co-author) - Coming March 2026
+- [Building Agentic Applications with MCP and .NET](https://www.amazon.com/dp/B0HMJLK4JH) (co-author) - Coming soon
