@@ -18,7 +18,14 @@ namespace ShoppingListSample.Maui
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            var newItem = new Item { Name = nameEntry.Text, IsComplete = false, Category = (Category)categoryPicker.SelectedItem };
+            if (categoryPicker.SelectedItem is not Category category || string.IsNullOrWhiteSpace(nameEntry.Text))
+            {
+                validationMessage.IsVisible = true;
+                return;
+            }
+
+            validationMessage.IsVisible = false;
+            var newItem = new Item { Name = nameEntry.Text, IsComplete = false, Category = category };
             Items.Add(newItem);
             ClearEntryFields();
         }

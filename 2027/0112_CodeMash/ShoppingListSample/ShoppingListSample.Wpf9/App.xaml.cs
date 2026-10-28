@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace ShoppingListSample.Wpf9
+namespace ShoppingListSample.Wpf10
 {
     /// <summary>
     /// Interaction logic for App.xaml

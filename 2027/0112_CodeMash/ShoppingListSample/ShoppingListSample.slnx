@@ -37,5 +37,5 @@
     <Deploy />
   </Project>
   <Project Path="ShoppingListSample.Wpf8/ShoppingListSample.Wpf8.csproj" />
-  <Project Path="ShoppingListSample.Wpf9/ShoppingListSample.Wpf9.csproj" />
+  <Project Path="ShoppingListSample.Wpf9/ShoppingListSample.Wpf10.csproj" />
 </Solution>

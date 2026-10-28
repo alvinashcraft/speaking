@@ -3,31 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShoppingListSample.Maui.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20,0" Spacing="25">
-            <HorizontalStackLayout Spacing="20" Margin="20" HorizontalOptions="Fill">
-                <Picker x:Name="categoryPicker" Title="Select a category" ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}"/>
-                <Entry x:Name="nameEntry" Placeholder="Enter an item name" WidthRequest="200" />
-                <Button x:Name="AddBtn"
-                        Text="Add item" 
-                        SemanticProperties.Hint="Adds an item to the shopping list"
-                        Clicked="addButton_Click" />
-            </HorizontalStackLayout>
-            <ListView x:Name="shoppingList" ItemsSource="{Binding Items}" HorizontalOptions="StartAndExpand">
-                <ListView.ItemTemplate>
+    <Grid Padding="12" RowDefinitions="Auto,Auto,*" RowSpacing="8">
+        <!-- Wrap the fields on narrow windows and phones, but keep them in a row on desktop. -->
+        <FlexLayout Wrap="Wrap" AlignItems="Center">
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" Margin="0,0,8,8"
+                  FlexLayout.Basis="220" FlexLayout.Grow="1">
+                <Label Text="Category:" VerticalOptions="Center" />
+                <Picker x:Name="categoryPicker" Grid.Column="1"
+                        ItemsSource="{Binding Categories}"
+                        ItemDisplayBinding="{Binding Name}"
+                        SemanticProperties.Description="Category" />
+            </Grid>
+            <Grid ColumnDefinitions="Auto,*" ColumnSpacing="8" Margin="0,0,8,8"
+                  FlexLayout.Basis="220" FlexLayout.Grow="1">
+                <Label Text="Name:" VerticalOptions="Center" />
+                <Entry x:Name="nameEntry" Grid.Column="1" Placeholder="Item name"
+                       SemanticProperties.Description="Item name" />
+            </Grid>
+            <Button Text="Add Item" Margin="0,0,0,8" FlexLayout.Basis="100"
+                    SemanticProperties.Hint="Adds an item to the shopping list"
+                    Clicked="addButton_Click" />
+        </FlexLayout>
+
+        <Label x:Name="validationMessage" Grid.Row="1" IsVisible="False"
+               Text="Select a category and enter an item name."
+               TextColor="{AppThemeBinding Light=#B42318, Dark=#FFB4AB}" />
+
+        <Border Grid.Row="2" Stroke="{AppThemeBinding Light=#D5D5D5, Dark=#555555}"
+                StrokeShape="RoundRectangle 4" StrokeThickness="1">
+            <CollectionView ItemsSource="{Binding Items}" SelectionMode="None">
+                <CollectionView.Header>
+                    <Grid Padding="10,8" ColumnDefinitions="*,1.4*,72,72"
+                          BackgroundColor="{AppThemeBinding Light=#F6F6F6, Dark=#303030}">
+                        <Label Text="Category" FontAttributes="Bold" FontSize="12" LineBreakMode="TailTruncation" />
+                        <Label Grid.Column="1" Text="Name" FontAttributes="Bold" FontSize="12" LineBreakMode="TailTruncation" />
+                        <Label Grid.Column="2" Text="Purchased" FontAttributes="Bold" FontSize="12"
+                               HorizontalTextAlignment="Center" LineBreakMode="TailTruncation" />
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.EmptyView>
+                    <Label Text="No items yet. Add an item above." Padding="10,20"
+                           HorizontalTextAlignment="Center" />
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand">
-                                <Label Text="{Binding Name}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                                <Label Text="{Binding Category}" HorizontalOptions="StartAndExpand" VerticalOptions="Center" />
-                                <CheckBox IsChecked="{Binding IsComplete}" HorizontalOptions="Start" VerticalOptions="Center" />
-                                <Button Text="Delete" Clicked="deleteButton_Click" CommandParameter="{Binding .}" HorizontalOptions="EndAndExpand" />
-                            </StackLayout>
-                        </ViewCell>
+                        <Grid Padding="10,0" ColumnDefinitions="*,1.4*,72,72"
+                              RowDefinitions="*,1" MinimumHeightRequest="56">
+                            <Label Text="{Binding Category.Name}" VerticalOptions="Center"
+                                   LineBreakMode="TailTruncation" />
+                            <Label Grid.Column="1" Text="{Binding Name}" VerticalOptions="Center"
+                                   LineBreakMode="TailTruncation" />
+                            <CheckBox Grid.Column="2" IsChecked="{Binding IsComplete, Mode=TwoWay}"
+                                      HorizontalOptions="Center" VerticalOptions="Center"
+                                      SemanticProperties.Description="{Binding Name, StringFormat='Purchased: {0}'}" />
+                            <Button Grid.Column="3" Text="Delete" Padding="4,0" Margin="0,4" CornerRadius="4"
+                                    VerticalOptions="Center"
+                                    BackgroundColor="{AppThemeBinding Light=#F2F2F2, Dark=#454545}"
+                                    TextColor="{AppThemeBinding Light=#1A1A1A, Dark=White}"
+                                    SemanticProperties.Description="{Binding Name, StringFormat='Delete {0}'}"
+                                    Clicked="deleteButton_Click" />
+                            <BoxView Grid.Row="1" Grid.ColumnSpan="4" HeightRequest="1"
+                                     Color="{AppThemeBinding Light=#E5E5E5, Dark=#454545}"
+                                     InputTransparent="True" />
+                        </Grid>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </VerticalStackLayout>
-    </ScrollView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
+    </Grid>
 
 </ContentPage>

@@ -4,7 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace ShoppingListSample.Wpf9
+namespace ShoppingListSample.Wpf10
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
