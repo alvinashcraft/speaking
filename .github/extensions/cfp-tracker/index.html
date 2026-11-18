@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CFP tracker</title>
+<style>
+:root { color-scheme: light dark; }
+* { box-sizing: border-box; }
+body { margin: 0; padding: 20px; background: var(--background-color-default, #fff); color: var(--text-color-default, #1f2328); font-family: var(--font-sans, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif); font-size: var(--text-body-medium, 14px); line-height: 1.45; }
+main { max-width: 1200px; margin: 0 auto; }
+header { display: flex; justify-content: space-between; gap: 16px; align-items: start; margin-bottom: 14px; }
+h1 { margin: 0 0 4px; font-size: var(--text-title-large, 24px); }
+p, .muted { margin: 0; color: var(--text-color-muted, #59636e); }
+a { color: var(--color-focus-outline, #0969da); }
+button, select, input { font: inherit; color: inherit; background: transparent; border: 1px solid var(--border-color-default, #d0d7de); border-radius: 6px; padding: 5px 9px; }
+button { cursor: pointer; }
+button.primary { background: var(--color-focus-outline, #0969da); border-color: transparent; color: #fff; }
+.sources { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 14px; }
+.chip { border: 1px solid var(--border-color-default, #d0d7de); border-radius: 999px; padding: 2px 10px; font-size: 12px; }
+.chip.err { border-color: #cf222e; color: #cf222e; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.filters input[type=search] { min-width: 220px; flex: 1; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; vertical-align: top; padding: 9px 8px; border-bottom: 1px solid var(--border-color-default, #d0d7de); }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .03em; color: var(--text-color-muted, #59636e); position: sticky; top: 0; background: var(--background-color-default, #fff); }
+.name { font-weight: 600; }
+.small { font-size: 12px; }
+.badge { display: inline-block; border-radius: 999px; padding: 1px 8px; font-size: 11px; font-weight: 600; border: 1px solid currentColor; white-space: nowrap; }
+.fit-strong { color: #1a7f37; } .fit-good { color: #0969da; } .fit-possible { color: #9a6700; } .fit-other { color: var(--text-color-muted, #59636e); }
+.urgent { color: #cf222e; font-weight: 600; }
+.warn { color: #9a6700; }
+tr.status-dismissed { opacity: .55; }
+tr.status-submitted td:first-child, tr.status-accepted td:first-child { border-left: 3px solid #1a7f37; }
+tr.status-saved td:first-child { border-left: 3px solid #0969da; }
+.note { width: 100%; margin-top: 4px; font-size: 12px; }
+details.add { border: 1px solid var(--border-color-default, #d0d7de); border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; }
+details.add summary { cursor: pointer; font-weight: 600; }
+.form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-top: 10px; }
+.form label { display: flex; flex-direction: column; gap: 3px; font-size: 12px; color: var(--text-color-muted, #59636e); }
+.empty { padding: 30px; text-align: center; }
+#error { color: #cf222e; margin-bottom: 10px; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <div>
+      <h1>Open calls for speakers</h1>
+      <p id="summary">Loading sources…</p>
+    </div>
+    <button id="refresh" class="primary" type="button">Refresh sources</button>
+  </header>
+  <div id="error" hidden></div>
+  <div class="sources" id="sources"></div>
+  <details class="add">
+    <summary>Add a CFP manually</summary>
+    <p class="small" style="margin-top:6px">For CFPs found on <a href="https://sessionize.com/app/speaker/discover" target="_blank" rel="noopener noreferrer">Sessionize Discover</a> (requires login) or elsewhere. Saved to <code>cfp-tracker/tracking.json</code>.</p>
+    <form id="addForm" class="form">
+      <label>Name *<input name="name" required /></label>
+      <label>CFP URL<input name="cfpUrl" type="url" /></label>
+      <label>Event URL<input name="eventUrl" type="url" /></label>
+      <label>CFP closes<input name="cfpEnd" type="date" /></label>
+      <label>Event start<input name="eventStart" type="date" /></label>
+      <label>Event end<input name="eventEnd" type="date" /></label>
+      <label>Location<input name="location" /></label>
+      <label>Topics / notes<input name="description" /></label>
+      <label>&nbsp;<button class="primary" type="submit">Add CFP</button></label>
+    </form>
+  </details>
+  <div class="filters">
+    <input type="search" id="query" placeholder="Filter by name or location" />
+    <select id="fit">
+      <option value="good">Good fit or better</option>
+      <option value="strong">Strong fit only</option>
+      <option value="possible">Any match</option>
+      <option value="all">All developer CFPs</option>
+    </select>
+    <select id="status">
+      <option value="active">Active (not dismissed)</option>
+      <option value="new">New</option>
+      <option value="saved">Saved</option>
+      <option value="submitted">Submitted</option>
+      <option value="accepted">Accepted</option>
+      <option value="rejected">Rejected</option>
+      <option value="dismissed">Dismissed</option>
+      <option value="any">Any status</option>
+    </select>
+    <select id="window">
+      <option value="">Any deadline</option>
+      <option value="7">Closing within 7 days</option>
+      <option value="30">Within 30 days</option>
+      <option value="90">Within 90 days</option>
+    </select>
+    <select id="sort">
+      <option value="deadline">Sort: deadline</option>
+      <option value="fit">Sort: fit</option>
+      <option value="event">Sort: event date</option>
+    </select>
+    <span class="muted small" id="count"></span>
+  </div>
+  <table>
+    <thead><tr><th>Closes</th><th>Event</th><th>When / where</th><th>Fit</th><th>Sources</th><th>Status</th></tr></thead>
+    <tbody id="rows"><tr><td colspan="6" class="empty muted">Fetching CFP sources…</td></tr></tbody>
+  </table>
+</main>
+<script>
+const STATUSES = ["new", "saved", "submitted", "accepted", "rejected", "dismissed"];
+const SOURCE_NAMES = { "callingallpapers": "Calling All Papers", "developers-events": "developers.events", "confs-tech": "confs.tech", "adato": "Adato", "cfp-watch": "CFP Watch", "manual": "Manual" };
+const prefsKey = "cfp-tracker:filters";
+let listing = null;
+let version = -1;
+const $ = (id) => document.getElementById(id);
+const esc = (v) => String(v ?? "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+const safeUrl = (u) => /^https?:\/\//i.test(u ?? "") ? u : null;
+const fmt = (d) => d ? new Date(d + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }) : "";
+
+function showError(message) { $("error").hidden = !message; $("error").textContent = message || ""; }
+
+async function api(path, options = {}) {
+  const response = await fetch(path, { ...options, headers: { "Content-Type": "application/json" } });
+  const body = await response.json();
+  if (!response.ok) throw new Error(body.error || response.statusText);
+  return body;
+}
+
+function renderSources() {
+  $("sources").innerHTML = listing.sources.map((s) => `<a class="chip ${s.ok ? "" : "err"}" href="${esc(s.homepage)}" target="_blank" rel="noopener noreferrer" title="${esc(s.error || "Fetched " + new Date(s.fetchedAt).toLocaleString())}">${s.ok ? "✓" : "⚠"} ${esc(s.name)} · ${s.ok ? s.count : "failed"}</a>`).join("")
+    + `<a class="chip" href="https://sessionize.com/app/speaker/discover" target="_blank" rel="noopener noreferrer" title="Requires Sessionize login; add matches manually">↗ Sessionize Discover (manual)</a>`;
+  const failed = listing.sources.filter((s) => !s.ok).length;
+  $("summary").textContent = `${listing.items.length} CFPs open or tracked · fetched ${new Date(listing.fetchedAt).toLocaleString()}${failed ? ` · ${failed} source(s) failed` : ""}`;
+}
+
+function filtered() {
+  const q = $("query").value.trim().toLowerCase();
+  const fit = $("fit").value, status = $("status").value, win = $("window").value, sort = $("sort").value;
+  const fits = { strong: ["strong"], good: ["strong", "good"], possible: ["strong", "good", "possible"] }[fit];
+  const items = listing.items.filter((i) =>
+    (!fits || fits.includes(i.fit) || i.status !== "new") &&
+    (status === "any" || (status === "active" ? i.status !== "dismissed" : i.status === status)) &&
+    (!win || (i.daysLeft !== null && i.daysLeft <= Number(win))) &&
+    (!q || `${i.name} ${i.location ?? ""}`.toLowerCase().includes(q)));
+  const by = { deadline: (a, b) => (a.cfpEnd ?? "9999").localeCompare(b.cfpEnd ?? "9999"), fit: (a, b) => b.score - a.score, event: (a, b) => (a.eventStart ?? "9999").localeCompare(b.eventStart ?? "9999") }[sort];
+  return items.sort((a, b) => by(a, b) || b.score - a.score);
+}
+
+function renderRows() {
+  const items = filtered();
+  $("count").textContent = `${items.length} shown`;
+  if (!items.length) { $("rows").innerHTML = `<tr><td colspan="6" class="empty muted">No CFPs match these filters.</td></tr>`; return; }
+  $("rows").innerHTML = items.map((i) => {
+    const cfp = safeUrl(i.cfpUrl), site = safeUrl(i.eventUrl);
+    const days = i.daysLeft === null ? `<span class="warn">No deadline listed</span>` : i.closed ? `<span class="muted">Closed</span>` : `<span class="${i.daysLeft <= 7 ? "urgent" : ""}">${i.daysLeft === 0 ? "Today" : i.daysLeft === 1 ? "1 day" : i.daysLeft + " days"}</span>`;
+    const dates = i.eventStart ? fmt(i.eventStart) + (i.eventEnd && i.eventEnd !== i.eventStart ? " – " + fmt(i.eventEnd) : "") : "Dates TBD";
+    const conflict = i.deadlineConflict ? `<div class="small warn" title="${esc(Object.entries(i.deadlines).map(([s, d]) => SOURCE_NAMES[s] + ": " + d).join("\n"))}">⚠ Sources disagree; showing earliest</div>` : "";
+    const verify = i.verification === "corroborated" ? "" : `<div class="small muted">${i.verification === "single-source" ? "Single source — verify" : ""}</div>`;
+    return `<tr class="status-${esc(i.status)}">
+      <td><div>${esc(fmt(i.cfpEnd))}</div><div class="small">${days}</div>${conflict}</td>
+      <td><div class="name">${cfp ? `<a href="${esc(cfp)}" target="_blank" rel="noopener noreferrer">${esc(i.name)}</a>` : esc(i.name)}</div>
+        <div class="small">${cfp ? `<a href="${esc(cfp)}" target="_blank" rel="noopener noreferrer">Submit / CFP</a>` : ""}${cfp && site ? " · " : ""}${site ? `<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">Event site</a>` : ""}</div></td>
+      <td><div>${esc(dates)}</div><div class="small muted">${esc(i.location || "Location TBD")}</div></td>
+      <td><span class="badge fit-${esc(i.fit)}" title="Score ${i.score}">${esc(i.fit)}</span><div class="small muted">${i.reasons.map(esc).join("<br>")}</div></td>
+      <td class="small">${i.sources.map((s) => esc(SOURCE_NAMES[s] || s)).join("<br>")}${verify}</td>
+      <td><select data-id="${esc(i.id)}" class="status">${STATUSES.map((s) => `<option ${s === i.status ? "selected" : ""}>${s}</option>`).join("")}</select>
+        <input class="note" data-note="${esc(i.id)}" placeholder="Note (talk submitted…)" value="${esc(i.note)}" /></td>
+    </tr>`;
+  }).join("");
+}
+
+async function load(path = "/api/listing", options) {
+  try {
+    showError("");
+    listing = await api(path, options);
+    version = listing.version;
+    renderSources();
+    renderRows();
+  } catch (error) { showError("Could not load CFPs: " + error.message); }
+}
+
+async function updateStatus(id, status, note) {
+  try {
+    await api("/api/status", { method: "POST", body: JSON.stringify({ id, status, note }) });
+    const item = listing.items.find((i) => i.id === id);
+    if (item) { item.status = status; item.note = note; }
+    version++;
+    renderRows();
+  } catch (error) { showError(error.message); }
+}
+
+$("rows").addEventListener("change", (e) => {
+  const id = e.target.dataset.id || e.target.dataset.note;
+  if (!id) return;
+  const row = e.target.closest("tr");
+  updateStatus(id, row.querySelector(".status").value, row.querySelector(".note").value);
+});
+
+$("refresh").addEventListener("click", async () => {
+  $("refresh").disabled = true; $("refresh").textContent = "Refreshing…";
+  await load("/api/refresh", { method: "POST" });
+  $("refresh").disabled = false; $("refresh").textContent = "Refresh sources";
+});
+
+$("addForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  try {
+    await api("/api/manual", { method: "POST", body: JSON.stringify(Object.fromEntries(new FormData(e.target))) });
+    e.target.reset();
+    await load();
+  } catch (error) { showError(error.message); }
+});
+
+const filterIds = ["query", "fit", "status", "window", "sort"];
+const prefs = JSON.parse(localStorage.getItem(prefsKey) || "{}");
+filterIds.forEach((id) => {
+  if (prefs[id] !== undefined) $(id).value = prefs[id];
+  $(id).addEventListener("input", () => {
+    localStorage.setItem(prefsKey, JSON.stringify(Object.fromEntries(filterIds.map((f) => [f, $(f).value]))));
+    if (listing) renderRows();
+  });
+});
+
+// Pick up changes made through canvas actions (e.g. the agent adding or updating a CFP).
+setInterval(async () => {
+  try { const v = (await api("/api/version")).version; if (v !== version && document.activeElement?.tagName !== "INPUT") load(); } catch {}
+}, 10000);
+
+load();
+</script>
+</body>
+</html>
