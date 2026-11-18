@@ -125,7 +125,7 @@ const filterSchema = {
 await joinSession({ canvases: [createCanvas({
     id: "cfp-tracker",
     displayName: "CFP tracker",
-    description: "Tracks open calls for speakers from Calling All Papers, developers.events, confs.tech, Leon Adato's tracker, and CFP Watch, ranked against the speaking interest profile.",
+    description: "Tracks open calls for speakers from Open Tech CFPs (Sessionize), developers.events, cfp.ninja, confs.tech, JavaConferences, PythonDeadlin.es, Leon Adato's tracker, and CFP Watch, ranked against the speaking interest profile.",
     inputSchema: { type: "object", properties: {} },
     actions: [
         {

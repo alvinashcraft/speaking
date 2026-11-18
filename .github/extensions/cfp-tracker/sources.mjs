@@ -65,6 +65,70 @@ export function todayIso() {
     return new Date().toISOString().slice(0, 10);
 }
 
+const MONTHS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+
+function monthNumber(name) {
+    const text = String(name ?? "").toLowerCase();
+    const index = text.length >= 3 ? MONTHS.findIndex((month) => month.startsWith(text.slice(0, 3))) : -1;
+    return index < 0 ? null : String(index + 1).padStart(2, "0");
+}
+
+// "28 October 2026" -> "2026-10-28"
+function parseDayMonthYear(value) {
+    const match = /(\d{1,2})\s+([a-z]+)\s+(\d{4})/i.exec(value ?? "");
+    const month = match && monthNumber(match[2]);
+    return month ? `${match[3]}-${month}-${match[1].padStart(2, "0")}` : null;
+}
+
+// "21-26 January 2027", "31 March - 1 April 2027", "19 February 2027"
+function parseDateRange(value) {
+    const text = String(value ?? "");
+    const year = /(\d{4})\s*$/.exec(text)?.[1];
+    if (!year) return [null, null];
+    const tokens = text.slice(0, text.lastIndexOf(year)).match(/\d{1,2}|[a-z]+/gi) ?? [];
+    const dates = [];
+    let pendingDays = [];
+    for (const token of tokens) {
+        if (/^\d+$/.test(token)) pendingDays.push(token.padStart(2, "0"));
+        else if (monthNumber(token) && pendingDays.length) {
+            dates.push(...pendingDays.map((day) => `${year}-${monthNumber(token)}-${day}`));
+            pendingDays = [];
+        }
+    }
+    return dates.length ? [dates[0], dates.at(-1)] : [null, null];
+}
+
+// Converts a UTC instant to the calendar date in a "(UTC+05:30)"-style zone label.
+function utcToLocalDate(value, zoneLabel) {
+    const instant = Date.parse(value ?? "");
+    if (Number.isNaN(instant)) return null;
+    const match = /UTC([+-])(\d{2}):(\d{2})/.exec(zoneLabel ?? "");
+    const offsetMs = match ? (match[1] === "-" ? -1 : 1) * (Number(match[2]) * 60 + Number(match[3])) * 60_000 : 0;
+    return new Date(instant + offsetMs).toISOString().slice(0, 10);
+}
+
+function perkTags(perks) {
+    if (!perks || typeof perks !== "object") return [];
+    return Object.entries(perks).filter(([, value]) => value === true || (typeof value === "string" && value))
+        .map(([key, value]) => (value === true ? key : `${key}: ${value}`).replaceAll("_", " "));
+}
+
+// Minimal parser for a top-level YAML list of flat "key: value" maps; nested structures are ignored.
+function parseYamlList(text) {
+    const items = [];
+    let current = null;
+    for (const line of String(text).split(/\r?\n/)) {
+        const start = /^- (\w+):\s*(.*)$/.exec(line);
+        const field = /^  (\w+):\s*(.*)$/.exec(line);
+        const match = start ?? field;
+        if (start) items.push((current = {}));
+        if (!match || !current) continue;
+        const raw = match[2].trim();
+        current[match[1]] = raw === "" ? null : raw.replace(/^(['"])(.*)\1$/, "$2");
+    }
+    return items;
+}
+
 function record(fields) {
     return {
         name: fields.name?.trim() || "(untitled)",
@@ -84,18 +148,77 @@ function record(fields) {
 
 const SOURCES = [
     {
-        id: "callingallpapers",
-        name: "Calling All Papers",
-        homepage: "https://callingallpapers.com/",
+        id: "open-tech-cfps",
+        name: "Open Tech CFPs (CC BY 4.0)",
+        homepage: "https://github.com/1kevgriff/OpenTechCFPs",
         async load() {
-            const data = await fetchJson("https://api.callingallpapers.com/v1/cfp");
+            const data = await fetchJson("https://1kevgriff.github.io/OpenTechCFPs/api/open.json");
             return (data.cfps ?? []).map((cfp) => record({
-                name: cfp.name, cfpUrl: cfp.uri, eventUrl: cfp.eventUri, cfpStart: toIsoDateInZone(cfp.dateCfpStart, cfp.timezone),
-                cfpEnd: toIsoDateInZone(cfp.dateCfpEnd, cfp.timezone), eventStart: toIsoDateInZone(cfp.dateEventStart, cfp.timezone),
-                eventEnd: toIsoDateInZone(cfp.dateEventEnd, cfp.timezone),
-                location: cfp.location, description: cfp.description, tags: [...(cfp.tags ?? []), ...(cfp.sources ?? []).map((s) => `via ${s}`)],
-                source: "callingallpapers", sourceUpdated: toIsoDate(cfp.lastChange),
+                name: cfp.name, cfpUrl: cfp.url, eventUrl: cfp.website, cfpStart: toIsoDate(cfp.cfp_open),
+                cfpEnd: utcToLocalDate(cfp.cfp_close_utc, cfp.cfp_timezone), eventStart: toIsoDate(cfp.event_start),
+                eventEnd: toIsoDate(cfp.event_end ?? cfp.event_start),
+                location: cfp.online && !/online|virtual|remote/i.test(cfp.location ?? "") ? ["Online", cfp.location].filter(Boolean).join(" / ") : cfp.location, description: cfp.summary,
+                tags: [...(cfp.tags ?? []).map((tag) => `category:${tag}`), cfp.online ? "online" : null, ...perkTags(cfp.perks), cfp.source ? `via ${cfp.source}` : null],
+                source: "open-tech-cfps", sourceUpdated: toIsoDate(cfp.updated),
             }));
+        },
+    },
+    {
+        id: "cfp-ninja",
+        name: "cfp.ninja",
+        homepage: "https://cfp.ninja/",
+        async load() {
+            const events = [];
+            for (let page = 1, pages = 1; page <= pages && page <= 20; page++) {
+                const data = await fetchJson(`https://cfp.ninja/api/v0/events?per_page=100&page=${page}`);
+                events.push(...(data.data ?? []));
+                pages = data.pagination?.total_pages ?? 1;
+            }
+            return events.filter((event) => event.cfp_close_at && event.cfp_status !== "closed").map((event) => record({
+                name: event.name, cfpUrl: event.slug ? `https://cfp.ninja/e/${event.slug}` : null, eventUrl: event.website,
+                cfpStart: toIsoDate(event.cfp_open_at), cfpEnd: toIsoDateInZone(event.cfp_close_at, event.timezone),
+                eventStart: toIsoDate(event.start_date), eventEnd: toIsoDate(event.end_date ?? event.start_date),
+                location: [event.location, event.country].filter(Boolean).join(", ") || (event.is_online ? "Online" : null),
+                description: event.description?.slice(0, 600),
+                tags: [...String(event.tags ?? "").split(",").map((tag) => tag.trim()), event.is_online ? "online" : null,
+                    event.travel_covered ? "travel covered" : null, event.hotel_covered ? "hotel covered" : null,
+                    event.honorarium_provided ? "honorarium" : null, event.cfp_requires_payment ? "submission fee" : null],
+                source: "cfp-ninja", sourceUpdated: toIsoDate(event.UpdatedAt),
+            }));
+        },
+    },
+    {
+        id: "javaconferences",
+        name: "JavaConferences",
+        homepage: "https://javaconferences.org/",
+        async load() {
+            const data = await fetchJson("https://javaconferences.org/conferences.json");
+            return data.filter((conf) => conf.cfpLink || conf.cfpEndDate).map((conf) => {
+                const [eventStart, eventEnd] = parseDateRange(conf.date);
+                return record({
+                    name: conf.name, cfpUrl: conf.cfpLink, eventUrl: conf.link, cfpEnd: parseDayMonthYear(conf.cfpEndDate),
+                    eventStart, eventEnd, location: conf.locationName, tags: ["java", conf.hybrid ? "hybrid" : null],
+                    source: "javaconferences",
+                });
+            });
+        },
+    },
+    {
+        id: "python-deadlines",
+        name: "PythonDeadlin.es",
+        homepage: "https://pythondeadlin.es/",
+        async load() {
+            const yaml = await fetchText("https://raw.githubusercontent.com/jesperdramsch/python-deadlines/main/_data/conferences.yml");
+            return parseYamlList(yaml).filter((conf) => conf.cfp_link || conf.cfp).map((conf) => {
+                const deadline = /^\d{4}-\d{2}-\d{2}/.test(conf.cfp_ext ?? "") ? conf.cfp_ext : conf.cfp;
+                return record({
+                    name: [conf.conference, conf.year].filter(Boolean).join(" "), cfpUrl: conf.cfp_link, eventUrl: conf.link,
+                    cfpEnd: /^\d{4}-\d{2}-\d{2}/.test(deadline ?? "") ? deadline.slice(0, 10) : null,
+                    eventStart: toIsoDate(conf.start), eventEnd: toIsoDate(conf.end ?? conf.start), location: conf.place,
+                    tags: ["python", ...String(conf.sub ?? "").split(",").map((sub) => sub.trim().toLowerCase())],
+                    source: "python-deadlines",
+                });
+            });
         },
     },
     {
@@ -232,14 +355,21 @@ function keywordRegex(keyword) {
 }
 
 export function scoreItem(item, profile) {
-    const haystack = [item.name, item.description, item.cfpUrl, item.eventUrl, ...item.tags].filter(Boolean).join(" ").toLowerCase();
+    const isCategory = (tag) => tag.startsWith("category:");
+    const haystack = [item.name, item.description, item.cfpUrl, item.eventUrl, ...item.tags.filter((tag) => !isCategory(tag))].filter(Boolean).join(" ").toLowerCase();
+    // Aggregator-inferred categories (e.g. Sessionize's broad "ai"/"cloud") are a weaker signal than the event's own text.
+    const categories = item.tags.filter(isCategory).map((tag) => tag.slice(9).replaceAll("-", " ")).join(" ; ");
     const reasons = [];
     let score = 0;
     for (const interest of profile.interests ?? []) {
         const hits = interest.keywords.filter((keyword) => keywordRegex(keyword).test(haystack));
+        const categoryHits = hits.length ? [] : interest.keywords.filter((keyword) => keywordRegex(keyword).test(categories));
         if (hits.length) {
             score += interest.weight;
             reasons.push(`${interest.name}: ${hits.slice(0, 3).join(", ")}`);
+        } else if (categoryHits.length) {
+            score += Math.round(interest.weight / 2);
+            reasons.push(`${interest.name} (category): ${categoryHits.slice(0, 3).join(", ")}`);
         }
     }
     const topics = item.tags.filter((tag) => tag.startsWith("topic:")).map((tag) => tag.slice(6));
