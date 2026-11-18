@@ -1,0 +1,46 @@
+{
+  "description": "Interest profile used by the CFP tracker canvas to rank open calls for speakers. Weights are additive; edit freely.",
+  "interests": [
+    {
+      "name": ".NET & C#",
+      "weight": 30,
+      "keywords": [".net", "dotnet", "c#", "csharp", "asp.net", "blazor", "nuget", "visual studio", "basta", "ndc", "vslive", "vs live", "techorama", "dotnetdays", "dotnet days"]
+    },
+    {
+      "name": "Windows & desktop",
+      "weight": 30,
+      "keywords": ["windows", "winui", "wpf", "xaml", "desktop", "powertoys", "windows app sdk"]
+    },
+    {
+      "name": "Cross-platform & mobile",
+      "weight": 25,
+      "keywords": ["maui", "uno platform", "xamarin", "cross-platform", "mobile", "avalonia"]
+    },
+    {
+      "name": "AI & agents",
+      "weight": 20,
+      "keywords": ["ai", "genai", "llm", "agents", "agentic", "mcp", "copilot", "foundry", "machine learning", "phi"]
+    },
+    {
+      "name": "Microsoft & Azure community",
+      "weight": 20,
+      "keywords": ["microsoft", "azure", "global azure", "mvp", "power platform", "m365", "cloud"]
+    },
+    {
+      "name": "Docs & open source",
+      "weight": 15,
+      "keywords": ["documentation", "docs", "write the docs", "open source", "opensource", "oss", "github", "tech-comm", "devrel"]
+    },
+    {
+      "name": "General developer event",
+      "weight": 10,
+      "keywords": ["developer", "developers", "dev", "devfest", "devdays", "dev days", "devconf", "devcon", "code", "codecamp", "code camp", "codemash", "software", "programming", "tech", "techfest", "summit", "conf", "conference", "that conference", "stir trek", "kcdc", "devup"]
+    }
+  ],
+  "preferredTopics": ["dotnet", "general", "opensource", "tech-comm", "api", "devops", "ux", "accessibility"],
+  "topicWeight": 20,
+  "excludeKeywords": ["bitcoin", "crypto", "blockchain", "student community day"],
+  "preferredLocations": ["online", "virtual", "remote"],
+  "locationBonus": 5,
+  "languages": ["english"]
+}
