@@ -92,6 +92,10 @@ details.add summary { cursor: pointer; font-weight: 600; }
       <option value="30">Within 30 days</option>
       <option value="90">Within 90 days</option>
     </select>
+    <select id="language" title="Language data comes from developers.events; CFPs with no language listed are always shown">
+      <option value="mine">English or unknown language</option>
+      <option value="any">Any language</option>
+    </select>
     <select id="sort">
       <option value="deadline">Sort: deadline</option>
       <option value="fit">Sort: fit</option>
@@ -133,10 +137,11 @@ function renderSources() {
 
 function filtered() {
   const q = $("query").value.trim().toLowerCase();
-  const fit = $("fit").value, status = $("status").value, win = $("window").value, sort = $("sort").value;
+  const fit = $("fit").value, status = $("status").value, win = $("window").value, sort = $("sort").value, language = $("language").value;
   const fits = { strong: ["strong"], good: ["strong", "good"], possible: ["strong", "good", "possible"] }[fit];
   const items = listing.items.filter((i) =>
     (!fits || fits.includes(i.fit) || i.status !== "new") &&
+    (language === "any" || !i.languageMismatch || i.status !== "new") &&
     (status === "any" || (status === "active" ? i.status !== "dismissed" : i.status === status)) &&
     (!win || (i.daysLeft !== null && i.daysLeft <= Number(win))) &&
     (!q || `${i.name} ${i.location ?? ""}`.toLowerCase().includes(q)));
@@ -158,7 +163,7 @@ function renderRows() {
       <td><div>${esc(fmt(i.cfpEnd))}</div><div class="small">${days}</div>${conflict}</td>
       <td><div class="name">${cfp ? `<a href="${esc(cfp)}" target="_blank" rel="noopener noreferrer">${esc(i.name)}</a>` : esc(i.name)}</div>
         <div class="small">${cfp ? `<a href="${esc(cfp)}" target="_blank" rel="noopener noreferrer">Submit / CFP</a>` : ""}${cfp && site ? " · " : ""}${site ? `<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">Event site</a>` : ""}</div></td>
-      <td><div>${esc(dates)}</div><div class="small muted">${esc(i.location || "Location TBD")}</div></td>
+      <td><div>${esc(dates)}</div><div class="small muted">${esc(i.location || "Location TBD")}</div>${i.languages?.length ? `<div class="small ${i.languageMismatch ? "warn" : "muted"}">Language: ${esc(i.languages.join(", "))}</div>` : ""}</td>
       <td><span class="badge fit-${esc(i.fit)}" title="Score ${i.score}">${esc(i.fit)}</span><div class="small muted">${i.reasons.map(esc).join("<br>")}</div></td>
       <td class="small">${i.sources.map((s) => esc(SOURCE_NAMES[s] || s)).join("<br>")}${verify}</td>
       <td><select data-id="${esc(i.id)}" class="status">${STATUSES.map((s) => `<option ${s === i.status ? "selected" : ""}>${s}</option>`).join("")}</select>
@@ -209,7 +214,7 @@ $("addForm").addEventListener("submit", async (e) => {
   } catch (error) { showError(error.message); }
 });
 
-const filterIds = ["query", "fit", "status", "window", "sort"];
+const filterIds = ["query", "fit", "status", "window", "language", "sort"];
 const prefs = JSON.parse(localStorage.getItem(prefsKey) || "{}");
 filterIds.forEach((id) => {
   if (prefs[id] !== undefined) $(id).value = prefs[id];

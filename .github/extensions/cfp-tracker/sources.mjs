@@ -141,6 +141,7 @@ function record(fields) {
         location: fields.location?.trim() || null,
         description: fields.description?.trim() || "",
         tags: (fields.tags ?? []).filter(Boolean),
+        languages: [...new Set((fields.languages ?? []).filter(Boolean).map((language) => String(language).trim().toLowerCase()))],
         source: fields.source,
         sourceUpdated: fields.sourceUpdated || null,
     };
@@ -226,11 +227,13 @@ const SOURCES = [
         name: "developers.events",
         homepage: "https://developers.events/",
         async load() {
-            const data = await fetchJson("https://developers.events/all-cfps.json");
-            return data.map((cfp) => record({
-                name: cfp.conf?.name, cfpUrl: cfp.link, eventUrl: cfp.conf?.hyperlink, cfpEnd: toIsoDate(cfp.untilDate),
-                eventStart: toIsoDate(cfp.conf?.date?.[0]), eventEnd: toIsoDate(cfp.conf?.date?.[1] ?? cfp.conf?.date?.[0]),
-                location: cfp.conf?.location, source: "developers-events",
+            // all-events.json carries the same CFP data as all-cfps.json plus language tags.
+            const data = await fetchJson("https://developers.events/all-events.json");
+            return data.filter((event) => event.cfp?.link || event.cfp?.untilDate).map((event) => record({
+                name: event.name, cfpUrl: event.cfp.link, eventUrl: event.hyperlink, cfpEnd: toIsoDate(event.cfp.untilDate),
+                eventStart: toIsoDate(event.date?.[0]), eventEnd: toIsoDate(event.date?.[1] ?? event.date?.[0]),
+                location: event.location, source: "developers-events",
+                languages: (event.tags ?? []).filter((tag) => tag.key === "language").map((tag) => tag.value),
             }));
         },
     },
@@ -335,6 +338,7 @@ function mergeRecords(items) {
         // Prefer a direct submission link over an aggregator detail page.
         if (item.cfpUrl && (!existing.cfpUrl || existing.cfpUrl.includes("cfp.watch"))) existing.cfpUrl = item.cfpUrl;
         existing.tags = [...new Set([...existing.tags, ...item.tags])];
+        existing.languages = [...new Set([...existing.languages, ...item.languages])];
     }
     return [...byKey.entries()].map(([key, item]) => {
         const deadlines = [...new Set(Object.values(item.deadlines))].sort();
@@ -430,6 +434,7 @@ export async function fetchAllSources() {
 export function buildListing(snapshot, profile, tracking, today = todayIso()) {
     const manual = tracking.manual.map((entry) => record({ ...entry, source: "manual", tags: entry.tags ?? [] }));
     const merged = mergeRecords([...snapshot.records, ...manual]);
+    const spoken = (profile.languages ?? ["english"]).map((language) => language.toLowerCase());
     const items = merged
         .filter((item) => !item.cfpEnd || item.cfpEnd >= today || tracking.statuses[item.id])
         .map((item) => {
@@ -438,6 +443,8 @@ export function buildListing(snapshot, profile, tracking, today = todayIso()) {
             return {
                 ...item, ...scoreItem(item, profile), daysLeft,
                 closed: daysLeft !== null && daysLeft < 0,
+                // Only a known language list with none of the speaker's languages counts as a mismatch; unknown stays visible.
+                languageMismatch: item.languages.length > 0 && !item.languages.some((language) => spoken.includes(language)),
                 status: tracked.status ?? "new", note: tracked.note ?? "",
                 verification: item.sources.length > 1 ? "corroborated" : item.cfpEnd ? "single-source" : "no-deadline",
             };

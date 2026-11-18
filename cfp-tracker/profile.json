@@ -41,5 +41,6 @@
   "topicWeight": 20,
   "excludeKeywords": ["bitcoin", "crypto", "blockchain", "student community day"],
   "preferredLocations": ["online", "virtual", "remote"],
-  "locationBonus": 5
+  "locationBonus": 5,
+  "languages": ["english"]
 }

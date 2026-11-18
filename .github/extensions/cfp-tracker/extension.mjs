@@ -57,10 +57,11 @@ function filterItems(items, input = {}) {
         .filter((item) => !input.status || item.status === input.status)
         .filter((item) => input.status === "dismissed" || item.status !== "dismissed")
         .filter((item) => input.withinDays === undefined || (item.daysLeft !== null && item.daysLeft <= input.withinDays))
+        .filter((item) => input.includeOtherLanguages || !item.languageMismatch || item.status !== "new")
         .filter((item) => !query || `${item.name} ${item.location ?? ""}`.toLowerCase().includes(query))
         .slice(0, input.limit ?? 50)
-        .map(({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, fit, score, reasons, sources, deadlineConflict, status, note }) =>
-            ({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, fit, score, reasons, sources, deadlineConflict, status, note }));
+        .map(({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, languages, fit, score, reasons, sources, deadlineConflict, status, note }) =>
+            ({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, languages, fit, score, reasons, sources, deadlineConflict, status, note }));
 }
 
 async function readBody(request) {
@@ -118,6 +119,7 @@ const filterSchema = {
         status: { type: "string", enum: STATUSES, description: "Only include CFPs with this tracking status." },
         withinDays: { type: "number", description: "Only include CFPs closing within this many days." },
         query: { type: "string", description: "Case-insensitive text filter on name and location." },
+        includeOtherLanguages: { type: "boolean", description: "Include CFPs whose known languages exclude the profile's languages (hidden by default). CFPs with unknown language are always included." },
         limit: { type: "number", description: "Maximum results (default 50)." },
     },
 };
