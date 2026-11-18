@@ -155,9 +155,9 @@ function renderRows() {
   if (!items.length) { $("rows").innerHTML = `<tr><td colspan="6" class="empty muted">No CFPs match these filters.</td></tr>`; return; }
   $("rows").innerHTML = items.map((i) => {
     const cfp = safeUrl(i.cfpUrl), site = safeUrl(i.eventUrl);
-    const days = i.daysLeft === null ? `<span class="warn">No deadline listed</span>` : i.closed ? `<span class="muted">Closed</span>` : `<span class="${i.daysLeft <= 7 ? "urgent" : ""}">${i.daysLeft === 0 ? "Today" : i.daysLeft === 1 ? "1 day" : i.daysLeft + " days"}</span>`;
+    const days = i.daysLeft === null ? `<span class="warn">No deadline listed</span>` : i.closed ? `<span class="muted">Closed</span>` : i.daysLeft < 0 ? `<span class="warn">Earliest date passed</span>` : `<span class="${i.daysLeft <= 7 ? "urgent" : ""}">${i.daysLeft === 0 ? "Today" : i.daysLeft === 1 ? "1 day" : i.daysLeft + " days"}</span>`;
     const dates = i.eventStart ? fmt(i.eventStart) + (i.eventEnd && i.eventEnd !== i.eventStart ? " – " + fmt(i.eventEnd) : "") : "Dates TBD";
-    const conflict = i.deadlineConflict ? `<div class="small warn" title="${esc(Object.entries(i.deadlines).map(([s, d]) => SOURCE_NAMES[s] + ": " + d).join("\n"))}">⚠ Sources disagree; showing earliest</div>` : "";
+    const conflict = i.deadlineConflict ? `<div class="small warn" title="${esc(Object.entries(i.deadlines).map(([s, d]) => (SOURCE_NAMES[s] || s) + ": " + d).join("\n"))}">⚠ Sources disagree; showing earliest</div>` : "";
     const verify = i.verification === "corroborated" ? "" : `<div class="small muted">${i.verification === "single-source" ? "Single source — verify" : ""}</div>`;
     return `<tr class="status-${esc(i.status)}">
       <td><div>${esc(fmt(i.cfpEnd))}</div><div class="small">${days}</div>${conflict}</td>
@@ -165,7 +165,7 @@ function renderRows() {
         <div class="small">${cfp ? `<a href="${esc(cfp)}" target="_blank" rel="noopener noreferrer">Submit / CFP</a>` : ""}${cfp && site ? " · " : ""}${site ? `<a href="${esc(site)}" target="_blank" rel="noopener noreferrer">Event site</a>` : ""}</div></td>
       <td><div>${esc(dates)}</div><div class="small muted">${esc(i.location || "Location TBD")}</div>${i.languages?.length ? `<div class="small ${i.languageMismatch ? "warn" : "muted"}">Language: ${esc(i.languages.join(", "))}</div>` : ""}</td>
       <td><span class="badge fit-${esc(i.fit)}" title="Score ${i.score}">${esc(i.fit)}</span><div class="small muted">${i.reasons.map(esc).join("<br>")}</div></td>
-      <td class="small">${i.sources.map((s) => esc(SOURCE_NAMES[s] || s)).join("<br>")}${verify}</td>
+      <td class="small">${i.sources.map((s) => esc(SOURCE_NAMES[s] || s)).join("<br>")}${i.retained ? `<div class="warn">Retained from tracking</div>` : ""}${verify}</td>
       <td><select data-id="${esc(i.id)}" class="status">${STATUSES.map((s) => `<option ${s === i.status ? "selected" : ""}>${s}</option>`).join("")}</select>
         <input class="note" data-note="${esc(i.id)}" placeholder="Note (talk submitted…)" value="${esc(i.note)}" /></td>
     </tr>`;

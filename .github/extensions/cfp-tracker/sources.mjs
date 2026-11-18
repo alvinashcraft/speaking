@@ -1,5 +1,5 @@
-import { createHash } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
+import { createHash, randomUUID } from "node:crypto";
+import { readFile, rename, unlink, writeFile } from "node:fs/promises";
 import { join } from "node:path";
 
 const USER_AGENT = "Mozilla/5.0 (cfp-tracker canvas; personal use)";
@@ -317,19 +317,46 @@ function dedupeKey(item) {
     return `${normalizeName(item.name)}|${year}`;
 }
 
+function editionYear(item) {
+    return item.identityYear || item.eventStart?.slice(0, 4) || null;
+}
+
+function aliasFor(item) {
+    return { name: normalizeName(item.name), url: normalizeUrl(item.cfpUrl) };
+}
+
+function aliasesMatch(a, b) {
+    return Boolean((a.url && a.url === b.url) || (a.name && a.name === b.name));
+}
+
+function compatibleYears(a, b) {
+    return !a || !b || a === b;
+}
+
+function hashKey(key) {
+    return createHash("sha1").update(key).digest("hex").slice(0, 12);
+}
+
 function mergeRecords(items) {
-    const byKey = new Map();
-    const urlIndex = new Map();
-    for (const item of items) {
-        const urlKey = item.cfpUrl && !item.cfpUrl.includes("cfp.watch") ? normalizeUrl(item.cfpUrl) : null;
-        const nameKey = dedupeKey(item);
-        const key = (urlKey && urlIndex.get(urlKey)) ?? (byKey.has(nameKey) ? nameKey : null) ?? nameKey;
-        const existing = byKey.get(key);
-        if (urlKey) urlIndex.set(urlKey, key);
+    const groups = [];
+    // Resolve dated editions first so an undated record cannot silently select one of several editions.
+    const ordered = [...items.filter((item) => editionYear(item)), ...items.filter((item) => !editionYear(item))];
+    for (const item of ordered) {
+        const alias = aliasFor(item);
+        const year = editionYear(item);
+        const candidates = groups.filter((group) => compatibleYears(year, group.year) && group.aliases.some((other) => aliasesMatch(alias, other)));
+        const urlMatches = alias.url ? candidates.filter((group) => group.aliases.some((other) => other.url === alias.url)) : [];
+        const matches = urlMatches.length ? urlMatches : candidates;
+        const existing = matches.length === 1 ? matches[0] : null;
         if (!existing) {
-            byKey.set(key, { ...item, sources: [item.source], deadlines: item.cfpEnd ? { [item.source]: item.cfpEnd } : {} });
+            groups.push({
+                ...item, key: dedupeKey(item), year, aliases: [alias], legacyIds: [hashKey(dedupeKey(item))],
+                sources: [item.source], deadlines: item.cfpEnd ? { [item.source]: item.cfpEnd } : {},
+            });
             continue;
         }
+        existing.aliases.push(alias);
+        existing.legacyIds.push(hashKey(dedupeKey(item)));
         existing.sources = [...new Set([...existing.sources, item.source])];
         if (item.cfpEnd) existing.deadlines[item.source] = item.cfpEnd;
         for (const field of ["cfpStart", "eventStart", "eventEnd", "location", "eventUrl", "description", "sourceUpdated"]) {
@@ -340,15 +367,19 @@ function mergeRecords(items) {
         existing.tags = [...new Set([...existing.tags, ...item.tags])];
         existing.languages = [...new Set([...existing.languages, ...item.languages])];
     }
-    return [...byKey.entries()].map(([key, item]) => {
+    const usedIds = new Set();
+    return groups.map(({ key, year, legacyIds, ...item }) => {
         const deadlines = [...new Set(Object.values(item.deadlines))].sort();
-        const spreadDays = deadlines.length > 1 ? (Date.parse(deadlines.at(-1)) - Date.parse(deadlines[0])) / 86_400_000 : 0;
+        let id = hashKey(key);
+        if (usedIds.has(id)) id = hashKey(`${key}|${year ?? "unknown"}|${usedIds.size}`);
+        usedIds.add(id);
         return {
             ...item,
-            id: createHash("sha1").update(key).digest("hex").slice(0, 12),
+            id, legacyIds: [...new Set(legacyIds)],
+            aliases: [...new Map(item.aliases.map((alias) => [JSON.stringify(alias), alias])).values()],
             // Earliest reported deadline is the safe one to plan around.
             cfpEnd: deadlines[0] ?? item.cfpEnd,
-            deadlineConflict: spreadDays > 1,
+            deadlineConflict: deadlines.length > 1,
         };
     });
 }
@@ -412,7 +443,35 @@ export async function loadTracking(root) {
 }
 
 export async function saveTracking(tracking, root) {
-    await writeFile(dataPaths(root).tracking, `${JSON.stringify(tracking, null, 2)}\n`, "utf8");
+    const path = dataPaths(root).tracking;
+    const temp = `${path}.${randomUUID()}.tmp`;
+    try {
+        await writeFile(temp, `${JSON.stringify(tracking, null, 2)}\n`, { encoding: "utf8", flag: "wx" });
+        await rename(temp, path);
+    } finally {
+        await unlink(temp).catch((error) => { if (error.code !== "ENOENT") throw error; });
+    }
+}
+
+const trackingUpdates = new Map();
+
+export async function updateTracking(root, update) {
+    const path = dataPaths(root).tracking;
+    const previous = trackingUpdates.get(path) ?? Promise.resolve();
+    const operation = previous.catch(() => {}).then(async () => {
+        const tracking = await loadTracking(root);
+        const before = JSON.stringify(tracking);
+        const result = await update(tracking);
+        const changed = JSON.stringify(tracking) !== before;
+        if (changed) await saveTracking(tracking, root);
+        return { result, changed };
+    });
+    trackingUpdates.set(path, operation);
+    try {
+        return await operation;
+    } finally {
+        if (trackingUpdates.get(path) === operation) trackingUpdates.delete(path);
+    }
 }
 
 export async function fetchAllSources() {
@@ -434,15 +493,46 @@ export async function fetchAllSources() {
 export function buildListing(snapshot, profile, tracking, today = todayIso()) {
     const manual = tracking.manual.map((entry) => record({ ...entry, source: "manual", tags: entry.tags ?? [] }));
     const merged = mergeRecords([...snapshot.records, ...manual]);
+    const trackedEntries = Object.entries(tracking.statuses);
+    const matches = trackedEntries.map(([id, tracked]) => {
+        const event = tracked.event;
+        const candidates = event
+            ? merged.filter((item) => compatibleYears(editionYear(event), editionYear(item))
+                && (event.aliases ?? [aliasFor(event)]).some((alias) => item.aliases.some((other) => aliasesMatch(alias, other))))
+            : merged.filter((item) => item.id === id || item.legacyIds.includes(id));
+        return { id, tracked, candidates };
+    });
+    const assigned = new Set();
+    const assignedItems = new Set();
+    for (const match of matches) {
+        if (match.candidates.length !== 1) continue;
+        const item = match.candidates[0];
+        if (matches.filter((other) => other.candidates.includes(item)).length !== 1) continue;
+        item.id = match.id;
+        item.identityYear = editionYear(match.tracked.event ?? {}) ?? editionYear(item);
+        item.aliases = [...new Map([...(match.tracked.event?.aliases ?? []), ...item.aliases].map((alias) => [JSON.stringify(alias), alias])).values()];
+        assigned.add(match.id);
+        assignedItems.add(item);
+    }
+    const reservedIds = new Set(trackedEntries.map(([id]) => id));
+    const usedIds = new Set(reservedIds);
+    for (const [index, item] of merged.entries()) {
+        if (assignedItems.has(item)) continue;
+        if (usedIds.has(item.id)) item.id = hashKey(`${item.id}|untracked|${index}`);
+        usedIds.add(item.id);
+    }
+    for (const [id, tracked] of trackedEntries) {
+        if (!assigned.has(id) && tracked.event) merged.push({ ...tracked.event, id, retained: true });
+    }
     const spoken = (profile.languages ?? ["english"]).map((language) => language.toLowerCase());
     const items = merged
-        .filter((item) => !item.cfpEnd || item.cfpEnd >= today || tracking.statuses[item.id])
+        .filter((item) => !item.cfpEnd || Object.values(item.deadlines).some((deadline) => deadline >= today) || tracking.statuses[item.id])
         .map((item) => {
             const tracked = tracking.statuses[item.id] ?? {};
             const daysLeft = item.cfpEnd ? Math.round((Date.parse(item.cfpEnd) - Date.parse(today)) / 86_400_000) : null;
             return {
                 ...item, ...scoreItem(item, profile), daysLeft,
-                closed: daysLeft !== null && daysLeft < 0,
+                closed: daysLeft !== null && daysLeft < 0 && !Object.values(item.deadlines).some((deadline) => deadline >= today),
                 // Only a known language list with none of the speaker's languages counts as a mismatch; unknown stays visible.
                 languageMismatch: item.languages.length > 0 && !item.languages.some((language) => spoken.includes(language)),
                 status: tracked.status ?? "new", note: tracked.note ?? "",
@@ -451,6 +541,14 @@ export function buildListing(snapshot, profile, tracking, today = todayIso()) {
         })
         .sort((a, b) => (a.cfpEnd ?? "9999").localeCompare(b.cfpEnd ?? "9999") || b.score - a.score);
     return { fetchedAt: snapshot.fetchedAt, today, sources: snapshot.sourceStatus, items };
+}
+
+export function trackingEvent(item) {
+    const fields = ["name", "cfpUrl", "eventUrl", "cfpEnd", "cfpStart", "eventStart", "eventEnd", "location",
+        "description", "tags", "languages", "source", "sourceUpdated", "sources", "deadlines", "deadlineConflict", "aliases", "identityYear"];
+    const saved = Object.fromEntries(fields.filter((field) => item[field] !== undefined).map((field) => [field, item[field]]));
+    saved.identityYear = editionYear(item);
+    return saved;
 }
 
 export function manualEntryFrom(input) {

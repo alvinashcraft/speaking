@@ -1,13 +1,11 @@
-import { createServer } from "node:http";
-import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { createCanvas, joinSession } from "@github/copilot-sdk/extension";
 import {
-    STATUSES, buildListing, fetchAllSources, loadProfile, loadTracking, manualEntryFrom, saveTracking,
+    STATUSES, buildListing, fetchAllSources, loadProfile, manualEntryFrom, trackingEvent, updateTracking,
 } from "./sources.mjs";
+import { startServer } from "./server.mjs";
 
 const SNAPSHOT_TTL_MS = 6 * 60 * 60 * 1000;
-const MAX_BODY_BYTES = 64 * 1024;
 const PAGE_PATH = fileURLToPath(new URL("./index.html", import.meta.url));
 const servers = new Map();
 let snapshot = null;
@@ -25,26 +23,39 @@ async function getSnapshot(force = false) {
 }
 
 async function getListing({ force = false } = {}) {
-    const [snap, profile, tracking] = await Promise.all([getSnapshot(force), loadProfile(), loadTracking()]);
-    return { ...buildListing(snap, profile, tracking), version };
+    const [snap, profile] = await Promise.all([getSnapshot(force), loadProfile()]);
+    const { result, changed } = await updateTracking(undefined, (tracking) => {
+        const listing = buildListing(snap, profile, tracking);
+        for (const item of listing.items) {
+            if (tracking.statuses[item.id] && !item.retained) tracking.statuses[item.id].event = trackingEvent(item);
+        }
+        return listing;
+    });
+    if (changed) version++;
+    return { ...result, version };
 }
 
 async function setStatus({ id, status, note }) {
     if (!id || typeof id !== "string") throw new Error("id is required");
     if (!STATUSES.includes(status)) throw new Error(`status must be one of: ${STATUSES.join(", ")}`);
-    const tracking = await loadTracking();
-    if (status === "new" && !note) delete tracking.statuses[id];
-    else tracking.statuses[id] = { status, note: String(note ?? tracking.statuses[id]?.note ?? ""), updated: new Date().toISOString().slice(0, 10) };
-    await saveTracking(tracking);
+    const [snap, profile] = await Promise.all([getSnapshot(), loadProfile()]);
+    const { result } = await updateTracking(undefined, (tracking) => {
+        const item = buildListing(snap, profile, tracking).items.find((entry) => entry.id === id);
+        if (!item) throw new Error("CFP not found; refresh the listing and try again");
+        if (status === "new" && !note) delete tracking.statuses[id];
+        else tracking.statuses[id] = {
+            status, note: String(note ?? tracking.statuses[id]?.note ?? ""), updated: new Date().toISOString().slice(0, 10),
+            event: trackingEvent(item),
+        };
+        return tracking.statuses[id] ?? { status: "new" };
+    });
     version++;
-    return tracking.statuses[id] ?? { status: "new" };
+    return result;
 }
 
 async function addManual(input) {
     const entry = manualEntryFrom(input);
-    const tracking = await loadTracking();
-    tracking.manual.push(entry);
-    await saveTracking(tracking);
+    await updateTracking(undefined, (tracking) => { tracking.manual.push(entry); });
     version++;
     return entry;
 }
@@ -60,56 +71,8 @@ function filterItems(items, input = {}) {
         .filter((item) => input.includeOtherLanguages || !item.languageMismatch || item.status !== "new")
         .filter((item) => !query || `${item.name} ${item.location ?? ""}`.toLowerCase().includes(query))
         .slice(0, input.limit ?? 50)
-        .map(({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, languages, fit, score, reasons, sources, deadlineConflict, status, note }) =>
-            ({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, languages, fit, score, reasons, sources, deadlineConflict, status, note }));
-}
-
-async function readBody(request) {
-    let size = 0;
-    const chunks = [];
-    for await (const chunk of request) {
-        size += chunk.length;
-        if (size > MAX_BODY_BYTES) throw new Error("Request body too large");
-        chunks.push(chunk);
-    }
-    return chunks.length ? JSON.parse(Buffer.concat(chunks).toString("utf8")) : {};
-}
-
-function sendJson(response, status, value) {
-    response.statusCode = status;
-    response.setHeader("Content-Type", "application/json; charset=utf-8");
-    response.end(JSON.stringify(value));
-}
-
-async function handle(request, response) {
-    const { pathname } = new URL(request.url, "http://localhost");
-    try {
-        if (request.method === "GET" && (pathname === "/" || pathname === "/index.html")) {
-            response.setHeader("Content-Type", "text/html; charset=utf-8");
-            response.end(await readFile(PAGE_PATH, "utf8"));
-        } else if (request.method === "GET" && pathname === "/api/version") {
-            sendJson(response, 200, { version });
-        } else if (request.method === "GET" && pathname === "/api/listing") {
-            sendJson(response, 200, await getListing());
-        } else if (request.method === "POST" && pathname === "/api/refresh") {
-            sendJson(response, 200, await getListing({ force: true }));
-        } else if (request.method === "POST" && pathname === "/api/status") {
-            sendJson(response, 200, await setStatus(await readBody(request)));
-        } else if (request.method === "POST" && pathname === "/api/manual") {
-            sendJson(response, 200, await addManual(await readBody(request)));
-        } else {
-            sendJson(response, 404, { error: "Not found" });
-        }
-    } catch (error) {
-        sendJson(response, 400, { error: String(error?.message ?? error) });
-    }
-}
-
-async function startServer() {
-    const server = createServer((request, response) => { handle(request, response); });
-    await new Promise((resolve) => server.listen(0, "127.0.0.1", resolve));
-    const address = server.address();
-    return { server, url: `http://127.0.0.1:${typeof address === "object" && address ? address.port : 0}/` };
+        .map(({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, languages, fit, score, reasons, sources, deadlines, deadlineConflict, retained, status, note }) =>
+            ({ id, name, cfpUrl, eventUrl, cfpEnd, daysLeft, eventStart, eventEnd, location, languages, fit, score, reasons, sources, deadlines, deadlineConflict, retained, status, note }));
 }
 
 const filterSchema = {
@@ -175,7 +138,7 @@ await joinSession({ canvases: [createCanvas({
     open: async (ctx) => {
         let entry = servers.get(ctx.instanceId);
         if (!entry) {
-            entry = await startServer();
+            entry = await startServer(PAGE_PATH, { listing: getListing, setStatus, addManual, version: () => version });
             servers.set(ctx.instanceId, entry);
         }
         getSnapshot().catch(() => {});
